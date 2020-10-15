@@ -1,0 +1,50 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/security
+	https://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- <context:property-placeholder ignore-resource-not-found="true" -->
+    <!-- location="file:${config.dir}/config/server.properties,classpath:config/server.properties" /> -->
+
+    <!-- properties are read in the following order -->
+    <!-- 1. tries to read properties file from location given by system property simulator.properties.location -->
+    <!-- (can be set with e.g. -Dsimulator.properties.location=./simulator.properties) -->
+    <!-- 2. reads properties from classpath:default.simulator.properties if this file exists in classpath and properties exist -->
+    <!-- 3. finally takes the default property values set here -->
+    <!-- Then lets say you want to read System.property("java.io.tmpdir") -->
+    <!-- for your Tomcat bean or any bean then add following in your properties file: tomcat.tmp.dir=${java.io.tmpdir} -->
+
+    <bean id="applicationPropertyConfig" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="localOverride" value="false" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:default.simulator.properties</value>
+                <value>file:${simulator.properties.location}</value>
+            </list>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="jpa.jdbc.url">jdbc:hsqldb:file:target/hsqldb/productDb</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <import resource="classpath:appconfig-service.xml" />
+
+</beans>
+

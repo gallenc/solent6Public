@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor
+    xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
+    name="openapi-sdk-project-archetype" xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <requiredProperties>
+        <requiredProperty key="groupId">
+            <defaultValue>org.opennms.tmforum.swagger</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="package">
+            <defaultValue>org.opennms.tmforum.swagger</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version" >
+            <defaultValue>0.0.1-SNAPSHOT</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="tmfSpecPackageName" >
+            <defaultValue>tmf656</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="tmfSpecUrlPath" >
+            <defaultValue>/tmf-api/serviceProblemManagement/v3/</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="tmfSpecFullName" >
+            <defaultValue>Service Problem Management</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+    <fileSets>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>generate-code/specification</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>generate-code/specification</directory>
+            <includes>
+                <include>**/*.json</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>generate-code/generate-server</directory>
+            <includes>
+                <include>pom.xml</include>
+                <include>**/*.md</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>generate-code/generated-server-spec-api</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>generate-code/generated-server-spec-mock-impl</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>generate-code/generated-server-spec-model</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>generate-code</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>simulator-dao/src</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>simulator-dao</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>simulator-service</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>simulator-service/src</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>simulator-war/src</directory>
+            <includes>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+                <include>**/*.jsp</include>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>simulator-war/src</directory>
+            <includes>
+                <include>**/*.jpg</include>
+                <include>**/*.css</include>
+                <include>**/*.png</include>
+                <include>**/*.MF</include>
+                <include>**/*.js</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>simulator-war</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>simulator-war</directory>
+            <includes>
+                <include>**/*.md</include>
+                <include>**/*.example</include>
+            </includes>
+        </fileSet>
+
+        <fileSet encoding="UTF-8">
+            <directory>rester-example</directory>
+            <includes>
+                <include>**/*.json</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>APACHE_LICENSE-2.0.txt</include>
+                <include>NOTICE.txt</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>.gitignore</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>

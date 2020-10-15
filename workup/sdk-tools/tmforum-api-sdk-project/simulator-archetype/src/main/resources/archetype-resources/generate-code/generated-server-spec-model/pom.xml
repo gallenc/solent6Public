@@ -1,0 +1,340 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${tmfSpecPackageName}-jaxrs-generate-code</artifactId>
+        <version>${version}</version>
+    </parent>
+    <artifactId>${tmfSpecPackageName}-jaxrs-generated-server-spec-model</artifactId>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <generated-sources-path>${symbol_dollar}{project.build.directory}${symbol_dollar}{file.separator}generated-sources</generated-sources-path>
+        <generated-sources-java-path>src${symbol_dollar}{file.separator}main${symbol_dollar}{file.separator}java</generated-sources-java-path>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-generated-source</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${symbol_dollar}{generated-sources-path}${symbol_dollar}{file.separator}${symbol_dollar}{generated-sources-java-path}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- this plugin downloads the swagger ui -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>${groupId}</groupId>
+                                    <artifactId>${tmfSpecPackageName}-generate-jaxrs-server-spec</artifactId>
+                                    <classifier>model-sources</classifier>
+                                    <type>jar</type>
+                                    <version>${symbol_dollar}{project.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${symbol_dollar}{generated-sources-path}${symbol_dollar}{file.separator}${symbol_dollar}{generated-sources-java-path}</outputDirectory>
+                            <overWriteReleases>true</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <!-- A comma separated list of file patterns to exclude when unpacking the artifact. i.e. **/*.xml,**/*.properties -->
+                            <!-- use this to exclude more generated code as project is built -->
+                            <!-- <excludes>**/ServiceProblemApiServiceImpl.java</excludes> -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+    <dependencies>
+        <!-- <dependency> -->
+        <!-- <groupId>${groupId}</groupId> -->
+        <!-- <artifactId>${tmfSpecPackageName}-generate-jaxrs-server-spec</artifactId> -->
+        <!-- <classifier>api</classifier> -->
+        <!-- <version>${symbol_dollar}{project.version}</version> -->
+        <!-- <scope>provided</scope> -->
+        <!-- </dependency> -->
+
+        <!-- <dependency> -->
+        <!-- <groupId>${groupId}</groupId> -->
+        <!-- <artifactId>${tmfSpecPackageName}-generate-jaxrs-server-spec</artifactId> -->
+        <!-- <classifier>model</classifier> -->
+        <!-- <version>${symbol_dollar}{project.version}</version> -->
+        <!-- <scope>provided</scope> -->
+        <!-- </dependency> -->
+
+        <!-- <dependency> -->
+        <!-- <groupId>${groupId}</groupId> -->
+        <!-- <artifactId>${tmfSpecPackageName}-simulator-dao</artifactId> -->
+        <!-- <version>${symbol_dollar}{project.version}</version> -->
+        <!-- <scope>provided</scope> -->
+        <!-- </dependency> -->
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-jersey2-jaxrs</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <!-- SLF4J api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- running jcl over slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- running jul over slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- log4j core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- running SLF4J over log4j -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- <dependency> -->
+        <!-- <groupId>ch.qos.logback</groupId> -->
+        <!-- <artifactId>logback-classic</artifactId> -->
+        <!-- <scope>compile</scope> -->
+        <!-- </dependency> -->
+        <!-- <dependency> -->
+        <!-- <groupId>ch.qos.logback</groupId> -->
+        <!-- <artifactId>logback-core</artifactId> -->
+        <!-- <scope>compile</scope> -->
+        <!-- </dependency> -->
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--Spring MVC framework -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring-Data-JPA -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- spring test framework -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JPA Implementation (Hibernate) -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- IN MEMORY Database and JDBC Driver -->
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- to allow jersey to work with spring as a component -->
+        <!-- note if not present need to have jersey-hk2 on classpath -->
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-spring5</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- use if not using spring -->
+        <!-- <dependency> -->
+        <!-- <groupId>org.glassfish.jersey.inject</groupId> -->
+        <!-- <artifactId>jersey-hk2</artifactId> -->
+        <!-- <scope>compile</scope> -->
+        <!-- </dependency> -->
+
+        <!-- Jackson json -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- <dependency> -->
+        <!-- <groupId>com.fasterxml.jackson.datatype</groupId> -->
+        <!-- <artifactId>jackson-datatype-joda</artifactId> -->
+        <!-- <scope>compile</scope> -->
+        <!-- </dependency> -->
+
+        <!-- <dependency> -->
+        <!-- <groupId>com.fasterxml.jackson.module</groupId> -->
+        <!-- <artifactId>jackson-modules-java8</artifactId> -->
+        <!-- <version>${symbol_dollar}{jackson-version}</version> -->
+        <!-- <scope>compile</scope> -->
+        <!-- </dependency> -->
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Base64 encoding that works in both JVM and Android -->
+        <dependency>
+            <groupId>com.brsanthu</groupId>
+            <artifactId>migbase64</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Bean Validation API support -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+</project>

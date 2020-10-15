@@ -1,0 +1,40 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        ">
+
+    <!-- this allows annotations to be picked up by configuration -->
+    <!-- Scans for components that will be auto-registered as Spring beans -->
+    <context:component-scan
+        base-package="org.opennms.tmforum.tmf650.api, 
+        org.opennms.tmforum.tmf650.rest, 
+        org.opennms.tmforum.tmf650.model
+        org.opennms.tmforum.tmf650.impl,
+        org.opennms.tmforum.tmf650.listener.impl, 
+        org.opennms.tmforum.tmf650.hub.impl
+
+        " />
+
+
+    <!-- Activates various annotations to be detected in bean classes e.g: @Autowired -->
+    <context:annotation-config />
+
+    <!-- this just activates and destroys a a bean which provides some debug information -->
+    <bean id="helloWorld1" class="org.opennms.tmforum.${tmfSpecPackageName}.service.HelloWorld" init-method="init" destroy-method="destroy">
+        <property name="message" value="api-service" />
+    </bean>
+
+</beans>

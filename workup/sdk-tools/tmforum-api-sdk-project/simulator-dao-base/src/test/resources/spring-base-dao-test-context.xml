@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        ">
+
+    <!-- this file is used to set up the dao tests -->
+
+    <bean id="applicationPropertyConfig" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="localOverride" value="false" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                <!-- not used -->
+                <value>classpath:dao.test.properties</value>
+            </list>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="jpa.jdbc.url">jdbc:hsqldb:file:target/hsqldb/productDb</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Scans for components that will be auto-registered as Spring beans -->
+    <context:component-scan base-package="org.opennms.tmforum.simulator.base.dao" />
+    <!-- Scans for repositories that will be auto-registered -->
+    <jpa:repositories base-package="org.opennms.tmforum.simulator.base.dao" />
+    <!-- Activates various annotations to be detected in bean classes e.g: @Autowired -->
+    <context:annotation-config />
+
+    <!-- JPA Hibernate -->
+    
+    <!-- needs to be set as a property -->
+    <!--  jpa.jdbc.url=jdbc:hsqldb:file:target/hsqldb/productDb -->
+
+    <!-- Datasource, that is currently hsqldb (in-memory database). -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+
+        <!-- this is or in memory database - no files created -->
+        <!-- <property name="url" value="jdbc:hsqldb:mem://productDb" /> -->
+
+        <!-- this is for file based database created in target directory -->
+        <property name="url" value="${jpa.jdbc.url}" />
+
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+    </bean>
+
+    <!-- EntityManagerFactory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" p:dataSource-ref="dataSource">
+        <property name="packagesToScan">
+            <array>
+                <value>org.opennms.tmforum.simulator.base.model</value>
+            </array>
+        </property>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="database" value="HSQL" />
+                <property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect" />
+                <property name="generateDdl" value="true" />
+                <property name="showSql" value="true" />
+            </bean>
+        </property>
+    </bean>
+
+    <!-- Transactions -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+</beans>

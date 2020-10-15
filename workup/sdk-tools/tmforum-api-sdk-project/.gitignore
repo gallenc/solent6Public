@@ -37,7 +37,3 @@ nb-configuration.xml
 *.war
 *.ear
 *.zip
-
-# Log files
-derby.log
-

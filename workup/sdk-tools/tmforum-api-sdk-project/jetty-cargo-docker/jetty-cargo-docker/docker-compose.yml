@@ -1,0 +1,11 @@
+version: "3.2"
+
+services: 
+    jetty-cargo:
+        build: 
+          context: .
+          dockerfile: Dockerfile
+        image: openoss/jetty-cargo:v1.0
+        ports: 
+        - "8080:8080"
+        - "8443:8443"
