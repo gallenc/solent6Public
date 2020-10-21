@@ -4,12 +4,12 @@
     
     <parent>
         <groupId>solent.ac.uk.ood.examples</groupId>
-        <artifactId>project</artifactId>
-        <version>1.6-SNAPSHOT</version>
+        <artifactId>userinterface</artifactId>
+        <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>project-web-client</artifactId>
-    <name>project-web-client</name>
+    <artifactId>userinterface-web-client</artifactId>
+    <name>userinterface-web-client</name>
     <packaging>war</packaging>
     
     <properties>
@@ -24,13 +24,13 @@
         <!-- project dependencies -->
         <dependency>
             <groupId>solent.ac.uk.ood.examples</groupId>
-            <artifactId>project-model</artifactId>
+            <artifactId>userinterface-model</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
             <groupId>solent.ac.uk.ood.examples</groupId>
-            <artifactId>project-client-rest</artifactId>
+            <artifactId>userinterface-client-rest</artifactId>
             <version>${project.version}</version>
         </dependency>
 

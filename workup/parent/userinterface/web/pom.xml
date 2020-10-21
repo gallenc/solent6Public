@@ -1,22 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <groupId>solent.ac.uk.ood.examples</groupId>
-        <artifactId>project</artifactId>
-        <version>1.6-SNAPSHOT</version>
+        <artifactId>userinterface</artifactId>
+        <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>project-web</artifactId>
-    <name>project-web</name>
+    <artifactId>userinterface-web</artifactId>
+    <name>userinterface-web</name>
     <packaging>war</packaging>
-    
+
     <properties>
-       
         <!-- You can copy and paste the single properties, into the pom.xml file and the Netbeans will pick them up. -->
         <org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_j2eeVersion>1.6-web</org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_j2eeVersion>
         <org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>Tomcat</org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>
+
+        <!-- not picked up from BOM because used in plugin -->
+        <swagger-ui.version>3.24.3</swagger-ui.version>
     </properties>
 
     <dependencies>
@@ -24,13 +26,13 @@
         <!-- project dependencies -->
         <dependency>
             <groupId>solent.ac.uk.ood.examples</groupId>
-            <artifactId>project-model</artifactId>
+            <artifactId>userinterface-model</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>solent.ac.uk.ood.examples</groupId>
-            <artifactId>project-service</artifactId>
+            <artifactId>userinterface-service</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -47,13 +49,13 @@
             <scope>compile</scope>
         </dependency> 
             
-        <!--Spring MVC framework--> 
+        <!--Spring MVC framework-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <scope>compile</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -78,7 +80,7 @@
                     <groupId>jakarta.ws.rs</groupId>
                     <artifactId>jakarta.ws.rs-api</artifactId>
                 </exclusion>-->
-            </exclusions> 
+            </exclusions>
         </dependency>
         
         <!--        <dependency>
@@ -93,7 +95,7 @@
             <artifactId>jersey-media-multipart</artifactId>
             <scope>compile</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2</artifactId>
@@ -109,14 +111,6 @@
             <artifactId>swagger-annotations</artifactId>
             <scope>compile</scope>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/jakarta.ws.rs/jakarta.ws.rs-api -->
-        <!--        <dependency>
-            <groupId>jakarta.ws.rs</groupId>
-            <artifactId>jakarta.ws.rs-api</artifactId>
-            <version>2.1.5</version>
-        </dependency>-->
-
 
         <!-- servelet dependencies provided by tomcat -->
         <dependency>
@@ -135,8 +129,8 @@
             <artifactId>jstl</artifactId>
             <scope>compile</scope>
         </dependency>
-        
-        
+
+
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
@@ -205,7 +199,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>unpack</id>
@@ -233,11 +226,9 @@
             <!-- This plugin substitutes the correct openapi url to swagger -->
             <!-- see Co-hosting Swagger UI with your Jersey REST API using Maven dependencies   -->
             <!-- https://medium.com/shark-bytes/co-hosting-swagger-ui-with-your-jersey-rest-api-using-maven-dependencies-44d88ae85bf8 -->
-            <plugin> 
+            <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
-                <version>1.5.3</version>
-
                 <executions>
                     <execution>
                         <phase>prepare-package</phase>
@@ -261,7 +252,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.3</version>
                 <configuration>
                     <webResources>
                         <resource>
@@ -272,43 +262,21 @@
                     </webResources>
                 </configuration>
             </plugin>
-            
-            <!-- downloads swagger ui direclty from github - alternative to using web jar-->
-            <!--            <plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <id>swagger-ui</id>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <skipCache>true</skipCache>
-                            <url>https://github.com/swagger-api/swagger-ui/archive/master.tar.gz</url>
-                            <unpack>true</unpack>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
-      
+
             <plugin>
           
                 <!-- run embedded tomcat with mvn org.codehaus.cargo:cargo-maven2-plugin:run -->
                 <!-- see https://stackoverflow.com/questions/41326911/maven-plugin-for-tomcat-9 -->
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.7.6</version>
                 <configuration>
                     <container>
-                        <containerId>tomcat8x</containerId>
+                        <containerId>tomcat9x</containerId>
                         <type>embedded</type>
                     </container>
                 </configuration>
             </plugin>
-      
+
         </plugins>
     </build>
 </project>

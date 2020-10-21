@@ -4,12 +4,12 @@
 
     <parent>
         <groupId>solent.ac.uk.ood.examples</groupId>
-        <artifactId>project</artifactId>
-        <version>1.6-SNAPSHOT</version>
+        <artifactId>userinterface</artifactId>
+        <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>project-model</artifactId>
-    <name>project-model</name>
+    <artifactId>userinterface-model</artifactId>
+    <name>userinterface-model</name>
     <packaging>jar</packaging>
 
     

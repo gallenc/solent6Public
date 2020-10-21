@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>solent.ac.uk.ood.examples</groupId>
-    <artifactId>project</artifactId>
-    <version>1.6-SNAPSHOT</version>
+    <artifactId>devops-parent</artifactId>
+    <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        
-        <log4j.version>2.12.1</log4j.version> 
+
+        <log4j.version>2.12.1</log4j.version>
         <slf4j.version>1.7.12</slf4j.version>
         <jersey.version>2.29.1</jersey.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
@@ -23,7 +24,10 @@
         <hsqldb.version>2.2.4</hsqldb.version>
         <swagger.version>2.0.0</swagger.version>
         <swagger-ui.version>3.24.3</swagger-ui.version>
-        <maven.surefire.plugin.version>2.18</maven.surefire.plugin.version>
+        <javax.persistence.version>2.1.1</javax.persistence.version>
+        <jstl.version>1.2</jstl.version>
+        <junit.version>4.12</junit.version>
+        <hamcrest-core.version>1.3</hamcrest-core.version>
         
         <!-- dependencies for java 11 -->
         <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
@@ -32,304 +36,60 @@
         <!-- needed by Hibernate for java 11 -->
         <javassist.version>3.27.0-GA</javassist.version>
         <cglib-nodep.version>3.2.12</cglib-nodep.version>
+        
+        <!-- plugin versions -->
+        <maven.surefire.plugin.version>2.18</maven.surefire.plugin.version>
+        <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+        <maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
+        <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
+        <maven-cargo-maven2-plugin.version>1.7.6</maven-cargo-maven2-plugin.version>
 
     </properties>
-    
+
     <modules>
-        <module>model</module>
-        <module>dao-springdata-jpa</module>
-        <module>service</module>
-        <module>web</module>
-        <module>client-rest</module>
-        <module>web-client</module>
+        <module>bom</module>
+        <module>userinterface</module>
     </modules>
-    
+
     <build>
         <pluginManagement>
-               
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>replacer</artifactId>
+                    <version>${maven-replacer-plugin.version}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <excludes>
-                            <!-- prevent tests running in any package with manual filder. These are manual one off development tests -->
+                            <!-- prevent tests running in any package with manual filter. -->
+                            <!-- These are manual one off development tests -->
                             <exclude>**/manual/*.java</exclude>
                         </excludes>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>${maven-cargo-maven2-plugin.version}</version>
+                </plugin>
             </plugins>
-   
         </pluginManagement>
     </build>
-    
-    <dependencyManagement>
-        <dependencies>
-            
-            <!-- servelet and jsp api's - provided by tomcat -->
-            <dependency>
-                <groupId>javax.servlet.jsp</groupId>
-                <artifactId>jsp-api</artifactId>
-                <version>${jsp-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-        
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${javax.servlet-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            
-            <!-- jersey dependencies -->
-            <dependency>
-                <groupId>org.glassfish.jersey.core</groupId>
-                <artifactId>jersey-client</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.containers</groupId>
-                <artifactId>jersey-container-servlet-core</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.containers</groupId>
-                <artifactId>jersey-container-servlet</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            <!-- this library allows jaxb classes to be treated as json -->
-            <dependency>
-                <groupId>org.glassfish.jersey.media</groupId>
-                <artifactId>jersey-media-json-jackson</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.media</groupId>
-                <artifactId>jersey-media-multipart</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            
-            <!-- to allow jersey to be wired as a spring component --> 
-            <!-- see https://medium.com/@shask9/developing-restful-web-services-using-jax-rs-jersey-and-spring-b4e1eb8e2467 -->        
-            <dependency>
-                <groupId>org.glassfish.jersey.ext</groupId>
-                <artifactId>jersey-spring5</artifactId>
-                <version>${jersey.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-jaxrs2</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-jaxrs2-servlet-initializer</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            
-            <!-- unpack into war -->
-            <!-- https://mvnrepository.com/artifact/org.webjars/swagger-ui -->
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>swagger-ui</artifactId>
-                <version>${swagger-ui.version}</version>
-            </dependency>
-            
-            <!--            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-jersey2-jaxrs</artifactId>
-                <version>${swagger.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.glassfish.jersey.containers</groupId>
-                        <artifactId>jersey-container-servlet-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.glassfish.jersey.media</groupId>
-                        <artifactId>jersey-media-multipart</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>-->
-        
-            <!-- logging dependencies -->
-            
-            <!-- SLF4J Logging -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            
-            <!-- Log4j API and Core implementation  -->
-            
-            <!-- SLF4J over Log4j -needed for eclipselink logging -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <!-- allows Java commons logging to work over log4j -->
-            <!--            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-jcl</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>-->
-            
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            
-            <!-- Log4j web required to run in a servelet context  -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-web</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            
-            <!-- EclipseLink jpa dependencies -->
-            <dependency>
-                <groupId>org.eclipse.persistence</groupId>
-                <artifactId>javax.persistence</artifactId>
-                <version>2.1.1</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>jstl</groupId>
-                <artifactId>jstl</artifactId>
-                <version>1.2</version>
-            </dependency>
-        
-            <!-- Spring dependencies -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
 
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
-                <version>${spring-security.version}</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-                <version>${spring-security.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-taglibs</artifactId>
-                <version>${spring-security.version}</version>
-            </dependency>
-            
-            <!-- this is needed for jersey when spring is not used to scan components -->
-            <dependency>
-                <groupId>org.glassfish.jersey.inject</groupId>
-                <artifactId>jersey-hk2</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-orm</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            
-            <!-- Spring-Data-JPA -->
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-jpa</artifactId>
-                <version>${spring.data.jpa.version}</version>
-            </dependency>
-            
-            <!-- Spring Junit4 test framework -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-
-            <!-- dependencies for java 11 -->
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>javax.annotation-api</artifactId>
-                <version>${javax.annotation-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${jaxb-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jaxb</groupId>
-                <artifactId>jaxb-runtime</artifactId>
-                <version>${jaxb-runtime.version}</version>
-            </dependency>
-            <!-- needed by Hibernate for java 11 -->
-            <dependency>
-                <groupId>org.javassist</groupId>
-                <artifactId>javassist</artifactId>
-                <version>${javassist.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib-nodep</artifactId>
-                <version>${cglib-nodep.version}</version>
-            </dependency>
-            
-            <!-- junit dependencies -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-core</artifactId>
-                <version>1.3</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    
     <repositories>
         <repository>
             <id>central</id>
@@ -341,7 +101,7 @@
             </snapshots>
         </repository>
     </repositories>
- 
+
     <pluginRepositories>
         <pluginRepository>
             <id>central</id>
@@ -356,5 +116,5 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
-    
+
 </project>

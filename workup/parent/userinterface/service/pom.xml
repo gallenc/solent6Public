@@ -4,25 +4,25 @@
     
     <parent>
         <groupId>solent.ac.uk.ood.examples</groupId>
-        <artifactId>project</artifactId>
-        <version>1.6-SNAPSHOT</version>
+        <artifactId>userinterface</artifactId>
+        <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>project-service</artifactId>
-    <name>project-service</name>
+    <artifactId>userinterface-service</artifactId>
+    <name>userinterface-service</name>
     <packaging>jar</packaging>
     
     <dependencies>
 
         <dependency>
             <groupId>solent.ac.uk.ood.examples</groupId>
-            <artifactId>project-model</artifactId>
+            <artifactId>userinterface-model</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
             <groupId>solent.ac.uk.ood.examples</groupId>
-            <artifactId>project-dao-springdata-jpa</artifactId>
+            <artifactId>userinterface-dao-springdata-jpa</artifactId>
             <version>${project.version}</version>
         </dependency>
         
