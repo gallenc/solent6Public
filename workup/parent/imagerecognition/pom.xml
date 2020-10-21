@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>solent.ac.uk.devops.traffic</groupId>
-    <artifactId>userinterface</artifactId>
+    <artifactId>imagerecognition</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -21,12 +21,7 @@
     </properties>
 
     <modules>
-        <module>model</module>
-        <module>dao-springdata-jpa</module>
-        <module>service</module>
-        <module>web</module>
-        <module>client-rest</module>
-        <module>web-client</module>
+       
     </modules>
 
     <build>

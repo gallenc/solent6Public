@@ -2,9 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>solent.ac.uk.devops.traffic</groupId>
+        <artifactId>devops-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    
     <groupId>solent.ac.uk.devops.traffic</groupId>
-    <artifactId>userinterface</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <artifactId>commonartifacts</artifactId>
     <packaging>pom</packaging>
 
     <properties>
@@ -21,12 +27,7 @@
     </properties>
 
     <modules>
-        <module>model</module>
-        <module>dao-springdata-jpa</module>
-        <module>service</module>
-        <module>web</module>
-        <module>client-rest</module>
-        <module>web-client</module>
+       
     </modules>
 
     <build>
@@ -71,14 +72,7 @@
     <dependencyManagement>
         <dependencies>
 
-			<!-- Importing dependency bill of materials (BOM) -->
-            <dependency>
-                <groupId>solent.ac.uk.devops.traffic</groupId>
-                <artifactId>devops-bom</artifactId>
-                <version>0.1-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

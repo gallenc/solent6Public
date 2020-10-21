@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>solent.ac.uk.ood.examples</groupId>
+        <groupId>solent.ac.uk.devops.traffic</groupId>
         <artifactId>userinterface</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
@@ -23,13 +23,13 @@
 
         <!-- project dependencies -->
         <dependency>
-            <groupId>solent.ac.uk.ood.examples</groupId>
+            <groupId>solent.ac.uk.devops.traffic</groupId>
             <artifactId>userinterface-model</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>solent.ac.uk.ood.examples</groupId>
+            <groupId>solent.ac.uk.devops.traffic</groupId>
             <artifactId>userinterface-client-rest</artifactId>
             <version>${project.version}</version>
         </dependency>

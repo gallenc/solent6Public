@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>solent.ac.uk.ood.examples</groupId>
+        <groupId>solent.ac.uk.devops.traffic</groupId>
         <artifactId>devops-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
