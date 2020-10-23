@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.solent.com504.oodd</groupId>
@@ -10,12 +11,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-  
+
         <activemq.version>5.15.0</activemq.version>
         <!--<spring.version>4.2.4.RELEASE</spring.version>-->
         <spring.version>5.2.3.RELEASE</spring.version>
     </properties>
- 
+
     <dependencies>
         <dependency>
             <groupId>org.apache.activemq</groupId>
@@ -42,7 +43,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
- 
+
     <build>
         <plugins>
             <!--
@@ -86,4 +87,48 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <!-- same repo for releases and snapshots -->
+        <repository>
+            <id>jfrogmavenrepo1-releases</id>
+            <name>jfrogmavenrepo1-releases</name>
+            <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
+        </repository>
+    </repositories>
+
+
+    <distributionManagement>
+        <repository>
+            <id>jfrogmavenrepo1-releases</id>
+            <name>jfrogmavenrepo1-releases</name>
+            <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
+        </repository>
+        <snapshotRepository>
+            <id>jfrogmavenrepo1-snapshots</id>
+            <name>jfrogmavenrepo1-snapshots</name>
+            <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+<!-- Note you need to set up settings.xml with the username and password -->
+<!--
+    <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+        <servers>
+            <server>
+                <id>jfrogmavenrepo1-snapshots</id>
+                <username>devops2020deploy</username>
+                <password>xxxxx</password>
+            </server>
+            <server>
+                <id>jfrogmavenrepo1-releases</id>
+                <username>devops2020deploy</username>
+                <password>xxxxx</password>
+            </server>
+        </servers>
+    </settings>
+-->
+
+    
 </project>

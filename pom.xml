@@ -16,5 +16,6 @@
 <description>This Pom IS NOT PART OF THE PROJECT BUILDis simply to allow IDE's to quickly open the whole git repositroy</description>
     <modules>
         <module>workup/activemqexample</module>
+        <module>workup/testmaven</module>
     </modules>
 </project>
