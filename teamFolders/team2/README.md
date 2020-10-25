@@ -7,3 +7,4 @@ Please don't change anything here unless you are part of this team.
 * **Images for Testing** - These are the images used to train the model and if you are working with images please use them for your testing.
 * **Meeting Notes** - Notes that we have taken during group meetings.
 * **simpleJMSClient** - A simple CLI JMS client implementation.
+* **ANPRIntTest** - Using JavaANPR library proof-of-concept.
