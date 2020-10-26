@@ -5,7 +5,6 @@
  */
 package solent.ac.uk.devops.traffic.messagehandler.assembly;
 
-import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,6 +12,7 @@ import solent.ac.uk.devops.traffic.messageexample.Controller;
 
 /**
  * This main class starts and stops an application context. 
+ * Note System.out.println and LOG used for output to ensure something is printed
  * THe shutdown may need more work.
  * @author cgallen
  */
@@ -26,6 +26,13 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("INFO: System.out.println - main method starting in " + Main.class);
         LOG.info("main method starting in " + Main.class);
+        
+        String msg=args.length+" arguments passed to main: ";
+        for(int i=0; i<args.length; i++){
+            msg=msg+args[i]+" ";
+        }
+        System.out.println("INFO: System.out.println - "+msg);
+        LOG.info(msg);
 
         main_m = new Main();
 
