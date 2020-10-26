@@ -46,7 +46,6 @@ public class HelloWorld {
 
     public void destroy() {
         LOG.debug("destroy() Application context stopped HelloWorld " + message);
-
     }
 
 }

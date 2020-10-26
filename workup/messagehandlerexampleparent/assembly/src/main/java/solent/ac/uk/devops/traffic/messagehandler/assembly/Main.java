@@ -19,11 +19,47 @@ public class Main {
 
     final static Logger LOG = LogManager.getLogger(Main.class);
 
+    private ClassPathXmlApplicationContext context;
+    private static Main main_m;
+
     public static void main(String[] args) {
         System.out.println("INFO: System.out.println - main method starting in " + Main.class);
         LOG.info("main method starting in " + Main.class);
 
-        ClassPathXmlApplicationContext context = null;
+        main_m = new Main();
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                System.out.println("main shutdown hook quitting application");
+                LOG.info("main shutdown hook quitting application");
+                main_m.stop();
+            }
+        });
+
+        main_m.start(args);
+
+        // waits for shutdown - may never complete
+        try {
+            LOG.debug("waiting for interrupt to shut down application");
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            System.out.println("current thread interrupted");
+            LOG.info("current thread  interrupted");
+        }
+        LOG.info("stopping application");
+        System.out.println("stopping application");
+
+    }
+
+    private void stop() {
+        System.out.println("Quitting application on stop");
+        LOG.info("Quitting application on stop");
+        if (context != null) {
+            context.close();
+        }
+    }
+
+    private void start(String[] args) {
         try {
             context = new ClassPathXmlApplicationContext("appconfig-service.xml");
 
@@ -35,27 +71,13 @@ public class Main {
 
             LOG.info("service bootstrap successful.");
 
-            Scanner userInput = new Scanner(System.in);
-            while (true) {
-                // loop waiting for input
-                System.out.println("Waiting for comand input - 'quit' character terminates");
-                String input = userInput.nextLine();
-                System.out.println("input is '" + input + "'");
-                if ("quit".equals(input)) {
-                    break;
-                }
-                System.out.println("Quitting application");
-            }
-            context.close();
-
         } catch (Exception e) {
             LOG.error("service bootstrap failure.", e);
-        } finally {
             if (context != null) {
                 context.close();
             }
+            throw new IllegalStateException("Cannot Start Application: ",e);
         }
-
     }
 
 }
