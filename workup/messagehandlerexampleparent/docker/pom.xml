@@ -34,7 +34,7 @@
                 </executions>
             </plugin>
         
-            <!-- you could also loook at the maven docker plugin here -->
+            <!-- you could also look at the maven docker plugin here -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
