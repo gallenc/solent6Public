@@ -27,7 +27,7 @@ public class Main {
         System.out.println("INFO: System.out.println - main method starting in " + Main.class);
         LOG.info("main method starting in " + Main.class);
         
-        String msg=args.length+" arguments passed to main: ";
+        String msg=" arguments passed to main: ("+args.length+") ";
         for(int i=0; i<args.length; i++){
             msg=msg+args[i]+" ";
         }
