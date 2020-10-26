@@ -12,7 +12,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import solent.ac.uk.devops.traffic.messageexample.Controller;
 
 /**
- *
+ * This main class starts and stops an application context. 
+ * THe shutdown may need more work.
  * @author cgallen
  */
 public class Main {
