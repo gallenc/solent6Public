@@ -20,11 +20,28 @@
         <onejar-maven-plugin.version>1.4.4</onejar-maven-plugin.version>
 
     </properties>
-
-    <modules>
-        <module>service</module>
-        <module>assembly</module>
-    </modules>
+    
+    <profiles>
+        <profile>
+            <id>all</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>service</module>
+                <module>assembly</module>
+            </modules>
+        </profile>
+        <!-- this will only work if you are running on a linux machine with installed docker -->
+        <profile>
+            <id>packageAsDocker</id>
+            <modules>
+                <module>service</module>
+                <module>assembly</module>
+                <module>docker</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <build>
         <pluginManagement>
