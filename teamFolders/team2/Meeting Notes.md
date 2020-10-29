@@ -58,3 +58,16 @@ Matt, Emma, Special K
 
 #### Attending
 Matt, Emma, Special K
+
+### 29th October 2020
+#### What we did
+* Had a discussion about what to do next
+
+#### To Do
+* Add all requirements as issues
+* Come up with a map between sprints and version numbers
+* Make branch for our work
+* Setup test environment on your own machine
+
+#### Attending
+Matt, Emma, Special K
