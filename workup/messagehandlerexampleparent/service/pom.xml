@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
     
     <properties>
-        
+                
     </properties>
     
     <build>
@@ -42,7 +42,26 @@
             <scope>test</scope>
         </dependency>
         
+        <!-- move to bom -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>5.2.3.RELEASE</version>
+        </dependency>
         
+        <!-- move to bom -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>5.16.0</version>
+        </dependency>
+        
+        <!--   <dependency>-->
+        <!--   <groupId>org.apache.activemq</groupId>-->
+        <!--    <artifactId>activemq-mqtt</artifactId>-->
+        <!--    <optional>true</optional>-->
+        <!--   </dependency>-->
+
         <!-- Log4j API and Core implementation  -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
