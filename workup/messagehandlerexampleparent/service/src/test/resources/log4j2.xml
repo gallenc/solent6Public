@@ -22,6 +22,18 @@
         <Logger name="org.solent"  additivity="false" level="DEBUG">
             <AppenderRef ref="Console"/>
         </Logger>
+        
+        <Logger name="org.apache.activemq"  additivity="false" level="INFO">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        
+        <Logger name="org.springframework"  additivity="false" level="INFO">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Logger name="org.springframework.test"  additivity="false" level="INFO">
+            <AppenderRef ref="Console"/>
+        </Logger>
 
         <!-- this logs to  the Consol (System.out) -->
         <Root level="DEBUG">

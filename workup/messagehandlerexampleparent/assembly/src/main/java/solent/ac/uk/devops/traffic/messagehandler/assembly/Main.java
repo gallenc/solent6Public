@@ -8,7 +8,7 @@ package solent.ac.uk.devops.traffic.messagehandler.assembly;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import solent.ac.uk.devops.traffic.messageexample.Controller;
+import org.solent.devops.traffic.messageexample.Controller;
 
 /**
  * This main class starts and stops an application context. 
