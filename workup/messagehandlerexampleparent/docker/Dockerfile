@@ -1,4 +1,4 @@
-# Alpine Linux with OpenJDK JRE
+# Centos Linux with OpenJDK JRE
 # startup script included
 # https://hub.docker.com/r/fabric8/java-centos-openjdk11-jdk
 

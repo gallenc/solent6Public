@@ -25,8 +25,36 @@
         http://activemq.apache.org/schema/core/activemq-core-5.2.0.xsd ">
     
 
-    <!-- allows for ${} replacement in the spring xml configuration from the system.properties file on the classpath -->
-    <context:property-placeholder location="classpath:system.properties"/>
+
+    <!--<context:property-placeholder location="classpath:system.properties"/>-->
+    
+    
+    <!-- alternative configuration -->
+    <!--    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                 use local system.properties in tests 
+                <value>classpath:system.properties</value>
+                 use environment injected file in docker 
+                <value>file:#{systemEnvironment['APPLICATION_PROPERTIES_FILE']}</value>
+            </list>
+        </property>
+    </bean>-->
+    
+    <!-- allows for ${} replacement in the spring xml configuration  -->
+    <!-- either from from the system.properties file on the classpath   -->
+    <!-- or APPLICATION_PROPERTIES_FILE environment in docker-->
+    <!-- use local system.properties in tests-->
+    <!-- use environment injected file in docker -->
+    <!-- systemEnvironment or systemProperties can be used-->
+    <context:property-placeholder
+        location="classpath:system.properties,
+                 file:#{systemEnvironment['APPLICATION_ENVIRONMENT_FILE']},
+                 file:#{systemProperties['applicationPropertiesFile']}"
+        ignore-unresolvable="false" ignore-resource-not-found="true" />
+
     
     <!-- Scans for components that will be auto-registered as Spring beans -->
     <context:component-scan base-package="org.solent.devops.traffic.messageexample,
@@ -37,13 +65,13 @@
     
     <!-- this just activates and destroys a bean as an example -->
     <bean id="helloWorld" class="org.solent.devops.traffic.messageexample.HelloWorld" init-method="init" destroy-method="destroy">
-        <property name="message" value="message handler service applicationContext " />
+        <property name="message" value="message handler service applicationContext  jms.url=${jms.url} username=${jms.username}" />
     </bean>
 
-    <amq:connectionFactory id="amqConnectionFactory" brokerURL="vm://localhost"/>
+    <!--<amq:connectionFactory id="amqConnectionFactory" brokerURL="vm://localhost"/>-->
 
     <!-- creates an activemq connection factory using the amq namespace -->
-    <!--<amq:connectionFactory id="amqConnectionFactory" brokerURL="${jms.url}" userName="${jms.username}" password="${jms.password}" />-->
+    <amq:connectionFactory id="amqConnectionFactory" brokerURL="${jms.url}" userName="${jms.username}" password="${jms.password}" />
 
     <!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
     <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
