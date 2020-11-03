@@ -20,8 +20,9 @@ Contains a main class and a one jar maven project to package the app
 
 The assembly uses one-jar to package all of the dependencies as a single executable jar file
 The packaged app can be run from messagehandlerexampleparent using 
+(activemq must be running)
 ```
- java -jar .\assembly\target\messagehandler-assembly-onejar.jar
+ java "-DapplicationPropertiesFile=.\assembly\target\classes\system.properties" -jar .\assembly\target\messagehandler-assembly-onejar.jar 
 ```
 
 ### messagehandler-docker
