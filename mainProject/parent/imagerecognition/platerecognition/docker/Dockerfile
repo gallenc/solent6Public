@@ -4,7 +4,7 @@
 
 FROM fabric8/java-centos-openjdk11-jdk
 # copy fat jar into image
-COPY /target/docker/messagehandler-assembly-0.1-SNAPSHOT-onejar.jar /deployments/onejar.jar 
+COPY /target/docker/platerecognition-assembly-0.1-SNAPSHOT-onejar.jar /deployments/onejar.jar 
 
 
 

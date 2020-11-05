@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>solent.ac.uk.devops.traffic</groupId>
-        <artifactId>messagehandlerexampleparent</artifactId>
+        <artifactId>platerecognition</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
     <artifactId>platerecognition-assembly</artifactId>
@@ -21,7 +21,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <mainClass>org.solent.devops.traffic.messageexample.Controller</mainClass>
+                            <mainClass>org.solent.devops.traffic.platerecognition.Controller</mainClass>
                             <onejarVersion>0.97</onejarVersion>
                             <attachToBuild>true</attachToBuild>
                             <filename>${project.artifactId}-onejar.jar</filename> 
@@ -42,7 +42,7 @@
         <!-- project dependencies -->
         <dependency>
             <groupId>solent.ac.uk.devops.traffic</groupId>
-            <artifactId>messagehandler-service</artifactId>
+            <artifactId>platerecognition-service</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>

@@ -57,14 +57,14 @@
 
     
     <!-- Scans for components that will be auto-registered as Spring beans -->
-    <context:component-scan base-package="org.solent.devops.traffic.messageexample,
+    <context:component-scan base-package="org.solent.devops.traffic.platerecognition,
                   org.solent.devops.message.jms" />
     
     <!-- enables annotation based configuration -->
     <context:annotation-config />
     
     <!-- this just activates and destroys a bean as an example -->
-    <bean id="helloWorld" class="org.solent.devops.traffic.messageexample.HelloWorld" init-method="init" destroy-method="destroy">
+    <bean id="helloWorld" class="org.solent.devops.traffic.platerecognition.HelloWorld" init-method="init" destroy-method="destroy">
         <property name="message" value="message handler service applicationContext  jms.url=${jms.url} username=${jms.username}" />
     </bean>
 
