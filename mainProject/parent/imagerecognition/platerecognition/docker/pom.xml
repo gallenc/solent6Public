@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>solent.ac.uk.devops.traffic</groupId>
+        <artifactId>messagehandlerexampleparent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    
+    <artifactId>platerecognition-docker</artifactId>
+    <packaging>pom</packaging>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/docker</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeTransitive>true</excludeTransitive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        
+            <!-- you could also look at the maven docker plugin here -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+
+                <executions>
+                    <execution>
+                        <id>Building Docker Image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>bash</executable>
+                            <commandlineArgs>buildDockerImage.sh</commandlineArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <dependencies>
+        <!-- project one-jar dependencies -->
+        <dependency>
+            <groupId>solent.ac.uk.devops.traffic</groupId>
+            <artifactId>messagehandler-assembly</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+            <classifier>onejar</classifier>
+        </dependency>
+    </dependencies>
+    <name>platerecognition-docker</name>
+</project>

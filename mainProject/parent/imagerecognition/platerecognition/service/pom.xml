@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>solent.ac.uk.devops.traffic</groupId>
+        <artifactId>messagehandlerexampleparent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>platerecognition-service</artifactId>
+    <packaging>jar</packaging>
+    
+    <properties>
+                
+    </properties>
+    
+    <build>
+        
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+              
+                <configuration>
+                    <!-- you can use environment properties or systemproperties -->
+                    <systemPropertyVariables>
+                        <APPLICATION_PROPERTIES_FILE>${basedir}/src/test/resources/system.properties</APPLICATION_PROPERTIES_FILE>
+                    </systemPropertyVariables>
+             
+                    <environmentVariables>
+                        <APPLICATION_PROPERTIES_FILE>${basedir}/src/test/resources/system.properties</APPLICATION_PROPERTIES_FILE>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+
+    </build>
+    
+    <dependencies>
+        
+        <!-- Spring dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- move to bom -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>5.2.3.RELEASE</version>
+        </dependency>
+        
+        <!-- move to bom -->
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        
+        <!-- move to bom -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>5.16.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-kahadb-store</artifactId>
+            <version>5.16.0</version>
+        </dependency>
+
+        
+        <!--   <dependency>-->
+        <!--   <groupId>org.apache.activemq</groupId>-->
+        <!--    <artifactId>activemq-mqtt</artifactId>-->
+        <!--    <optional>true</optional>-->
+        <!--   </dependency>-->
+        
+        <!-- Logging -->
+        <!-- SLF4J api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Log4j API and Core implementation  -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- running SLF4J over log4j -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- dependencies for java 11 -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <!-- needed by Hibernate for java 11 -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- junit dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <name>platerecognition-service</name>
+</project>

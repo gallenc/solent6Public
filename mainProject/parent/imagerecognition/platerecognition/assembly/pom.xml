@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>solent.ac.uk.devops.traffic</groupId>
+        <artifactId>messagehandlerexampleparent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>platerecognition-assembly</artifactId>
+    <packaging>jar</packaging>
+    
+    <build>
+        <plugins>
+            
+            <!-- https://mvnrepository.com/artifact/com.jolira/onejar-maven-plugin -->
+            <!-- see http://one-jar.sourceforge.net/ -->
+            <!-- see also https://www.baeldung.com/executable-jar-with-maven -->
+            <plugin>
+                <groupId>com.jolira</groupId>
+                <artifactId>onejar-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>org.solent.devops.traffic.messageexample.Controller</mainClass>
+                            <onejarVersion>0.97</onejarVersion>
+                            <attachToBuild>true</attachToBuild>
+                            <filename>${project.artifactId}-onejar.jar</filename> 
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+    
+    <dependencies>
+        
+        <!-- project dependencies -->
+        <dependency>
+            <groupId>solent.ac.uk.devops.traffic</groupId>
+            <artifactId>messagehandler-service</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+    <name>platerecognition-assembly</name>
+</project>
