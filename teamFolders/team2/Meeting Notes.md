@@ -33,6 +33,7 @@ Matt, Emma, Special K
 #### Attending
 Matt, Emma, Special K
 
+
 ### 19th October 2020
 #### What we did
 * Kieron has tested using ANPR library as a dependency for another JAR project. 
@@ -59,6 +60,7 @@ Matt, Emma, Special K
 #### Attending
 Matt, Emma, Special K
 
+
 ### 29th October 2020
 #### What we did
 * Had a discussion about what to do next
@@ -68,6 +70,24 @@ Matt, Emma, Special K
 * Come up with a map between sprints and version numbers
 * Make branch for our work
 * Setup test environment on your own machine
+
+#### Attending
+Matt, Emma, Special K
+
+
+### 3rd November 2020
+#### What we did
+* Set up sprint cards in project for an overall card of what needs to be done. To help with keeping a clear project plan
+* Updated all diagrams to meet P1 new requirement to send us all the data over a JMS message instead of just ImageID
+* Created a test plan so we know exactly all of the parts of the program we are testing 
+* Talked about setting up a contract to agree on standards with other teams 
+* Kieron went through a diagram he has created of the entire system
+* Further integration tests for Java ANPR library using data streams
+
+#### To Do
+* Setup test environment on your own machine
+* Finish system diagram
+* Awaiting response to agreements with P1 and P3
 
 #### Attending
 Matt, Emma, Special K
