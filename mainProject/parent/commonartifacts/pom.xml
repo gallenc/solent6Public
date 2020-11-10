@@ -27,7 +27,7 @@
     </properties>
 
     <modules>
-       
+        <module>CarInfoClass</module>
     </modules>
 
     <build>
