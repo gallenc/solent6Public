@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 
 import org.solent.com504.project.model.party.dto.Party;
@@ -143,22 +144,40 @@ public class ModelJaxbTest {
             throw new RuntimeException("problem testing jaxb marshalling", e);
         }
     }
-    
+
     @Test
-    public void createBank()
-    {
-        Bank bank = new Bank();
-        bank.setCardNumber("4596548276567898");
-        bank.setSortCode("778855");
-        bank.setCvv(123);
-        
-        LOG.debug("Bank ID: " + bank.getId());
-        LOG.debug("Bank card number: " + bank.getCardNumber());
-        LOG.debug("Bank sort code: " + bank.getSortCode());
-        LOG.debug("Bank cvv: " + bank.getCvv());
-        
-        LOG.debug(bank.toString());
-        
-        
+    public void testCreateBankJaxB() {
+//        try {
+//            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+//
+//            // output pretty printed
+//            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            Bank bank = new Bank();
+            bank.setCardNumber("4596548276567898");
+            bank.setSortCode("778855");
+            bank.setCvv(123);
+
+            //StringWriter sw1 = new StringWriter();
+            //jaxbMarshaller.marshal(bank, sw1);
+
+//            LOG.debug("marshaled code" + sw1);
+
+            // having written the file we now read in the file for test
+//            Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
+//            InputStream stream = new ByteArrayInputStream(sw1.toString().getBytes(StandardCharsets.UTF_8));
+//
+//            Bank receivedBank = (Bank) jaxbUnMarshaller.unmarshal(stream);
+//            LOG.debug("receiveduser=" + receivedBank);
+
+            assertNotNull(bank);
+            LOG.debug("Bank ID: " + bank.getId());
+            LOG.debug("Bank card number: " + bank.getCardNumber());
+            LOG.debug("Bank sort code: " + bank.getSortCode());
+            LOG.debug("Bank cvv: " + bank.getCvv());
+//
+//        } catch (JAXBException e) {
+//            throw new RuntimeException("problem testing jaxb marshalling", e);
+//        }
     }
 }

@@ -22,4 +22,6 @@ public interface BankRepository extends JpaRepository<Bank, Long>{
     @Query("select b from Bank b where b.cardNumber = :cardNumber")
     public List<Bank> findByCard(@Param("cardNumber") String cardNumber);
     
+    @Query("delete from Bank where Bank.cardNumber = :cardNumber")
+    public void deleteByCardNumber(@Param("cardNumber") String cardNumber);
 }
