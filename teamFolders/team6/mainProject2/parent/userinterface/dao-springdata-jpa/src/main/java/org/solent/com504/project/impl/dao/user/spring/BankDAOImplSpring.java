@@ -24,7 +24,7 @@ public class BankDAOImplSpring implements BankDAO{
         
     @Override
     public Bank findById(Long id) {
-        Optional<Bank> bank = bankRepository.findById(id);
+        Optional<Bank> bank = bankRepository.findById(id);               
         if(bank.isPresent()){
             return bank.get();
         }
@@ -33,37 +33,37 @@ public class BankDAOImplSpring implements BankDAO{
 
     @Override
     public Bank save(Bank bank) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bankRepository.save(bank);
     }
 
     @Override
     public List<Bank> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bankRepository.findAll();
     }
 
     @Override
     public void deleteById(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bankRepository.deleteById(id);
     }
 
     @Override
     public void deleteByCardNumber(String cardNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bankRepository.deleteByCardNumber(cardNumber);
     }
 
     @Override
     public void delete(Bank bank) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bankRepository.delete(bank);
     }
 
     @Override
     public void deleteAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bankRepository.deleteAll();
     }
 
     @Override
     public Bank findByCardNumber(String cardNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bankRepository.findByCardNumber(cardNumber);
     }
     
 }
