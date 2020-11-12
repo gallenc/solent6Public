@@ -21,19 +21,14 @@ public class BankDAOImplSpring implements BankDAO{
     
     @Autowired
     private BankRepository bankRepository = null;
-    
+        
     @Override
-    public Bank findByid(Long id){
-        Bank bank = bankRepository.findById(id);
+    public Bank findById(Long id) {
+        Optional<Bank> bank = bankRepository.findById(id);
         if(bank.isPresent()){
             return bank.get();
         }
         return null;        
-    }
-
-    @Override
-    public Bank findById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
