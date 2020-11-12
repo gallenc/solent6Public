@@ -91,3 +91,19 @@ Matt, Emma, Special K
 
 #### Attending
 Matt, Emma, Special K
+
+### 10th November 2020
+#### What we did
+* Emma set up the class for the serialisation and deserialisation of the JSON object 
+* Matt and Kieron working with P4 to get the automated deployment working when pushing code to github (now working) 
+* Matt updated contracts and resent out to team
+* Kieron has been looking at Craigs code to see how we can adapt it to use for our project 
+
+#### Next steps
+* Finding out a way to serialise and deserialise the photo 
+* Awaiting response to agreements 
+
+### 12th November 2020
+#### What we did
+* Kieron and Emma looking at a way to deal with the image
+* Matt showed gitflow and automated deployment to group 4 
