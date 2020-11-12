@@ -6,7 +6,7 @@
         <artifactId>imagecapture</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>messagehandler-assembly</artifactId>
+    <artifactId>imagecapture-assembly</artifactId>
     <packaging>jar</packaging>
     
     <build>
@@ -21,7 +21,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <mainClass>org.solent.devops.traffic.messageexample.Controller</mainClass>
+                            <mainClass>org.solent.devops.traffic.imagecapture.Controller</mainClass>
                             <onejarVersion>0.97</onejarVersion>
                             <attachToBuild>true</attachToBuild>
                             <filename>${project.artifactId}-onejar.jar</filename> 
@@ -42,7 +42,7 @@
         <!-- project dependencies -->
         <dependency>
             <groupId>solent.ac.uk.devops.traffic</groupId>
-            <artifactId>messagehandler-service</artifactId>
+            <artifactId>imagecapture-service</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>

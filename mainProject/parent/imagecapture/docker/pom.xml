@@ -7,7 +7,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
     
-    <artifactId>messagehandler-docker</artifactId>
+    <artifactId>imagecapture-docker</artifactId>
     <packaging>pom</packaging>
     
     <build>
@@ -35,7 +35,7 @@
             </plugin>
         
             <!-- you could also look at the maven docker plugin here -->
-            <plugin>
+<!--            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
@@ -53,6 +53,32 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>-->
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                
+                <executions>
+                    <execution>
+                        <id>docker-build</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>build</argument>
+                                <argument>-t</argument>
+                                <argument>${project.artifactId}:${project.version}</argument>
+                                <argument>.</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -61,7 +87,7 @@
         <!-- project one-jar dependencies -->
         <dependency>
             <groupId>solent.ac.uk.devops.traffic</groupId>
-            <artifactId>messagehandler-assembly</artifactId>
+            <artifactId>imagecapture-assembly</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
             <classifier>onejar</classifier>
