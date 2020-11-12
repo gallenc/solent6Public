@@ -38,13 +38,13 @@ To build the docker image from the parent project use
 
 To achieve the same thing on windows run the following.
 ```
-	mvn clean install
+mvn clean install
 ```
 
 Then run 
 
 ```
-	.\buildDockerImageWindows.bat
+.\buildDockerImageWindows.bat
 ```
 
 once you have packaged the docker image you can run it directly using 
