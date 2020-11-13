@@ -12,12 +12,14 @@ package com.mycompany.carinfoclass;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.sql.Time;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 import javax.xml.bind.DatatypeConverter;
 
 public class CarInfo {
@@ -89,16 +91,9 @@ public class CarInfo {
         BufferedImage image = null;
         try {
             String data = this.getPhoto();
-            
             byte[] imageByte = DatatypeConverter.parseBase64Binary(data);
-            System.out.println(imageByte);
-            
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-            System.out.println(bis);
-            
             image = ImageIO.read(bis);
-            System.out.println(image);
-            
         } catch (Exception ex) {
             // TODO: Use proper logging
             System.out.println(ex.getMessage());
@@ -116,7 +111,7 @@ public class CarInfo {
         }
         String data = DatatypeConverter.printBase64Binary(bytes.toByteArray());
         //proper data url format
-        this.photo = "data:image/jpg;base64," + data;
+        this.photo = data;
     }
 
     @Override
