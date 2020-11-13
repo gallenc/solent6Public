@@ -107,3 +107,13 @@ Matt, Emma, Special K
 #### What we did
 * Kieron and Emma looking at a way to deal with the image
 * Matt showed gitflow and automated deployment to group 4 
+* Kieron and Emma managed to get working examples of turning a bufferedimage into a string and then back again.
+
+#### Next steps
+* Adding to the CarInfoClass to add the ability to serialise and deserialise the json object
+
+### 13th November 2020
+#### What we did
+* Worked together to get the implemetation of serialisation and deserialisation to the CarInfo Class. 
+* Added working tests to test the new methods created
+* Renamed the CarInfo class and uploaded to github
