@@ -1,7 +1,9 @@
+package org.solent.devops.message.jms;
 
+
+import org.solent.devops.message.jms.JSONMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Test;
-import com.mycompany.carinfoclass.CarInfo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,10 +24,10 @@ import java.io.IOException;
  *
  * @author Emma
  */
-public class CarInfoTest {
+public class JSONMessageTest {
 
-    private CarInfo init() {
-        CarInfo c = new CarInfo();
+    private JSONMessage init() {
+        JSONMessage c = new JSONMessage();
         c.setUuid("0ec573fc-232e-11eb-adc1-0242ac120002");
         c.setCameraId(1);
         c.setNumberplate("TestNumberplate");
@@ -36,7 +38,7 @@ public class CarInfoTest {
 
     @Test
     public void testGetUuid() {
-        CarInfo c = init();
+        JSONMessage c = init();
         String uuid = c.getUuid();
         assertEquals("0ec573fc-232e-11eb-adc1-0242ac120002", uuid);
 
@@ -44,7 +46,7 @@ public class CarInfoTest {
 
     @Test
     public void testSetUuid() {
-        CarInfo c = init();
+        JSONMessage c = init();
         c.setUuid("TestUUID");
         assertEquals("TestUUID", c.getUuid());
 
@@ -52,14 +54,14 @@ public class CarInfoTest {
 
     @Test
     public void testGetCameraId() {
-        CarInfo c = init();
+        JSONMessage c = init();
         int cameraId = c.getCameraId();
         assertEquals(1, cameraId);
     }
 
     @Test
     public void testSetCameraId() {
-        CarInfo c = init();
+        JSONMessage c = init();
         c.setCameraId(2);
         
         assertEquals(2, c.getCameraId());
@@ -67,7 +69,7 @@ public class CarInfoTest {
 
     @Test
     public void testGetTimestamp() {
-        CarInfo c = init();
+        JSONMessage c = init();
         Date date = new Date(); 
         c.setTimestamp(date);
         assertEquals(date, c.getTimestamp());
@@ -76,40 +78,40 @@ public class CarInfoTest {
 
     @Test
     public void testSetTimestamp() {
-        CarInfo c = init();
+        JSONMessage c = init();
     }
 
     @Test
     public void testGetNumberplate() {
-        CarInfo c = init();
+        JSONMessage c = init();
         String numberplate = c.getNumberplate();
         assertEquals("TestNumberplate", numberplate);
     }
 
     @Test
     public void testSetNumberplate() {
-        CarInfo c = init();
+        JSONMessage c = init();
         c.setNumberplate("NewNumberplate");
         assertEquals("NewNumberplate", c.getNumberplate());
     }
 
     @Test
     public void testGetPhoto() {
-        CarInfo c = init();
+        JSONMessage c = init();
         String photo = c.getPhoto();
         assertEquals("TestPhoto", photo);
     }
 
     @Test
     public void testSetPhoto() {
-        CarInfo c = init();
+        JSONMessage c = init();
         c.setPhoto("NewPhoto");
         assertEquals("NewPhoto", c.getPhoto());
     }
 
     @Test
     public void testCreateCarInfo() {
-        CarInfo c = new CarInfo();
+        JSONMessage c = new JSONMessage();
         c.setUuid("0ec573fc-232e-11eb-adc1-0242ac120002");
         c.setCameraId(1);
         c.setNumberplate("TestNumberplate");
@@ -122,7 +124,7 @@ public class CarInfoTest {
     @Test
     public void testConvertImage()
     {
-        CarInfo c = init();
+        JSONMessage c = init();
         
         BufferedImage img = new BufferedImage(12, 16, 1);
         c.convertImageToString(img);
@@ -143,7 +145,7 @@ public class CarInfoTest {
 
     @Test
     public void testCarInfoToJson() throws JsonProcessingException {
-        CarInfo c = init();
+        JSONMessage c = init();
         ObjectMapper om = new ObjectMapper();
         String jsonString = c.toJson(); 
         assertEquals(om.writeValueAsString(c), jsonString); 
@@ -153,11 +155,11 @@ public class CarInfoTest {
 
     @Test
     public void testJsonToCarInfo() throws IOException {
-        CarInfo c = init();
+        JSONMessage c = init();
         ObjectMapper om = new ObjectMapper();
         String jsonString = c.toJson(); 
         
-        CarInfo carInfo = om.readValue(jsonString, CarInfo.class);
+        JSONMessage carInfo = om.readValue(jsonString, JSONMessage.class);
         assertEquals(carInfo.toString(), c.toString());
     }
 }

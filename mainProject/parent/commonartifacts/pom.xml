@@ -27,7 +27,7 @@
     </properties>
 
     <modules>
-        <module>CarInfoClass</module>
+        <module>JSONMessage</module>
     </modules>
 
     <build>

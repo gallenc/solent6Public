@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.carinfoclass;
+package org.solent.devops.message.jms;
 
 /**
  *
@@ -22,7 +22,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.xml.bind.DatatypeConverter;
 
-public class CarInfo {
+public class JSONMessage {
 
     private String uuid;
     private int cameraId;
@@ -30,7 +30,7 @@ public class CarInfo {
     private String numberplate;
     private String photo;
 
-    public CarInfo(String uuid, int cameraId, Date timestamp, String numberplate, String photo) {
+    public JSONMessage(String uuid, int cameraId, Date timestamp, String numberplate, String photo) {
         this.uuid = uuid;
         this.cameraId = cameraId;
         this.timestamp = timestamp;
@@ -38,7 +38,7 @@ public class CarInfo {
         this.photo = photo;
     }
 
-    public CarInfo() {
+    public JSONMessage() {
 
     }
 
