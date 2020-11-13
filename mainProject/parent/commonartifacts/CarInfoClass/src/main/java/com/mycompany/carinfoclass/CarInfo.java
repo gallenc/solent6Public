@@ -11,8 +11,14 @@ package com.mycompany.carinfoclass;
  */
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.sql.Time;
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
 
 public class CarInfo {
 
@@ -29,9 +35,9 @@ public class CarInfo {
         this.numberplate = numberplate;
         this.photo = photo;
     }
-    
-    public CarInfo(){
-        
+
+    public CarInfo() {
+
     }
 
     public String toJson() throws JsonProcessingException {
@@ -77,6 +83,40 @@ public class CarInfo {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public BufferedImage imageFromString() {
+        BufferedImage image = null;
+        try {
+            String data = this.getPhoto();
+            
+            byte[] imageByte = DatatypeConverter.parseBase64Binary(data);
+            System.out.println(imageByte);
+            
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            System.out.println(bis);
+            
+            image = ImageIO.read(bis);
+            System.out.println(image);
+            
+        } catch (Exception ex) {
+            // TODO: Use proper logging
+            System.out.println(ex.getMessage());
+        } finally {
+            return image;
+        }
+    }
+
+    public void convertImageToString(BufferedImage image) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "jpg", bytes);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String data = DatatypeConverter.printBase64Binary(bytes.toByteArray());
+        //proper data url format
+        this.photo = "data:image/jpg;base64," + data;
     }
 
     @Override
