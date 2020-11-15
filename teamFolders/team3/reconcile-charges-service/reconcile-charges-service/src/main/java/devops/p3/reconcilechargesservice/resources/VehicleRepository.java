@@ -5,9 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface VehicleRepository extends CrudRepository<Vehicle, Long> {
+public interface VehicleRepository extends CrudRepository<Vehicle, String> {
 
-    List<Vehicle> findByNumberPlate(String number_plate);
+    List<Vehicle> findByNumberplate(String numberplate);
 
-    Vehicle findById(long id);
 }

@@ -8,8 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jms.annotation.EnableJms;
 
 @SpringBootApplication
+@EnableJms
 public class ReconcileChargesServiceApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(ReconcileChargesServiceApplication.class);
@@ -21,9 +23,8 @@ public class ReconcileChargesServiceApplication {
 
 	// this method is just used to modify the default in memory database untill I setup production instance.
 	@Bean
-	public CommandLineRunner persistData(VehicleRepository repository) {
+	public CommandLineRunner persistData(VehicleRepository vehicleRepository) {
 		return (args) -> {
-			repository.deleteAll();
 		};
 	}
 }

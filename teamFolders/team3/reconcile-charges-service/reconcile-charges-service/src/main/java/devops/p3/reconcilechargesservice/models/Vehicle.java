@@ -1,61 +1,90 @@
 package devops.p3.reconcilechargesservice.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.GenerationType;
 
 @Entity
 public class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String numberPlate;
-    private String time;
-    private String camera;
-
+    private String uuid;
+    private String cameraId;
+    private String timestamp;
+    private String numberplate;
+    private String photo;
 
     protected Vehicle() {
         super();
     }
 
-    public Vehicle(String numberPlate, String time, String camera) {
-        this.numberPlate = numberPlate;
-        this.time = time;
-        this.camera = camera;
+    public Vehicle(String uuid, String cameraId, String timestamp, String numberplate,  String photo) {
+        this.uuid = uuid;
+        this.cameraId = cameraId;
+        this.timestamp = timestamp;
+        this.numberplate = numberplate;
+        this.photo = photo;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Vehicle[id=%d, number_plate='%s', time='%s', camera='%s']",
-                id, numberPlate, time, camera);
+                "Vehicle[uuid='%s', cameraId='%s', timestamp='%s', numberplate='%s', photo='%s']",
+                uuid, cameraId, timestamp, numberplate, photo);
     }
 
-    public String getNumberPlate() {
-        return numberPlate;
+    public String toJsonString() {
+        String json = null;
+        try {
+            json = new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 
-    public void setNumberPlate(String numberPlate) {
-        this.numberPlate = numberPlate;
+    public String getUuid() {
+        return uuid;
     }
 
-    public String getTime() {
-        return time;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public String getCameraId() {
+        return cameraId;
     }
 
-    public String getCamera() {
-        return camera;
+    public void setCameraId(String cameraId) {
+        this.cameraId = cameraId;
     }
 
-    public void setCamera(String camera) {
-        this.camera = camera;
+    public String getTimestamp() {
+        return timestamp;
     }
 
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getNumberplate() {
+        return numberplate;
+    }
+
+    public void setNumberplate(String numberplate) {
+        this.numberplate = numberplate;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
 }
