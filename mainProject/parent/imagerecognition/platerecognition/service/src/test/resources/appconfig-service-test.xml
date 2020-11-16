@@ -11,8 +11,39 @@ http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-2.5.xsd
 http://www.springframework.org/schema/jms 
 http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
+    
+    <context:property-placeholder
+        location="classpath:test.properties"
+        ignore-unresolvable="false" ignore-resource-not-found="true" />
+    
+    <!-- Scans for components that will be auto-registered as Spring beans -->
+    <context:component-scan base-package="org.solent.devops.traffic.platerecognition,
+                  org.solent.devops.message.jms" />
+    
+    <!-- enables annotation based configuration -->
+    <context:annotation-config />
+    
+    <!-- this just activates and destroys a bean as an example
+    TODO: Create a bean that does not run during tests
+    <bean id="helloWorld" class="org.solent.devops.traffic.platerecognition.HelloWorld" init-method="init" destroy-method="destroy">
+        <property name="message" value="message handler service applicationContext  jms.url=${jms.url} username=${jms.username}" />
+    </bean> -->
 
-    <import resource="classpath:appconfig-service.xml" />
+    <!-- creates an activemq connection factory using the amq namespace -->
+    <amq:connectionFactory id="amqConnectionFactory" brokerURL="${jms.url}" userName="${jms.username}" password="${jms.password}"/>
+    
+    <!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
+    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="amqConnectionFactory" />
+        <property name="exceptionListener" ref="jmsExceptionListener" />
+        <property name="sessionCacheSize" value="100" />
+    </bean>
+
+    <!--JmsTemplate Definition -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <constructor-arg ref="connectionFactory"/>
+    </bean>
+    
     
     <!--sets up activemq broker only for tests -->
     <!-- see http://activemq.apache.org/spring-support.html -->
@@ -21,5 +52,4 @@ http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
             <amq:transportConnector uri="tcp://localhost:0" />
         </amq:transportConnectors>
     </amq:broker>
-    
 </beans>

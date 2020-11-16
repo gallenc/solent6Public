@@ -20,8 +20,8 @@ public class SimpleJmsSender {
         this.jmsTemplate = jmsTemplate;
     }
 
-    public void send(final String message) {
-        LOG.debug("jms sending to queue :"+queueName+" "+message);
-        jmsTemplate.convertAndSend( queueName , message);
+    public void send(String queue, final String message) {
+        LOG.debug("jms sending to queue :"+queue+" "+message);
+        jmsTemplate.convertAndSend( queue , message);
     }
 }
