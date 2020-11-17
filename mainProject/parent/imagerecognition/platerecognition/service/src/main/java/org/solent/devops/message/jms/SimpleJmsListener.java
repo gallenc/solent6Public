@@ -6,6 +6,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,12 +14,16 @@ public class SimpleJmsListener implements MessageListener {
 
     final static Logger LOG = LogManager.getLogger(SimpleJmsListener.class);
 
+    @Autowired
+    SimpleJmsSender sender;
+    
     @Override
     public void onMessage(final Message message) {
         if (message instanceof TextMessage) {
             final TextMessage textMessage = (TextMessage) message;
             try {
                 LOG.info(this.toString() + " received a JMS message: " + textMessage.getText());
+                sender.send("p2imagerecognition", textMessage.getText());
             } catch (final JMSException e) {
                 LOG.error(this.toString() + " had a problem receiving a JMS message", e);
             }

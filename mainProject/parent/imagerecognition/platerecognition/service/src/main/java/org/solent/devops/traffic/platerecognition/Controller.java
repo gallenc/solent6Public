@@ -77,13 +77,6 @@ public class Controller {
             
             // Testing of bootstrap architecture
             LOG.info("Program starting.");
-            SimpleJmsSender sender = context.getBean(SimpleJmsSender.class);
-            // Simulate messages from P1
-            
-            sender.send("p2imagerecognition", "Example Output 1");  
-            sender.send("p2imagerecognition", "Example Output 2");
-            sender.send("p2imagerecognition", "Example Output 3");
-
             LOG.info("service bootstrap successful.");
 
         } catch (Exception e) {
