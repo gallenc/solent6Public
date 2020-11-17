@@ -1,8 +1,5 @@
 package org.solent.devops.message.jms;
 
-
-import org.solent.devops.message.jms.JSONMessage;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Test;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -68,12 +65,11 @@ public class JSONMessageTest {
     }
 
     @Test
-    public void testGetTimestamp() {
+    public void testGetTimestamp() throws JsonProcessingException {
         JSONMessage c = init();
         Date date = new Date(); 
         c.setTimestamp(date);
         assertEquals(date, c.getTimestamp());
-
     }
 
     @Test
@@ -147,10 +143,12 @@ public class JSONMessageTest {
     public void testCarInfoToJson() throws JsonProcessingException {
         JSONMessage c = init();
         ObjectMapper om = new ObjectMapper();
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        om.setDateFormat(df);
         String jsonString = c.toJson(); 
         assertEquals(om.writeValueAsString(c), jsonString); 
-        
-        
     }
 
     @Test

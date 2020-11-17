@@ -12,14 +12,14 @@ package org.solent.devops.message.jms;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
 import javax.xml.bind.DatatypeConverter;
 
 public class JSONMessage {
@@ -44,6 +44,10 @@ public class JSONMessage {
 
     public String toJson() throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        om.setDateFormat(df);
         return om.writeValueAsString(this);
     }
 
