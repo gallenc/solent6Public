@@ -101,6 +101,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/net.sf.javaanpr/javaanpr -->
+            <dependency>
+                <groupId>net.sf.javaanpr</groupId>
+                <artifactId>javaanpr</artifactId>
+                <version>1.2.7</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

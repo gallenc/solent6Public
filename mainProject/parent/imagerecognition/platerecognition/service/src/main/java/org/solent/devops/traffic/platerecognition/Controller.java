@@ -27,7 +27,7 @@ public class Controller {
 
     public static void main(String[] args) {
         LOG.info("Main method starting in " + Controller.class);
-
+        
         // Create Controller instance that will contain application context
         controller_m = new Controller();
 
@@ -71,11 +71,11 @@ public class Controller {
             // NOTE - VERY IMPORTANT - this shuts down application context cleanly when program ends
             context.registerShutdownHook();
             
+            // Debugging
             System.out.println(context.getBean(ActiveMQConnectionFactory.class).getBrokerURL());
-            
             System.out.println(Arrays.asList(context.getBeanDefinitionNames()));
+            
             // Testing of bootstrap architecture
-            System.out.println("Program starting");
             LOG.info("Program starting.");
             SimpleJmsSender sender = context.getBean(SimpleJmsSender.class);
             // Simulate messages from P1

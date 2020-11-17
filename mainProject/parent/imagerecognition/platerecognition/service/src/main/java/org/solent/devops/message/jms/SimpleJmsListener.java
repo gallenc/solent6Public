@@ -13,13 +13,14 @@ public class SimpleJmsListener implements MessageListener {
 
     final static Logger LOG = LogManager.getLogger(SimpleJmsListener.class);
 
+    @Override
     public void onMessage(final Message message) {
         if (message instanceof TextMessage) {
             final TextMessage textMessage = (TextMessage) message;
             try {
-                LOG.info("received JMS message: " + textMessage.getText());
+                LOG.info(this.toString() + " received a JMS message: " + textMessage.getText());
             } catch (final JMSException e) {
-                LOG.error("problem receiving JMS messagee", e);
+                LOG.error(this.toString() + " had a problem receiving a JMS message", e);
             }
         }
     }

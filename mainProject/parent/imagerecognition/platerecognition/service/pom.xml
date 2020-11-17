@@ -157,6 +157,11 @@
             <artifactId>hamcrest-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sf.javaanpr</groupId>
+            <artifactId>javaanpr</artifactId>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <name>platerecognition-service</name>
 </project>
