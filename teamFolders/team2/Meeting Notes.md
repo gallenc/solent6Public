@@ -120,4 +120,9 @@ Matt, Emma, Special K
 
 ### 17th November 2020
 #### What we did 
-* 
+* Matt showed the work he had being doing with team 2 in terms of pushing code to github.
+* Kieron went through the jms messaging client he has been working on
+* Worked on adding the ability to recieve a message and send it straight out within Kierons programme
+* Changed our code within the jsonMessage class to meet the agreement of using iso-8601 java date. 
+* Created tests within the application to test sending and recieving of messages. 
+
