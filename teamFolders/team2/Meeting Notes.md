@@ -117,3 +117,7 @@ Matt, Emma, Special K
 * Worked together to get the implemetation of serialisation and deserialisation to the CarInfo Class. 
 * Added working tests to test the new methods created
 * Renamed the CarInfo class and uploaded to github
+
+### 17th November 2020
+#### What we did 
+* 
