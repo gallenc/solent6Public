@@ -10,6 +10,8 @@ import org.solent.com504.project.model.service.ServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.solent.com504.project.model.party.dao.PartyDAO;
+import org.solent.com504.project.model.user.dao.InvoiceDAO;
+import org.solent.com504.project.model.user.dto.Invoice;
 
 // note we give the bean this name so it is picked up later in application context
 @Component("serviceFacade")
@@ -17,6 +19,9 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
     @Autowired
     private PartyDAO partyDao = null;
+    
+    @Autowired
+    private InvoiceDAO invoiceDao = null;
 
     // used to concurently count heartbeat requests
     private static AtomicInteger heartbeatRequests = new AtomicInteger();
@@ -40,6 +45,16 @@ public class ServiceFacadeImpl implements ServiceFacade {
         } else {
             return partyDao.findByPartyRole(partyRole);
         }
+    }
+    
+    @Override
+    public Invoice findInvoice(long id){
+        return invoiceDao.findById(id);
+    }
+    
+    @Override
+    public Invoice saveInvoice(Invoice invoice){
+        return invoiceDao.save(invoice);
     }
 
 }

@@ -3,6 +3,7 @@ package org.solent.com504.project.model.service;
 import java.util.List;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
+import org.solent.com504.project.model.user.dto.Invoice;
 
 public interface ServiceFacade {
 
@@ -15,5 +16,9 @@ public interface ServiceFacade {
      * @return list of party objects
      */
     public List<Party> findByPartyRole(PartyRole partyRole);
+    
+    public Invoice findInvoice(long id);
+    
+    public Invoice saveInvoice(Invoice invoice);
 
 }
