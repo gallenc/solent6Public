@@ -5,30 +5,28 @@
  */
 package org.solent.com504.project.model.user.dto;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import org.solent.com504.project.model.party.dto.Address;
-import org.solent.com504.project.model.party.dto.Party;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author joao-
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@Embeddable
 public class Bank {
     
-     private Long id;
+    private Long id;
     private String cardNumber;
     private String sortCode;
     private int cvv;
@@ -66,4 +64,9 @@ public class Bank {
     public void setCvv(int cvv) {
         this.cvv = cvv;
     }
+
+    @Override
+    public String toString() {
+        return "Bank{" + "id=" + id + ", cardNumber=" + cardNumber + ", sortCode=" + sortCode + ", cvv=" + cvv + '}';
+    }        
 }

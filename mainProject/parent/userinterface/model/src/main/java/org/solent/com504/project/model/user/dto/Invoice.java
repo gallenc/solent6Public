@@ -36,10 +36,10 @@ public class Invoice {
     private Party party;
     private LocalDateTime issueDate;
     private LocalDateTime paidDate;
-    private Double ammount;
+    private Double amount;
     
-    @XmlElementWrapper(name = "roles")
-    @XmlElement(name = "role")
+    @XmlElementWrapper(name = "chargingRecords")
+    @XmlElement(name = "chargingRecord")
     private Set<ChargingRecord> chargingRecord = new HashSet<ChargingRecord>();
 
     @Id
@@ -77,11 +77,11 @@ public class Invoice {
     }
 
     public Double getAmmount() {
-        return ammount;
+        return amount;
     }
 
     public void setAmmount(Double ammount) {
-        this.ammount = ammount;
+        this.amount = amount;
     }
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -94,4 +94,8 @@ public class Invoice {
         this.chargingRecord = chargingRecord;
     }
 
+    @Override
+    public String toString() {
+        return "Invoice{" + "id=" + id + ", party=" + party + ", issueDate=" + issueDate + ", paidDate=" + paidDate + ", ammount=" + amount + ", chargingRecord=" + chargingRecord + '}';
+    }        
 }

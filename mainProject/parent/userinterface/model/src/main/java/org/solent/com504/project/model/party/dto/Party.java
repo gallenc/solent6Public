@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.solent.com504.project.model.user.dto.Car;
 import org.solent.com504.project.model.user.dto.User;
 
 @XmlRootElement
@@ -48,6 +49,11 @@ public class Party {
     @XmlElementWrapper(name = "users")
     @XmlElement(name = "user")
     private Set<User> users = new HashSet();
+    
+    //party takes a set of cars - rui
+    @XmlElementWrapper(name = "cars")
+    @XmlElement(name = "car")
+    private Set<Car> cars = new HashSet();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -138,6 +144,30 @@ public class Party {
         this.users.remove(user);
         user.getParties().remove(this);
     }
+    
+    //many to many relationship between party and cars
+    //many parties can have many cars ? -rui
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "car_party", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+    public Set<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
+    
+    // note ad remove depend upon identity
+    public void addCar(Car car){
+        this.cars.add(car);
+        car.getCars().add(this);
+    }
+    
+    public void removeCar(Car car){
+        this.cars.remove(car);
+        car.getCars().remove(this);
+    }
+    
 
     @Override
     public String toString() {

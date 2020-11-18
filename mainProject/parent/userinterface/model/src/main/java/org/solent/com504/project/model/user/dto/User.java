@@ -26,6 +26,8 @@ public class User {
     private String firstName;
     private String secondName;
     private Address address = new Address(); // need not null initial value
+    //Bank is an embedded field of User - rui
+    private Bank bank = new Bank();
     private Boolean enabled = true;
 
     @XmlElementWrapper(name = "roles")
@@ -34,7 +36,7 @@ public class User {
 
     @XmlElementWrapper(name = "parties")
     @XmlElement(name = "party")
-    private Set<Party> parties = new HashSet<Party>();
+    private Set<Party> parties = new HashSet<Party>();        
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -113,6 +115,15 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
+    
+    @Embedded
+    public Bank getBank(){
+        return bank;
+    }
+    
+    public void setBank(Bank bank){
+        this.bank = bank;
+    }
 
     // parties owns the relationship
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
@@ -124,7 +135,7 @@ public class User {
 
     public void setParties(Set<Party> parties) {
         this.parties = parties;
-    }
+    }    
 
     // Note Password and roles omitted from tostring
     @Override

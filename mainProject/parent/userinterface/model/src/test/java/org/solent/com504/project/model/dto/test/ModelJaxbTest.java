@@ -31,6 +31,7 @@ import org.solent.com504.project.model.party.dto.Address;
 import org.solent.com504.project.model.dto.ReplyMessage;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.party.dto.PartyStatus;
+import org.solent.com504.project.model.user.dto.Bank;
 import org.solent.com504.project.model.user.dto.Role;
 import org.solent.com504.project.model.user.dto.User;
 import org.solent.com504.project.model.user.dto.UserRoles;
@@ -141,5 +142,16 @@ public class ModelJaxbTest {
         } catch (JAXBException e) {
             throw new RuntimeException("problem testing jaxb marshalling", e);
         }
+    }
+    
+    @Test
+    public void createBank()
+    {
+        Bank b = new Bank();
+        b.setCardNumber("111111111111");
+        b.setCvv(231);
+        b.setSortCode("11-11-11");
+        
+        LOG.debug("bank object:" + b.getCardNumber() + b.getCvv() + b.getSortCode());
     }
 }

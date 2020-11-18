@@ -32,7 +32,7 @@
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="Address" package="org.solent.com504.project.model.dto" visibility="public" xPosition="868.0" yPosition="839.0">
+    <Class name="Address" package="org.solent.com504.project.model.dto" visibility="public" xPosition="906.0" yPosition="839.0">
       <Fields>
         <Field name="number" type="String" visibility="private"/>
         <Field name="addressLine1" type="String" visibility="private"/>
@@ -81,13 +81,13 @@
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="ChargingRecord" package="org.solent.com504.project.model.dto" visibility="public" xPosition="2263.0" yPosition="734.0">
+    <Class name="ChargingRecord" package="org.solent.com504.project.model.dto" visibility="public" xPosition="2262.0" yPosition="729.0">
       <Fields>
         <Field name="id" type="Long" visibility="private"/>
         <Field name="entryPhotoId" type="Long" visibility="private"/>
         <Field name="exitPhotoId" type="Long" visibility="private"/>
-        <Field name="entryDate" type="DateTime" visibility="private"/>
-        <Field name="exitDate" type="DateTime" visibility="private"/>
+        <Field name="entryDate" type="LocalDateTime" visibility="private"/>
+        <Field name="exitDate" type="LocalDateTime" visibility="private"/>
         <Field name="entryLocation" type="String" visibility="private"/>
         <Field name="exitLocation" type="String" visibility="private"/>
         <Field name="numberPlate" type="String" visibility="private"/>
@@ -109,7 +109,7 @@
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="Car" package="org.solent.com504.project.model.dto" visibility="public" xPosition="1342.0" yPosition="656.0">
+    <Class name="Car" package="org.solent.com504.project.model.dto" visibility="public" xPosition="1341.0" yPosition="666.0">
       <Fields>
         <Field name="id" type="Long" visibility="private"/>
         <Field name="model" type="String" visibility="private"/>
@@ -165,117 +165,113 @@
     <Interface name="RestClient" package="org.solent.com504.project.model.rest" visibility="public" xPosition="-8.0" yPosition="332.0">
       <Methods/>
     </Interface>
-    <Interface name="UserDAO" package="" visibility="public" xPosition="868.0" yPosition="448.0">
+    <Interface name="UserDAO" package="" visibility="public" xPosition="867.0" yPosition="447.0">
       <Methods>
-        <Method name="findById" returnType="Long" visibility="public">
+        <Method name="findById" returnType="User" visibility="public">
           <Argument type="Long" name="id"/>
         </Method>
         <Method name="save" returnType="User" visibility="public">
           <Argument type="User" name="user"/>
         </Method>
         <Method name="findAll" returnType="List&lt;User&gt;" visibility="public"/>
-        <Method name="deleteById" returnType="long" visibility="public">
+        <Method name="deleteById" returnType="void" visibility="public">
           <Argument type="long" name="id"/>
         </Method>
-        <Method name="delete" returnType="User" visibility="public">
+        <Method name="delete" returnType="void" visibility="public">
           <Argument type="User" name="user"/>
         </Method>
         <Method name="deleteAll" returnType="void" visibility="public"/>
-        <Method name="findByRoleName" returnType="String" visibility="public">
+        <Method name="findByRoleName" returnType="List&lt;User&gt;" visibility="public">
           <Argument type="String" name="rolename"/>
         </Method>
-        <Method name="findByNames" returnType="String" visibility="public">
+        <Method name="findByNames" returnType="List&lt;User&gt;" visibility="public">
           <Argument type="String" name="firstName"/>
           <Argument type="String" name="secondName"/>
         </Method>
-        <Method name="findByUsername" returnType="String" visibility="public">
+        <Method name="findByUsername" returnType="User" visibility="public">
           <Argument type="String" name="username"/>
         </Method>
       </Methods>
     </Interface>
-    <Interface name="RoleDAO" package="org.solent.com504.project.model.dao" visibility="public" xPosition="1598.0" yPosition="391.0">
+    <Interface name="RoleDAO" package="org.solent.com504.project.model.dao" visibility="public" xPosition="1598.0" yPosition="390.0">
       <Methods>
-        <Method name="findById" returnType="Long" visibility="public">
+        <Method name="findById" returnType="Role" visibility="public">
           <Argument type="Long" name="id"/>
         </Method>
         <Method name="save" returnType="Role" visibility="public">
           <Argument type="Role" name="role"/>
         </Method>
-        <Method name="deleteById" returnType="long" visibility="public">
+        <Method name="deleteById" returnType="void" visibility="public">
           <Argument type="long" name="id"/>
         </Method>
-        <Method name="delete" returnType="Role" visibility="public">
+        <Method name="delete" returnType="void" visibility="public">
           <Argument type="Role" name="role"/>
         </Method>
         <Method name="deleteAll" returnType="void" visibility="public"/>
-        <Method name="findByRoleName" returnType="String" visibility="public">
+        <Method name="findByRoleName" returnType="Role" visibility="public">
           <Argument type="String" name="rolename"/>
         </Method>
       </Methods>
     </Interface>
-    <Interface name="ChargingRecordDAO" package="org.solent.com504.project.model.dao" visibility="public" xPosition="2171.0" yPosition="381.0">
+    <Interface name="ChargingRecordDAO" package="org.solent.com504.project.model.dao" visibility="public" xPosition="2222.0" yPosition="381.0">
       <Methods>
-        <Method name="findById" returnType="Long" visibility="public">
+        <Method name="findById" returnType="ChargingRecord" visibility="public">
           <Argument type="Long" name="id"/>
         </Method>
-        <Method name="findByCar" returnType="String" visibility="public">
-          <Argument type="String" name="plateNumber"/>
+        <Method name="findByCar" returnType="ChargingRecord" visibility="public">
+          <Argument type="String" name="numberPlate"/>
         </Method>
         <Method name="save" returnType="ChargingRecord" visibility="public">
           <Argument type="ChargingRecord" name="cr"/>
         </Method>
-        <Method name="findAll" returnType="List&lt;ChargingRecord&gt;NumberPlate" visibility="public"/>
-        <Method name="deleteById" returnType="long" visibility="public">
+        <Method name="findAll" returnType="List&lt;ChargingRecord&gt;" visibility="public"/>
+        <Method name="deleteById" returnType="void" visibility="public">
           <Argument type="long" name="id"/>
         </Method>
-        <Method name="delete" returnType="ChargingRecord" visibility="public">
+        <Method name="delete" returnType="void" visibility="public">
           <Argument type="ChargingRecord" name="cr"/>
         </Method>
         <Method name="deleteAll" returnType="void" visibility="public"/>
-        <Method name="untitledMethod" returnType="void" visibility="public"/>
       </Methods>
     </Interface>
-    <Interface name="InvoiceDAO" package="org.solent.com504.project.model.dao" visibility="public" xPosition="1872.0" yPosition="381.0">
+    <Interface name="InvoiceDAO" package="org.solent.com504.project.model.dao" visibility="public" xPosition="1870.0" yPosition="381.0">
       <Methods>
-        <Method name="findById" returnType="Long" visibility="public">
+        <Method name="findById" returnType="Invoice" visibility="public">
           <Argument type="Long" name="id"/>
         </Method>
-        <Method name="save" returnType="Invoicel" visibility="public">
-          <Argument type="Invoice" name="invoicel"/>
+        <Method name="save" returnType="Invoice" visibility="public">
+          <Argument type="Invoice" name="invoice"/>
         </Method>
-        <Method name="deleteById" returnType="long" visibility="public">
+        <Method name="deleteById" returnType="void" visibility="public">
           <Argument type="long" name="id"/>
         </Method>
-        <Method name="delete" returnType="Invoice" visibility="public">
+        <Method name="delete" returnType="void" visibility="public">
           <Argument type="Invoice" name="invoice"/>
         </Method>
         <Method name="deleteAll" returnType="void" visibility="public"/>
-        <Method name="findPaidInvoicel" returnType="Boolean" visibility="public">
-          <Argument type="Date" name="paymentDate"/>
+        <Method name="findPaidInvoice" returnType="Invoice" visibility="public">
+          <Argument type="LocalDateTime" name="paymentDate"/>
         </Method>
         <Method name="findPartyInvoices" returnType="Set&lt;Invoice&gt;" visibility="public">
           <Argument type="Party" name="party"/>
         </Method>
       </Methods>
     </Interface>
-    <Interface name="CarDAO" package="org.solent.com504.project.model.dao" visibility="public" xPosition="1267.0" yPosition="391.0">
+    <Interface name="CarDAO" package="org.solent.com504.project.model.dao" visibility="public" xPosition="1272.0" yPosition="347.0">
       <Methods>
-        <Method name="findCarById" returnType="Long" visibility="public">
-          <Argument type="Long" name="id"/>
-        </Method>
-        <Method name="findCarByNumberPlate" returnType="String" visibility="public">
+        <Method name="findCarByNumberPlate" returnType="Car" visibility="public">
           <Argument type="String" name="numberPlate"/>
         </Method>
-        <Method name="findById" returnType="Long" visibility="public">
+        <Method name="findById" returnType="Car" visibility="public">
           <Argument type="Long" name="id"/>
         </Method>
         <Method name="save" returnType="Car" visibility="public">
           <Argument type="Car" name="car"/>
         </Method>
-        <Method name="deleteById" returnType="Long" visibility="public">
+        <Method name="deleteById" returnType="void" visibility="public">
           <Argument type="Long" name="id"/>
         </Method>
-        <Method name="delete" returnType="Car" visibility="public">
+        <Method name="delete" returnType="void" visibility="public">
           <Argument type="Car" name="car"/>
         </Method>
         <Method name="deleteAll" returnType="void" visibility="public"/>
@@ -306,26 +302,27 @@
     </Enum>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation name="usesPartyDAO" source="org.solent.com504.project.model.service.ServiceFacade" target="org.solent.com504.project.model.dao.PartyDAO" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="usesBill" source="org.solent.com504.project.model.dao.InvoiceDAO" target="org.solent.com504.project.model.dto.Invoice" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="usesRole" source="org.solent.com504.project.model.dao.RoleDAO" target="org.solent.com504.project.model.user.dto.Role" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="ViewController" source="org.solent.com504.project.model.web.ViewController" target="org.solent.com504.project.model.web.JSP_Pages_do_not_generate" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="userHasRoles" source="org.solent.com504.project.model.user.dto.User" target="org.solent.com504.project.model.user.dto.Role" sourceCardinality="1..1" targetCardinality="1..*"/>
-    <UseRelation name="roleHasUsers" source="org.solent.com504.project.model.user.dto.Role" target="org.solent.com504.project.model.user.dto.User" sourceCardinality="1..1" targetCardinality="0..*"/>
-    <HasRelation name="hasRole" source="org.solent.com504.project.model.dto.Party" target="org.solent.com504.project.model.dto.PartyRole" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="usesParty" source="org.solent.com504.project.model.dao.PartyDAO" target="org.solent.com504.project.model.dto.Party" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="hasStatus" source="org.solent.com504.project.model.dto.Party" target="org.solent.com504.project.model.dto.PartyStatus" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="userHasBank" source="org.solent.com504.project.model.user.dto.User" target="org.solent.com504.project.model.dto.Bank" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="hasAddress" source="org.solent.com504.project.model.dto.Party" target="org.solent.com504.project.model.dto.Address" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="usesCar" source="org.solent.com504.project.model.dao.CarDAO" target="org.solent.com504.project.model.dto.Car" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation name="usesChargingRecord" source="org.solent.com504.project.model.dao.ChargingRecordDAO" target="org.solent.com504.project.model.dto.ChargingRecord" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="usesServiceFacade" source="org.solent.com504.project.model.web.ViewController" target="org.solent.com504.project.model.service.ServiceFacade" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="hasBill" source="org.solent.com504.project.model.dto.ChargingRecord" target="org.solent.com504.project.model.dto.Invoice" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation name="restInteraceUsesReplyMessage" source="org.solent.com504.project.model.rest.RestService" target="org.solent.com504.project.model.dto.ReplyMessage" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="usesUser" source="UserDAO" target="org.solent.com504.project.model.user.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="useUserRoles" source="org.solent.com504.project.model.user.dto.Role" target="org.solent.com504.project.model.user.dto.UserRoles" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="usesBill" source="org.solent.com504.project.model.dao.InvoiceDAO" target="org.solent.com504.project.model.dto.Invoice" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="usesServiceFacade" source="org.solent.com504.project.model.web.ViewController" target="org.solent.com504.project.model.service.ServiceFacade" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="hasAddress" source="org.solent.com504.project.model.dto.Party" target="org.solent.com504.project.model.dto.Address" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <UseRelation name="uses" source="org.solent.com504.project.model.rest.RestClient" target="org.solent.com504.project.model.rest.RestService" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="hasRole" source="org.solent.com504.project.model.dto.Party" target="org.solent.com504.project.model.dto.PartyRole" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="userHasRoles" source="org.solent.com504.project.model.user.dto.User" target="org.solent.com504.project.model.user.dto.Role" sourceCardinality="1..1" targetCardinality="1..*"/>
+    <HasRelation name="userHasBank" source="org.solent.com504.project.model.user.dto.User" target="org.solent.com504.project.model.dto.Bank" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="usesPartyDAO" source="org.solent.com504.project.model.service.ServiceFacade" target="org.solent.com504.project.model.dao.PartyDAO" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation name="hasChargingRecord" source="org.solent.com504.project.model.dto.Invoice" target="org.solent.com504.project.model.dto.ChargingRecord" sourceCardinality="0..*" targetCardinality="0..1"/>
+    <UseRelation name="ViewController" source="org.solent.com504.project.model.web.ViewController" target="org.solent.com504.project.model.web.JSP_Pages_do_not_generate" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation name="usesServiceFacade" source="org.solent.com504.project.model.rest.RestService" target="org.solent.com504.project.model.service.ServiceFacade" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="useUserRoles" source="org.solent.com504.project.model.user.dto.Role" target="org.solent.com504.project.model.user.dto.UserRoles" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="usesCar" source="org.solent.com504.project.model.dao.CarDAO" target="org.solent.com504.project.model.dto.Car" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="hasStatus" source="org.solent.com504.project.model.dto.Party" target="org.solent.com504.project.model.dto.PartyStatus" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="hasCar" source="org.solent.com504.project.model.dto.Party" target="org.solent.com504.project.model.dto.Car" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <UseRelation name="usesUser" source="UserDAO" target="org.solent.com504.project.model.user.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="usesParty" source="org.solent.com504.project.model.dao.PartyDAO" target="org.solent.com504.project.model.dto.Party" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="roleHasUsers" source="org.solent.com504.project.model.user.dto.Role" target="org.solent.com504.project.model.user.dto.User" sourceCardinality="1..1" targetCardinality="0..*"/>
+    <UseRelation name="hasBill" source="org.solent.com504.project.model.dto.ChargingRecord" target="org.solent.com504.project.model.dto.Invoice" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="usesRole" source="org.solent.com504.project.model.dao.RoleDAO" target="org.solent.com504.project.model.user.dto.Role" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
