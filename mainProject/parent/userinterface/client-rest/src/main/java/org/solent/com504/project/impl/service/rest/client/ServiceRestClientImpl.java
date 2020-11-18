@@ -25,6 +25,7 @@ import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.dto.ReplyMessage;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.service.ServiceFacade;
+import org.solent.com504.project.model.user.dto.Invoice;
 
 /**
  *
@@ -71,6 +72,16 @@ public class ServiceRestClientImpl implements ServiceFacade {
 
     @Override
     public List<Party> findByPartyRole(PartyRole partyRole) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Invoice findInvoice(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Invoice saveInvoice(Invoice invoice) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

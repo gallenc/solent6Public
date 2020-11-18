@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.solent.com504.project.model.user.dto.Car;
+import org.solent.com504.project.model.user.dto.Invoice;
 import org.solent.com504.project.model.user.dto.User;
 
 @XmlRootElement
@@ -55,6 +56,11 @@ public class Party {
     @XmlElement(name = "car")
     private Set<Car> cars = new HashSet();
 
+    @XmlElementWrapper(name = "invoices")
+    @XmlElement(name = "invoice")
+    private Set<Invoice> invoices = new HashSet();
+
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
@@ -145,8 +151,7 @@ public class Party {
         user.getParties().remove(this);
     }
     
-    //many to many relationship between party and cars
-    //many parties can have many cars ? -rui
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "car_party", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
     public Set<Car> getCars() {
@@ -157,18 +162,16 @@ public class Party {
         this.cars = cars;
     }
     
-    // note ad remove depend upon identity
-    public void addCar(Car car){
-        this.cars.add(car);
-        car.getCars().add(this);
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "invoice_party", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+    public Set<Invoice> getInvoices() {
+        return invoices;
     }
-    
-    public void removeCar(Car car){
-        this.cars.remove(car);
-        car.getCars().remove(this);
-    }
-    
 
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
+    }    
+    
     @Override
     public String toString() {
         return "Party{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", partyRole=" + partyRole + ", address=" + address + ", partyStatus=" + partyStatus + ", uuid=" + uuid + ", enabled=" + enabled + '}';

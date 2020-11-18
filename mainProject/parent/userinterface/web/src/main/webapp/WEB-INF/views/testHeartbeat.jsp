@@ -1,3 +1,4 @@
+<%@page import="org.solent.com504.project.model.user.dto.Invoice"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -49,6 +50,8 @@
         <p>The time is: <%= new Date().toString()%> (note page is auto refreshed every 20 seconds)</p>
 
         <p>Getting heartbeat message: <%= serviceFacade.getHeartbeat()%> (note message is auto refreshed every 20 seconds)</p>
+        
+        <p> <%= serviceFacade.findInvoice(50L).toString() %> </p>
 
     </body>
 </html>

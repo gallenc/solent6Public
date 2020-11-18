@@ -10,9 +10,11 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.project.impl.dao.party.springdata.PartyRepository;
+import org.solent.com504.project.impl.dao.user.springdata.InvoiceRepository;
 import org.solent.com504.project.impl.dao.user.springdata.RoleRepository;
 import org.solent.com504.project.impl.dao.user.springdata.UserRepository;
 import org.solent.com504.project.model.party.dto.Party;
+import org.solent.com504.project.model.user.dto.Invoice;
 import org.solent.com504.project.model.user.dto.Role;
 import org.solent.com504.project.model.user.dto.User;
 import org.solent.com504.project.model.user.dto.UserRoles;
@@ -32,6 +34,8 @@ public class DBInitialise {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private InvoiceRepository invoiceRepository;
 
 
     @Autowired
@@ -101,6 +105,13 @@ public class DBInitialise {
             party = partyRepository.saveAndFlush(party);
             LOG.debug("added party to database:" + party);
 
+        }
+        
+        if(invoiceRepository.findAll().isEmpty()){
+        Invoice invoice = new Invoice();
+        invoice.setAmmount(20.0);
+        invoice.setId(50L);
+        invoiceRepository.save(invoice);
         }
 
     }

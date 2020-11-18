@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.solent.com504.project.model.user.dto;
 
 import java.time.LocalDateTime;
@@ -33,7 +28,7 @@ import org.solent.com504.project.model.party.dto.Party;
 public class Invoice {
     
     private Long id;
-    private Party party;
+//    private Party party;
     private LocalDateTime issueDate;
     private LocalDateTime paidDate;
     private Double amount;
@@ -42,6 +37,10 @@ public class Invoice {
     @XmlElement(name = "chargingRecord")
     private Set<ChargingRecord> chargingRecord = new HashSet<ChargingRecord>();
 
+    @XmlElementWrapper(name = "parties")
+    @XmlElement(name = "party")
+    private Set<Party> party = new HashSet<>();
+        
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -52,13 +51,13 @@ public class Invoice {
         this.id = id;
     }
 
-    public Party getParty() {
-        return party;
-    }
-
-    public void setParty(Party party) {
-        this.party = party;
-    }
+//    public Party getParty() {
+//        return party;
+//    }
+//
+//    public void setParty(Party party) {
+//        this.party = party;
+//    }
 
     public LocalDateTime getIssueDate() {
         return issueDate;
@@ -81,7 +80,7 @@ public class Invoice {
     }
 
     public void setAmmount(Double ammount) {
-        this.amount = amount;
+        this.amount = ammount;
     }
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -94,6 +93,16 @@ public class Invoice {
         this.chargingRecord = chargingRecord;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "invoice_party", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+    public Set<Party> getParties() {
+        return party;
+    }
+
+    public void setParties(Set<Party> parties) {
+        this.party = parties;
+    }
+    
     @Override
     public String toString() {
         return "Invoice{" + "id=" + id + ", party=" + party + ", issueDate=" + issueDate + ", paidDate=" + paidDate + ", ammount=" + amount + ", chargingRecord=" + chargingRecord + '}';

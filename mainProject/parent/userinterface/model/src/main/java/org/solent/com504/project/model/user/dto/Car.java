@@ -5,6 +5,7 @@
  */
 package org.solent.com504.project.model.user.dto;
 
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -67,9 +70,8 @@ public class Car {
     }
     
     // parties owns the relationship
-    @ManyToMany(mappedBy = "cars", fetch = FetchType.EAGER)
-//   @ManyToMany(fetch = FetchType.EAGER,  cascade={CascadeType.PERSIST, CascadeType.MERGE} )
-//    @JoinTable(name = "user_party", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "car_party", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
     public Set<Party> getCars() {
         return parties;
     }
