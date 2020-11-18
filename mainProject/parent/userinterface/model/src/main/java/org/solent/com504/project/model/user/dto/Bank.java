@@ -26,20 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Embeddable
 public class Bank {
     
-    private Long id;
     private String cardNumber;
     private String sortCode;
     private int cvv;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCardNumber() {
         return cardNumber;
@@ -67,6 +57,6 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank{" + "id=" + id + ", cardNumber=" + cardNumber + ", sortCode=" + sortCode + ", cvv=" + cvv + '}';
+        return "Bank{" + " cardNumber=" + cardNumber + ", sortCode=" + sortCode + ", cvv=" + cvv + '}';
     }        
 }

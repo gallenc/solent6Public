@@ -143,7 +143,7 @@ public class ModelJaxbTest {
             throw new RuntimeException("problem testing jaxb marshalling", e);
         }
     }
-    
+    /*
     @Test
     public void createBank()
     {
@@ -154,4 +154,5 @@ public class ModelJaxbTest {
         
         LOG.debug("bank object:" + b.getCardNumber() + b.getCvv() + b.getSortCode());
     }
+    */
 }
