@@ -44,10 +44,38 @@ http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
         <constructor-arg ref="connectionFactory"/>
     </bean>
     
-    <jms:listener-container concurrency="1" >
+    <bean id="destinationIn" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="Test.Input"/>
+    </bean>
+    
+    <bean id="destinationOut" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="Test.Output"/>
+    </bean>
+    
+    <bean id="inputListener" class="org.solent.devops.message.jms.SimpleJmsListener">
+        <property name="destination" value="Test.Input" />
+    </bean>
+    
+    <bean id="outputListener" class="org.solent.devops.message.jms.SimpleJmsListener">
+        <property name="destination" value="Test.Output" />
+    </bean>
+    
+    <bean id="jmsContainerIn" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="destinationIn"/>
+        <property name="messageListener" ref="inputListener"/>
+    </bean> 
+    
+    <bean id="jmsContainerOut" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="destinationOut"/>
+        <property name="messageListener" ref="outputListener"/>
+    </bean> 
+    
+    <!--<jms:listener-container concurrency="1" >
         <jms:listener id="inputListener" destination="Test.Input" ref="simpleJmsListener" />
-        <jms:listener id="outputListener" destination="Test.Output" ref="simpleJmsListener" />
-    </jms:listener-container>
+        <jms:listener id="outputListener" destination="Test.Output" ref="simpleJmsListener" /> TODO: Change queue to topic
+    </jms:listener-container>-->
     
     <!--sets up activemq broker only for tests -->
     <!-- see http://activemq.apache.org/spring-support.html -->

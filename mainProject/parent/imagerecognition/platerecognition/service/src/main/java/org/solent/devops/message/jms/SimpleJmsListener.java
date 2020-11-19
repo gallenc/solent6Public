@@ -7,6 +7,8 @@ import javax.jms.TextMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 //import org.solent.devops.message.jms.JSONMessage;
 
@@ -17,7 +19,7 @@ public class SimpleJmsListener implements MessageListener {
 
     @Autowired
     SimpleJmsSender sender;
-    
+
     String destination;
     
     private String lastMessage;
@@ -29,8 +31,9 @@ public class SimpleJmsListener implements MessageListener {
             try {
                 String text = textMessage.getText();
                 setLastMessage(text);
+                LOG.info(destination);
                 LOG.info(this.toString() + " received a JMS message: " + text);
-                //sender.send(destination, text);
+                sender.send(destination, text);
                 
                 //JSONMessage json;
 
@@ -46,5 +49,13 @@ public class SimpleJmsListener implements MessageListener {
     
     private void setLastMessage(String message) {
         this.lastMessage = message;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 }
