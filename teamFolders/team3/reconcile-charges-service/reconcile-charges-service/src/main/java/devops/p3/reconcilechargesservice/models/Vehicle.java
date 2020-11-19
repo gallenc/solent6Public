@@ -7,15 +7,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Vehicle {
+public class Vehicle implements Serializable {
 
     @Id
+    @JsonProperty("uuid")
     private String uuid;
+    @JsonProperty("cameraId")
     private String cameraId;
+    @JsonProperty("timestamp")
     private String timestamp;
+    @JsonProperty("numberplate")
     private String numberplate;
+    @JsonProperty("photo")
     private String photo;
 
     protected Vehicle() {

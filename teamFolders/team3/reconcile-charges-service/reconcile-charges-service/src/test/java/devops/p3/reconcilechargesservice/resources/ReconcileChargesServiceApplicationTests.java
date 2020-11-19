@@ -1,23 +1,17 @@
 package devops.p3.reconcilechargesservice.resources;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import devops.p3.reconcilechargesservice.ReconcileChargesServiceApplication;
 import devops.p3.reconcilechargesservice.models.Vehicle;
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.broker.TransportConnector;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsTemplate;
-
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
 
 
 @SpringBootTest
@@ -50,7 +44,9 @@ class ReconcileChargesServiceApplicationTests {
 				"PP587AO",
 				"");
 		String testVehicleJson = TestVehicle.toJsonString();
-		sender.send(testVehicleJson);
+		ObjectMapper mapper = new ObjectMapper();
+		Vehicle JsonVehicle = mapper.readValue(testVehicleJson, Vehicle.class);
+		sender.send(JsonVehicle.toJsonString());
 
 		receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
 		assertThat(receiver.getLatch().getCount()).isEqualTo(0);

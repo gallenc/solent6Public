@@ -26,6 +26,14 @@ public class VehicleRepositoryTest {
     @Autowired
     private EntityManager entityManager;
 
+    private Vehicle TestVehicle = new Vehicle(
+            "123e4567-e89b-12d3-a456-556642440000",
+            "1",
+            "2020-11-05T17:24:30.000+00:00",
+            "PP587AO",
+            "");
+    private String testVehicleJson = TestVehicle.toJsonString();
+
     @Test
     void injectedComponentsAreNotNull() {
         assertThat(entityManager).isNotNull();
