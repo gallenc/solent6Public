@@ -19,7 +19,9 @@
 
     // accessing service 
     ServiceFacade serviceFacade = (ServiceFacade) request.getAttribute("serviceFacade");
-
+    Invoice invoice = new Invoice();
+    invoice.setAmmount(20.0);
+    serviceFacade.saveInvoice(invoice);
     // accessing request parameters
     String actionStr = request.getParameter("action");
 
@@ -51,7 +53,7 @@
 
         <p>Getting heartbeat message: <%= serviceFacade.getHeartbeat()%> (note message is auto refreshed every 20 seconds)</p>
         
-        <p> <%= serviceFacade.findInvoice(50L).toString() %> </p>
+        <p> <%= serviceFacade.findInvoice(invoice.getId()).toString() %> </p>
 
     </body>
 </html>
