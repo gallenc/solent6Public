@@ -81,6 +81,10 @@
         <constructor-arg ref="connectionFactory"/>
     </bean>
 
+    <bean id="simpleJmsListener" class="org.solent.devops.message.jms.SimpleJmsListener">
+        <property name="destination" value="p2imagerecognition" />
+    </bean>
+
     <!--listener container definition using the jms namespace, concurrency is the max number of concurrent listeners that can be started -->
     <jms:listener-container concurrency="3" >
         <jms:listener id="simpleJmsListener1" destination="p1ReceiveImages" ref="simpleJmsListener"/>

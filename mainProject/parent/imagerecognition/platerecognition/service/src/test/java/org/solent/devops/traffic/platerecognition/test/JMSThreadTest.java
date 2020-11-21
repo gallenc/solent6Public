@@ -5,6 +5,7 @@
  */
 package org.solent.devops.traffic.platerecognition.test;
 
+import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -34,15 +35,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"/appconfig-service-test.xml"})
 public class JMSThreadTest {
     
+    
+    
     @Autowired
     private SimpleJmsSender sender;
 
+    
+    
     @Test
     public void test() throws Exception {
+        // Message in to system
         sender.send("Test.Input", "foo");
-        TestConfig.latch.await(10, TimeUnit.SECONDS);
-        ActiveMQTextMessage response = (ActiveMQTextMessage) TestConfig.received;
-        assertEquals("foo",response.getText());
+        
+        for (int i = 0; i < 2; i++) {
+            TestConfig.latch.await(10, TimeUnit.SECONDS);
+            String[] response = (String[]) TestConfig.received;
+            if ("Test.Output".equals(response[0])) {
+                System.out.println("Response from Test.Input");
+                assertEquals("foo",response[1]);
+            } else if ("None".equals(response[0])) {
+                System.out.println("Response from Test.Output");
+                assertEquals("foo processed",response[1]);
+            }
+        }
     }
 
     @Configuration
@@ -64,8 +79,12 @@ public class JMSThreadTest {
                             @Override
                             public Object invoke(MethodInvocation invocation) throws Throwable {
                                 Object result = invocation.proceed();
+                                String dest = ((SimpleJmsListener) bean).getDestination();
                                 if (invocation.getMethod().getName().equals("onMessage")) {
-                                    received = invocation.getArguments()[0];
+                                    System.out.println("Proxy invoked from " + dest + " onMessage()");
+                                    ActiveMQTextMessage response = (ActiveMQTextMessage) invocation.getArguments()[0];
+                                    String[] results = {dest, response.getText()};
+                                    received = results;
                                     latch.countDown();
                                 }
                                 return result;
