@@ -54,6 +54,7 @@
         <module>chargereconciler</module>
         <module>userinterface</module>
         <module>itegrationtesting</module>
+        <module>imagecapture/Camera/MQTTSenderExample</module>
     </modules>
 
     <build>
