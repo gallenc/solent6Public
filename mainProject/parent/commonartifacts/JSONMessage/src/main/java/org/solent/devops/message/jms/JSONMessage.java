@@ -22,6 +22,10 @@ import java.util.TimeZone;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
+/**
+ *
+ * @author Emma
+ */
 public class JSONMessage {
 
     private String uuid;
@@ -30,6 +34,17 @@ public class JSONMessage {
     private String numberplate;
     private String photo;
 
+    /**
+     *
+     * @param uuid
+     * @param cameraId
+     * @param timestamp
+     * @param numberplate
+     * @param photo
+     * <p> 
+     * Object Constructor 
+     * </p>
+     */
     public JSONMessage(String uuid, int cameraId, Date timestamp, String numberplate, String photo) {
         this.uuid = uuid;
         this.cameraId = cameraId;
@@ -38,10 +53,23 @@ public class JSONMessage {
         this.photo = photo;
     }
 
+    /**
+     *<p> 
+     * Object Constructor 
+     * </p>
+     */
     public JSONMessage() {
 
     }
 
+    /**
+     * <p>Converts JSON Message Object to a JSON string and returns the string.
+     * Uses the ObjectMapper, converts the time into the correct ISO format.
+     * Writes the converted time to the object and returns the entire object as a JSON String.
+     * </p>
+     * @return String containing the JSON Object
+     * @throws JsonProcessingException
+     */
     public String toJson() throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -51,46 +79,96 @@ public class JSONMessage {
         return om.writeValueAsString(this);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUuid() {
         return uuid;
     }
 
+    /**
+     *
+     * @param uuid
+     */
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCameraId() {
         return cameraId;
     }
 
+    /**
+     *
+     * @param cameraId
+     */
     public void setCameraId(int cameraId) {
         this.cameraId = cameraId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getTimestamp() {
         return timestamp;
     }
 
+    /**
+     *
+     * @param timestamp
+     */
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNumberplate() {
         return numberplate;
     }
 
+    /**
+     *
+     * @param numberplate
+     */
     public void setNumberplate(String numberplate) {
         this.numberplate = numberplate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPhoto() {
         return photo;
     }
 
+    /**
+     *
+     * @param photo
+     */
     public void setPhoto(String photo) {
         this.photo = photo;
     }
 
+    /**
+     *<p> 
+     * Creates an empty buffered image.
+     * Gets the string of the photo within the JSONMessage Object and stores it in a variable.
+     * Creates a byte array that contains the string of the photo that has been converted into base64.
+     * Creates a new input string and the byte array is put into the input stream.
+     * Converts the Inputstream into an image and returns it.
+     * </p>
+     * @return BufferedImage Containing the numberplate image
+     */
     public BufferedImage imageFromString() {
         BufferedImage image = null;
         try {
@@ -106,6 +184,16 @@ public class JSONMessage {
         }
     }
 
+    /**
+     *<p>
+     * Takes in a parameter of a buffered image.
+     * Creates a new ByteArrayOutputStream.
+     * Writes the image to a string.
+     * Sets the photo of the object to the string created. 
+     * 
+     * </p>
+     * @param image
+     */
     public void convertImageToString(BufferedImage image) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         try {
@@ -118,6 +206,10 @@ public class JSONMessage {
         this.photo = data;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "CarInfo{" + "uuid=" + uuid + ", CameraID=" + cameraId + ", Timestamp=" + timestamp + ", Numberplate=" + numberplate + ", Photo=" + photo + "}";
