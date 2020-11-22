@@ -34,38 +34,36 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/appconfig-service-test.xml"})
 public class JMSThreadTest {
-    
-    
-    
+
     @Autowired
     private SimpleJmsSender sender;
 
-    
-    
     @Test
     public void test() throws Exception {
         // Message in to system
         sender.send("Test.Input", "foo");
-        
-        for (int i = 0; i < 2; i++) {
-            TestConfig.latch.await(10, TimeUnit.SECONDS);
-            String[] response = (String[]) TestConfig.received;
-            if ("Test.Output".equals(response[0])) {
-                System.out.println("Response from Test.Input");
-                assertEquals("foo",response[1]);
-            } else if ("None".equals(response[0])) {
-                System.out.println("Response from Test.Output");
-                assertEquals("foo processed",response[1]);
-            }
-        }
+
+        String response;
+
+        // Latch test continues as soon as a response is received
+        // If no response after 10 seconds the test will fail
+        TestConfig.inputListenerLatch.await(10, TimeUnit.SECONDS);
+        response = TestConfig.inputListenerReceived;
+        assertEquals("foo", response);
+
+        TestConfig.outputListenerLatch.await(10, TimeUnit.SECONDS);
+        response = TestConfig.outputListenerReceived;
+        assertEquals("foo processed", response);
     }
 
     @Configuration
     public static class TestConfig {
 
-        private static final CountDownLatch latch = new CountDownLatch(1);
+        private static final CountDownLatch inputListenerLatch = new CountDownLatch(1);
+        private static final CountDownLatch outputListenerLatch = new CountDownLatch(1);
 
-        private static Object received;
+        private static String inputListenerReceived;
+        private static String outputListenerReceived;
 
         @Bean
         public static BeanPostProcessor listenerWrapper() {
@@ -79,13 +77,23 @@ public class JMSThreadTest {
                             @Override
                             public Object invoke(MethodInvocation invocation) throws Throwable {
                                 Object result = invocation.proceed();
+                                
+                                // Destination is used to differentiate between the input and output listeners
                                 String dest = ((SimpleJmsListener) bean).getDestination();
+                                
                                 if (invocation.getMethod().getName().equals("onMessage")) {
+                                    // This is misleading as "dest" is *not* the current listeners location
                                     System.out.println("Proxy invoked from " + dest + " onMessage()");
+                                    
                                     ActiveMQTextMessage response = (ActiveMQTextMessage) invocation.getArguments()[0];
-                                    String[] results = {dest, response.getText()};
-                                    received = results;
-                                    latch.countDown();
+                                    String text = response.getText();
+                                    if ("Test.Output".equals(dest)) {
+                                        inputListenerReceived = text;
+                                        inputListenerLatch.countDown();
+                                    } else if ("None".equals(dest)) {
+                                        outputListenerReceived = text;
+                                        outputListenerLatch.countDown();
+                                    }
                                 }
                                 return result;
                             }
@@ -94,14 +102,12 @@ public class JMSThreadTest {
                         if (AopUtils.isAopProxy(bean)) {
                             ((Advised) bean).addAdvice(interceptor);
                             return bean;
-                        }
-                        else {
+                        } else {
                             ProxyFactory proxyFactory = new ProxyFactory(bean);
                             proxyFactory.addAdvice(interceptor);
                             return proxyFactory.getProxy();
                         }
-                    }
-                    else {
+                    } else {
                         return bean;
                     }
                 }
