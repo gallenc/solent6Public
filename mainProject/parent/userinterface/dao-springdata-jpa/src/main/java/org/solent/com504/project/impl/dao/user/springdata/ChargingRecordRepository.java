@@ -5,22 +5,16 @@
  */
 package org.solent.com504.project.impl.dao.user.springdata;
 
-/**
- *
- * @author joao-
- */
-
-
-import java.time.LocalDateTime;
-import org.solent.com504.project.model.user.dto.Invoice;
+import org.solent.com504.project.model.user.dto.ChargingRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
-
-    @Query("select i from Invoice i where i.paidDate = :paidDate")
-    public Invoice findPaidInvoice(@Param("paidDate") LocalDateTime paidDate);
-
-}
+/**
+ *
+ * @author joao-
+ */
+public interface ChargingRecordRepository  extends JpaRepository<ChargingRecord, Long> {
+ 
     
+}
