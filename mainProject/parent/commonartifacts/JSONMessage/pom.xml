@@ -25,12 +25,20 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
+<<<<<<< HEAD
         <dependency>
+=======
+	<dependency>
+>>>>>>> cae35116cfcfa6a3fd2e79d3814cb272b3da9816
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.4.0-b180830.0359</version>
             <type>jar</type>
+<<<<<<< HEAD
         </dependency>
+=======
+	</dependency>
+>>>>>>> cae35116cfcfa6a3fd2e79d3814cb272b3da9816
     </dependencies>
     <name>JSONMessage</name>
 </project>

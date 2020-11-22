@@ -21,7 +21,7 @@ public class SimpleJmsSender {
     }
 
     public void send(String queue, final String message) {
-        LOG.debug("jms sending to queue :"+queue+" "+message);
-        jmsTemplate.convertAndSend( queue , message);
+        LOG.debug(this.toString() + " sending to queue: '" + queue + "', '" + message + "'");
+        jmsTemplate.convertAndSend(queue , message);
     }
 }

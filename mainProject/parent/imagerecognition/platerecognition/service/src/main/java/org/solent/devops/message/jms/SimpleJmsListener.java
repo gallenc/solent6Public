@@ -30,25 +30,24 @@ public class SimpleJmsListener implements MessageListener {
             final TextMessage textMessage = (TextMessage) message;
             try {
                 String text = textMessage.getText();
-                setLastMessage(text);
-                LOG.info(destination);
-                LOG.info(this.toString() + " received a JMS message: " + text);
-                sender.send(destination, text);
                 
+                if (text == null || text.isEmpty()) {
+                    LOG.warn(this.toString() +
+                            " received a JMS message with no text content.");
+                } else {
+                    LOG.info(this.toString() + " received a JMS message: '" + text + "'");
+                }
+                
+                if (!destination.equals("None")) {
+                    LOG.info(this.toString() + " processing and forwarding to: '" + destination + "'");
+                    sender.send(destination, text + " processed");
+                }
                 //JSONMessage json;
 
             } catch (final JMSException e) {
                 LOG.error(this.toString() + " had a problem receiving a JMS message", e);
             }
         }
-    }
-    
-    public String getLastMessage() {
-        return lastMessage;
-    }
-    
-    private void setLastMessage(String message) {
-        this.lastMessage = message;
     }
 
     public String getDestination() {

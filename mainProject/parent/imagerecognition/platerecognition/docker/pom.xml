@@ -35,21 +35,27 @@
             </plugin>
         
             <!-- you could also look at the maven docker plugin here -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
+            <plugin>                
+		<groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
-
+                
                 <executions>
                     <execution>
-                        <id>Building Docker Image</id>
-                        <phase>package</phase>
+                        <id>docker-build</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>bash</executable>
-                            <commandlineArgs>buildDockerImage.sh</commandlineArgs>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>build</argument>
+                                <argument>-t</argument>
+                                <argument>${project.artifactId}:${project.version}</argument>
+                                <argument>.</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>

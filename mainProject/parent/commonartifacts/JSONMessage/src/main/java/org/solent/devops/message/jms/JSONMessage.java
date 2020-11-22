@@ -186,10 +186,11 @@ public class JSONMessage {
 
     /**
      *<p>
-     * Takes in a parameter of a buffered image.
-     * Creates a new ByteArrayOutputStream.
-     * Writes the image to a string.
-     * Sets the photo of the object to the string created. 
+     * Takes the actual image and uses ImageIO and DatatypeConverter to turn it
+     * into a base64 string that can be used in the JSON.
+     * ImageIO.write takes the raw image data and turns it into a stream of bytes.
+     * The stream is turned into an array. 
+     * DatatypeConverter turns each byte in the array into the corresponding ASCII. 
      * 
      * </p>
      * @param image
