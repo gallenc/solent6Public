@@ -51,12 +51,12 @@
                         <ul class="nav navbar-nav">
 
                             <!-- this jstl should work but problems with multiple if statements -->
-                            <!-- selected page = ${selectedPage} home ${'home'.equals(selectedPage) } about ${'about'.equals(selectedPage) } contact ${'contact'.equals(selectedPage) }-->
+                            <!-- selected page = ${selectedPage} home ${'home'.equals(selectedPage) } billing ${'billing'.equals(selectedPage) } contact ${'contact'.equals(selectedPage) }-->
                             <!--<li <c:if test="${'home'.equals(selectedPage) }"> class="active"  </c:if> ><a href="${contextPath}/home">Home</a></li>--> 
 
                                 <!-- this raw java code works !! -->
                                 <li <% if ("home".equals(request.getAttribute("selectedPage"))) {%> class="active"  <% } %> ><a href="${contextPath}/home">Home</a></li> 
-                            <li <% if ("about".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% } %> ><a href="${contextPath}/about">About</a></li> 
+                            <li <% if ("billing".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% } %> ><a href="${contextPath}/billing">Billing</a></li> 
                             <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/contact">Contact</a></li>                          
 
                             <sec:authorize access="hasRole('ROLE_GLOBAL_ADMIN')">

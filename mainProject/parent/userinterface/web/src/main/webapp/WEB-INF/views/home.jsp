@@ -11,7 +11,56 @@
 
 <!-- Begin page content -->
 <main role="main" class="container">
-    <H1>Home</H1>
+    <H1>Home</H1> <br>
+
+    <div>
+        <h1>Car List</h1>
+        <p>showing ${userListSize} cars </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Number Plate</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="user" items="${userList}">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.firstName}</td>
+                        <td>${user.secondName}</td>
+                        <td>
+                            <form action="./viewModifyUser" method="get">
+                                <input type="hidden" name="username" value="${user.username}">
+                                <button class="btn" type="submit" >Add Car</button>
+                            </form> 
+                        </td>
+                    </tr>
+                </c:forEach>
+
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h1>Modify Cars</h1>
+    <tbody>
+        <tr>
+            <td>Model</td>
+            <td><input type="text" name="firstName" value="${user.firstName}" /></td>
+        </tr>
+        <tr>
+            <td>Number Plate</td>
+            <td><input type="text" name="secondName" value="${user.secondName}" /></td>
+        </tr>
+    </tbody>
+    <p>
+    <form action="./viewModifyUser" method="get">
+        <input type="hidden" name="username" value="${user.username}">
+        <button class="btn" type="submit" >Add Car</button>
+    </form> 
 </main>
 
 <jsp:include page="footer.jsp" />
