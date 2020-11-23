@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * @author cgallen
- */
+
 @Service
 @Transactional
 public class PartyServiceImpl implements PartyService {
@@ -74,6 +71,11 @@ public class PartyServiceImpl implements PartyService {
     @Override
     public List<PartyRole> getAvailablePartyRoles() {
         return Arrays.asList(PartyRole.values());
+    }
+
+    @Override
+    public Party findByNumberPlate(String numberPlate) {
+        return partyDao.findByNumberPlate(numberPlate);
     }
 
 }

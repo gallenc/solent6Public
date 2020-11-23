@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.solent.com504.project.model.user.dto.Bank;
 import org.solent.com504.project.model.user.dto.Car;
 import org.solent.com504.project.model.user.dto.Invoice;
 import org.solent.com504.project.model.user.dto.User;
@@ -35,6 +36,8 @@ public class Party {
     private String firstName;
 
     private String secondName;
+    
+    private Bank bank = new Bank();
 
     private PartyRole partyRole = PartyRole.UNDEFINED;
 
@@ -85,6 +88,14 @@ public class Party {
 
     public void setSecondName(String secondName) {
         this.secondName = secondName;
+    }
+    
+    @Embedded
+    public Bank getBank(){
+        return bank;
+    }
+    public void setBank(Bank bank){
+        this.bank = bank;
     }
 
     public PartyRole getPartyRole() {

@@ -70,6 +70,15 @@ public class PartyDAOImplSpring implements PartyDAO {
         if (parties.isEmpty()) return null;
         return parties.get(0);
     }
+
+    @Override
+    public Party findByNumberPlate(String numberPlate) {
+        return partyRepository.findByPlateNumber(numberPlate);
+        
+//        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
     
     
 }

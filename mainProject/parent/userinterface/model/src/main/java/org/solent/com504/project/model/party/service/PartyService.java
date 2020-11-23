@@ -35,4 +35,6 @@ public interface PartyService {
     
     public List<PartyRole> getAvailablePartyRoles();
     
+    public Party findByNumberPlate(String numberPlate);
+    
 }
