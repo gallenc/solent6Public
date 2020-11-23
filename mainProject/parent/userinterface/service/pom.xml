@@ -11,6 +11,29 @@
     <artifactId>userinterface-service</artifactId>
     <name>userinterface-service</name>
     <packaging>jar</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- you can use environment properties or systemproperties -->
+                    <systemPropertyVariables>
+                        <!-- used to locate test database in target directory and not system temp location -->
+                        <java.io.tmpdir>${basedir}/target/tmp</java.io.tmpdir>
+
+                        <APPLICATION_PROPERTIES_FILE>${basedir}/src/test/resources/system.properties</APPLICATION_PROPERTIES_FILE>
+                    </systemPropertyVariables>
+             
+                    <environmentVariables>
+                        <APPLICATION_PROPERTIES_FILE>${basedir}/src/test/resources/system.properties</APPLICATION_PROPERTIES_FILE>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+    </build>
     
     <dependencies>
 
