@@ -1,4 +1,4 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
@@ -16,25 +16,26 @@
         http://www.springframework.org/schema/data/jpa
         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/security
-	https://www.springframework.org/schema/security/spring-security.xsd">
+	https://www.springframework.org/schema/security/spring-security.xsd
+        ">
 
     <!-- Scans for components that will be auto-registered as Spring beans -->
     <context:component-scan base-package="org.solent.com504.project.impl.service,
                 org.solent.com504.project.impl.user.service, 
                 org.solent.com504.project.impl.dao,
-                org.solent.com504.project.impl.party.service" />
+                org.solent.com504.project.impl.party.service,
+                org.solent.com504.project.impl.dao.chargingrecord.dao,
+                org.solent.com504.project.impl.dao.chargingrecord.service" />
 
     <!-- Scans for repositories that will be auto-registered -->
     <jpa:repositories base-package="org.solent.com504.project.impl.dao.user.springdata,
                  org.solent.com504.project.impl.dao.party.springdata,
-                 org.solent.com504.project.impl.dao.springdata" />
+                 org.solent.com504.project.impl.dao.springdata,
+                 org.solent.com504.project.impl.dao.chargingrecord.springdata" />
     <!-- Activates various annotations to be detected in bean classes e.g: @Autowired -->
     <context:annotation-config />
-    
-    <!-- this just activates and destroys a bean as an example -->
-    <bean id="helloWorld" class="org.solent.com504.project.impl.service.HelloWorld" init-method="init" destroy-method="destroy">
-        <property name="message" value="service applicationContext " />
-    </bean>
+
+    <!-- JPA Hibernate -->
 
     <!-- Datasource, that is currently hsqldb (in-memory database). -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -74,4 +75,3 @@
     </bean>
 
 </beans>
-

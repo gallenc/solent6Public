@@ -31,7 +31,11 @@
                 org.solent.com504.project.impl.user.service,
                 org.solent.com504.project.impl.party.service" />
     
-
+    
+    <!-- this just activates and destroys a bean as an example -->
+    <bean id="helloWorld" class="org.solent.com504.project.impl.service.HelloWorld" init-method="init" destroy-method="destroy">
+        <property name="message" value="service applicationContext " />
+    </bean>
 
 </beans>
 

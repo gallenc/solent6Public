@@ -5,6 +5,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -14,14 +15,23 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/data/jpa
         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/security
+	https://www.springframework.org/schema/security/spring-security.xsd
         ">
 
     <!-- Scans for components that will be auto-registered as Spring beans -->
-    <context:component-scan base-package="org.solent.com504.project.impl.dao" />
+    <context:component-scan base-package="org.solent.com504.project.impl.service,
+                org.solent.com504.project.impl.user.service, 
+                org.solent.com504.project.impl.dao,
+                org.solent.com504.project.impl.party.service,
+                org.solent.com504.project.impl.dao.chargingrecord.dao,
+                org.solent.com504.project.impl.dao.chargingrecord.service" />
+
     <!-- Scans for repositories that will be auto-registered -->
     <jpa:repositories base-package="org.solent.com504.project.impl.dao.user.springdata,
                  org.solent.com504.project.impl.dao.party.springdata,
-                 org.solent.com504.project.impl.dao.springdata" />
+                 org.solent.com504.project.impl.dao.springdata,
+                 org.solent.com504.project.impl.dao.chargingrecord.springdata" />
     <!-- Activates various annotations to be detected in bean classes e.g: @Autowired -->
     <context:annotation-config />
 
@@ -32,9 +42,12 @@
         <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
         
         <!-- this is or in memory database - no files created -->
-        <!-- <property name="url" value="jdbc:hsqldb:mem://productDb" />-->
+        <!--  <property name="url" value="jdbc:hsqldb:mem://productDb" />-->
         
-        <!-- this is for file based database created in target directory-->
+        <!-- this is for file based database created in target directory or tomcat temp -->
+        <!-- shutdown = true shuts down database when last connection is closed -->
+        <!-- an alternative is to use SHUTDOWN -->
+        <!-- see https://stackoverflow.com/questions/16201704/transactional-on-spring-shutdown-to-properly-shutdown-hsqldb -->
         <property name="url" value="jdbc:hsqldb:file:target/hsqldb/productDb" />
         
         <property name="username" value="sa" />

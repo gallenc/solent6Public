@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -25,6 +26,7 @@ import org.junit.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.Address;
@@ -49,7 +51,8 @@ public class ModelJaxbTest {
             jaxbContext = JAXBContext.newInstance(
                     "org.solent.com504.project.model.dto"
                     + ":org.solent.com504.project.model.user.dto"
-                    + ":org.solent.com504.project.model.party.dto");
+                    + ":org.solent.com504.project.model.party.dto"
+                    + ":org.solent.com504.project.model.chargingrecord.dto");
         } catch (JAXBException e) {
             throw new RuntimeException("problem creating jaxb context", e);
         }
@@ -137,6 +140,47 @@ public class ModelJaxbTest {
 
             User receiveduser = (User) jaxbUnMarshaller.unmarshal(stream);
             LOG.debug("receiveduser=" + receiveduser);
+
+        } catch (JAXBException e) {
+            throw new RuntimeException("problem testing jaxb marshalling", e);
+        }
+    }
+    
+       @Test
+    public void testChargingRecordModelJaxb() {
+        try {
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            // output pretty printed
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            // create objects to marshal
+            ChargingRecord  chargingRecord  = new  ChargingRecord() ;
+            chargingRecord.setCharge(1.1);
+            chargingRecord .setChargeRate(10.5);
+            String entryPhotoId = UUID.randomUUID().toString();
+            chargingRecord.setEntryPhotoId(entryPhotoId);
+            String entryLocation = "Southampton";
+            chargingRecord .setEntryLocation(entryLocation);
+            String exitLocation = "London";
+            chargingRecord.setExitLocation(exitLocation);
+            String exitPhotoId = UUID.randomUUID().toString();
+            chargingRecord .setExitPhotoId(exitPhotoId);
+            String numberPlate = "HAZ604";
+            chargingRecord.setNumberPlate(numberPlate);
+
+            // string writer is used to compare received object
+            StringWriter sw1 = new StringWriter();
+            jaxbMarshaller.marshal(chargingRecord, sw1);
+
+            LOG.debug("marshaled code" + sw1);
+
+            // having written the file we now read in the file for test
+            Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
+            InputStream stream = new ByteArrayInputStream(sw1.toString().getBytes(StandardCharsets.UTF_8));
+
+            ChargingRecord receivedChargingRecord = (ChargingRecord) jaxbUnMarshaller.unmarshal(stream);
+            LOG.debug("receivedChargingRecord=" + receivedChargingRecord);
 
         } catch (JAXBException e) {
             throw new RuntimeException("problem testing jaxb marshalling", e);
