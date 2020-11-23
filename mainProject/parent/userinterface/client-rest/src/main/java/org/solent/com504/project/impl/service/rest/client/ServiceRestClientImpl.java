@@ -25,6 +25,7 @@ import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.dto.ReplyMessage;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.service.ServiceFacade;
+import org.solent.com504.project.model.user.dto.ChargingRecord;
 import org.solent.com504.project.model.user.dto.Invoice;
 
 /**
@@ -76,12 +77,62 @@ public class ServiceRestClientImpl implements ServiceFacade {
     }
 
     @Override
-    public Invoice findInvoice(long id) {
+    public Invoice saveInvoice(Invoice invoice) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Invoice saveInvoice(Invoice invoice) {
+    public List<ChargingRecord> findAllCRecord() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ChargingRecord saveChargingRecord(ChargingRecord cr) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Invoice findByIdInvoice(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Invoice> findAllInvoice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteByIdInvoice(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteAllInvoice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ChargingRecord findByIdCRecord(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteByIdCRecord(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void deleteAllCRecord() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteInvoice(Invoice invoice) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteCRecord(ChargingRecord CRecord) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

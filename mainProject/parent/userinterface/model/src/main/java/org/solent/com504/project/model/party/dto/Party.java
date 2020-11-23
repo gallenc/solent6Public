@@ -37,7 +37,7 @@ public class Party {
 
     private String secondName;
     
-    private Bank bank = new Bank();
+//    private Bank bank = new Bank();
 
     private PartyRole partyRole = PartyRole.UNDEFINED;
 
@@ -90,13 +90,13 @@ public class Party {
         this.secondName = secondName;
     }
     
-    @Embedded
-    public Bank getBank(){
-        return bank;
-    }
-    public void setBank(Bank bank){
-        this.bank = bank;
-    }
+//    @Embedded
+//    public Bank getBank(){
+//        return bank;
+//    }
+//    public void setBank(Bank bank){
+//        this.bank = bank;
+//    }
 
     public PartyRole getPartyRole() {
         return partyRole;
@@ -213,7 +213,4 @@ public class Party {
         }
         return true;
     }
-    
-    
-
 }

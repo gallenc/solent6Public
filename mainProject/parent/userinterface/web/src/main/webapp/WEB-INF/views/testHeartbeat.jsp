@@ -1,3 +1,4 @@
+<%@page import="org.solent.com504.project.model.user.dto.ChargingRecord"%>
 <%@page import="org.solent.com504.project.model.user.dto.Invoice"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -22,6 +23,9 @@
     Invoice invoice = new Invoice();
     invoice.setAmmount(20.0);
     serviceFacade.saveInvoice(invoice);
+    ChargingRecord cr = new ChargingRecord();
+    cr.setNumberPlate("turoputa");
+    serviceFacade.saveChargingRecord(cr);
     // accessing request parameters
     String actionStr = request.getParameter("action");
 
@@ -53,7 +57,12 @@
 
         <p>Getting heartbeat message: <%= serviceFacade.getHeartbeat()%> (note message is auto refreshed every 20 seconds)</p>
         
-        <p> <%= serviceFacade.findInvoice(invoice.getId()).toString() %> </p>
+        <p> <%= serviceFacade.findByIdInvoice(invoice.getId()).toString() %> </p>
+         <% 
+             List<ChargingRecord> records = serviceFacade.findAllCRecord();
+             ChargingRecord chargingRecord = records.get(0);
+        %> 
+        <p> <%= chargingRecord.toString() %></p>
 
     </body>
 </html>

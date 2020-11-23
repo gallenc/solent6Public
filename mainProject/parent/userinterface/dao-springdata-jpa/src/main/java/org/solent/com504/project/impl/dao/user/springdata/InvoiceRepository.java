@@ -19,8 +19,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
-    @Query("select i from Invoice i where i.paidDate = :paidDate")
-    public Invoice findPaidInvoice(@Param("paidDate") LocalDateTime paidDate);
+//    @Query("select i from Invoice i where i.paidDate = :paidDate")
+//    public Invoice findPaidInvoice(@Param("paidDate") LocalDateTime paidDate);
 
 }
     

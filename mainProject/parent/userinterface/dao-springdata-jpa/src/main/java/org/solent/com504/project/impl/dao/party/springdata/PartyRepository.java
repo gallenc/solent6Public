@@ -33,8 +33,8 @@ public interface PartyRepository extends JpaRepository<Party, Long> {
     @Query("select p from Party p LEFT JOIN FETCH p.users")
     public List<Party> findAll();
     
-    @Query("select p from Party p join p.cars c where c.numberPlate= :numberPlate")
-    public Party findByPlateNumber(@Param("numberPlate") String numberPlate);
-    
+//    @Query("select p from Party p join p.cars c where c.numberPlate= :numberPlate")
+//    public Party findByPlateNumber(@Param("numberPlate") String numberPlate);
+//    
     
 }

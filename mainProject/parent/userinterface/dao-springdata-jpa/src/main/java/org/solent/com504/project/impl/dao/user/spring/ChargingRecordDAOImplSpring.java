@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.solent.com504.project.impl.dao.user.spring;
 
 import java.util.List;
@@ -23,7 +18,7 @@ public class ChargingRecordDAOImplSpring implements ChargingRecordDAO{
 
     @Autowired
     private ChargingRecordRepository recordsRepo = null;
-    
+
     @Override
     public ChargingRecord findById(Long id) {
         Optional<ChargingRecord> o = recordsRepo.findById(id);
@@ -31,11 +26,6 @@ public class ChargingRecordDAOImplSpring implements ChargingRecordDAO{
             return o.get();
         }
         return null;
-    }
-    
-    @Override
-    public ChargingRecord findByCar(String numberPlate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -63,5 +53,5 @@ public class ChargingRecordDAOImplSpring implements ChargingRecordDAO{
         recordsRepo.deleteAll();
     }
 
-    
+
 }

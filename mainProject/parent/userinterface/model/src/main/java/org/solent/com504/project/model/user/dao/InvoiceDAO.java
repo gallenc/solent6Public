@@ -13,6 +13,8 @@ public interface InvoiceDAO {
     
     public Invoice findById(Long id);
     
+    public List<Invoice> findAll();
+    
     public Invoice save(Invoice invoice);
     
     public void deleteById(Long id);
