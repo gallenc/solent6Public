@@ -34,7 +34,12 @@ public class InvoiceDAOImplSpring implements InvoiceDAO{
         }
         return null;
     }
-
+    
+     @Override
+    public List<Invoice> findAll() {
+        return invoiceRepo.findAll();
+    }
+    
     @Override
     public Invoice save(Invoice invoice) {
         return invoiceRepo.save(invoice);
@@ -57,13 +62,16 @@ public class InvoiceDAOImplSpring implements InvoiceDAO{
 
     @Override
     public Invoice findPaidInvoice(LocalDateTime paymentDate) {
-        return invoiceRepo.findPaidInvoice(paymentDate);
+//          return invoiceRepo.findPaidInvoice(paymentDate);
+            throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
     public List<Invoice> findPartyInvoices(Party party) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+   
 
    
     

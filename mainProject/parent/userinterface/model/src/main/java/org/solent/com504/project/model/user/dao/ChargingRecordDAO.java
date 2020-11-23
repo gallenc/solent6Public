@@ -16,8 +16,6 @@ public interface ChargingRecordDAO {
     
     public ChargingRecord findById(Long id);
     
-    public ChargingRecord findByCar(String numberPlate);
-    
     public ChargingRecord save(ChargingRecord chargingRecord);
     
     public List<ChargingRecord> findAll();

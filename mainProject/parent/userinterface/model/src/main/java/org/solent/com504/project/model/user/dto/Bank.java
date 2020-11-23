@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Embeddable
 public class Bank {
     
-    private String cardNumber;
-    private String sortCode;
-    private int cvv;
+    private String cardNumber="";
+    private String sortCode="";
+    private int cvv=0;
 
 
     public String getCardNumber() {
