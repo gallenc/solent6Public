@@ -49,11 +49,11 @@ public class ChargingRecordRepositoryTest {
 
         ChargingRecord chargingRecord1 = new ChargingRecord();
         chargingRecord1 = chargingRecordRepository.save(chargingRecord1);
-        System.out.println("user1=" + chargingRecord1);
+        System.out.println("chargingRecord1=" + chargingRecord1);
 
         Long id = chargingRecord1.getId();
         ChargingRecord chargingRecord2 = chargingRecordRepository.getOne(id);
-        System.out.println("user2=" + chargingRecord2);
+        System.out.println("chargingRecord2=" + chargingRecord2);
         LOG.debug("end of test1");
     }
 }

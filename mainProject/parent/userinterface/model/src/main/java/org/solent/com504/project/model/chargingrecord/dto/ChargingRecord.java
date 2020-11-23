@@ -5,7 +5,7 @@
  */
 package org.solent.com504.project.model.chargingrecord.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,8 +36,8 @@ public class ChargingRecord {
     private String uuid;
     private String entryPhotoId;
     private String exitPhotoId;
-    private LocalDateTime entryDate;
-    private LocalDateTime exitDate;
+    private Date entryDate;
+    private Date exitDate;
     private String entryLocation;
     private String exitLocation;
     private String numberPlate;
@@ -68,21 +70,21 @@ public class ChargingRecord {
         this.exitPhotoId = exitPhotoId;
     }
 
-
-
-    public LocalDateTime getEntryDate() {
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(LocalDateTime entryDate) {
+    public void setEntryDate(Date entryDate) {
         this.entryDate = entryDate;
     }
 
-    public LocalDateTime getExitDate() {
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getExitDate() {
         return exitDate;
     }
 
-    public void setExitDate(LocalDateTime exitDate) {
+    public void setExitDate(Date exitDate) {
         this.exitDate = exitDate;
     }
 
