@@ -21,12 +21,12 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ChargingRecordRepository extends JpaRepository<ChargingRecord, Long> {
 
-    @Query("SELECT cr FROM ChargingRecord cr WHERE cr.numberPlate = :numberPlate and u.startDate >= :startDate and u.endDate <= :endDate")
+    @Query("SELECT cr FROM ChargingRecord cr WHERE cr.numberPlate = :numberPlate and cr.entryDate >= :entryDate and cr.exitDate <= :exitDate")
     public Page<ChargingRecord> findByNumberPlate(@Param("numberPlate")String numberPlate,
-            @Param("startDate") Date startDate, 
-            @Param("endDate")Date endDate, Pageable pageable);
+            @Param("entryDate") Date startDate, 
+            @Param("exitDate")Date endDate, Pageable pageable);
     
-    @Query("SELECT cr FROM ChargingRecord cr WHERE cr.uuid = :numberPlate")
+    @Query("SELECT cr FROM ChargingRecord cr WHERE cr.uuid = :uuid")
     public ChargingRecord findByUuid(@Param("uuid") String uuid);
     
 }

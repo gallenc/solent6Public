@@ -25,6 +25,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ChargingRecordDAOImplSpring implements ChargingRecordDAO {
+    
+    public static final int DEFAULT_PAGE_SIZE=20;
 
     @Autowired
     private ChargingRecordRepository recordsRepo = null;
@@ -39,18 +41,21 @@ public class ChargingRecordDAOImplSpring implements ChargingRecordDAO {
     }
 
     @Override
-    public List<ChargingRecord> findByNumberPlate(String numberPlate, Date startDate, Date endDate, Integer page, Integer size) {
+    public List<ChargingRecord> findByNumberPlate(String numberPlate, Date entryDate, Date exitDate, Integer page, Integer size) {
         int m_page = (page == null) ? 0 : page;
-        int m_size = (page == null) ? 1 : size;
+        int m_size = (size == null) ? DEFAULT_PAGE_SIZE : size;
+        Date m_entryDate = (entryDate == null) ? new Date(0) : entryDate;
+        Date m_exitDate = (exitDate == null) ? new Date() : exitDate;
 
-        Pageable pageable = PageRequest.of(m_page, m_size, Sort.by("startDate").ascending());
-        Page p = recordsRepo.findByNumberPlate(numberPlate, startDate, endDate, pageable);
+        Pageable pageable = PageRequest.of(m_page, m_size, Sort.by("entryDate").ascending());
+
+        Page p = recordsRepo.findByNumberPlate(numberPlate, m_entryDate, m_exitDate, pageable);
         return p.toList();
     }
 
     @Override
     public ChargingRecord findByUuid(String uuid) {
-        return recordsRepo.findByUuid(uuid); 
+        return recordsRepo.findByUuid(uuid);
     }
 
     @Override
@@ -59,15 +64,18 @@ public class ChargingRecordDAOImplSpring implements ChargingRecordDAO {
     }
 
     @Override
-    public Long numberOfRecordsByNumberPlate(String numberPlate, Date startDate, Date endDate) {
+    public Long totalRecordsByNumberPlate(String numberPlate, Date entryDate, Date exitDate) {
+        Date m_entryDate = (entryDate == null) ? new Date(0) : entryDate;
+        Date m_exitDate = (exitDate == null) ? new Date() : exitDate;
         Pageable pageable = PageRequest.of(0, 1);
-        Page p = recordsRepo.findByNumberPlate(numberPlate, startDate, endDate, pageable);
+        
+        Page p = recordsRepo.findByNumberPlate(numberPlate, m_entryDate, m_exitDate, pageable);
         return p.getTotalElements();
 
     }
 
     @Override
-    public Long numberOfRecords() {
+    public Long totalRecords() {
         Pageable pageable = PageRequest.of(0, 1);
         Page p = recordsRepo.findAll(pageable);
         return p.getTotalElements();
@@ -76,9 +84,9 @@ public class ChargingRecordDAOImplSpring implements ChargingRecordDAO {
     @Override
     public List<ChargingRecord> findAll(Integer page, Integer size) {
         int m_page = (page == null) ? 0 : page;
-        int m_size = (page == null) ? 1 : size;
+        int m_size = (size == null) ? DEFAULT_PAGE_SIZE : size;
 
-        Pageable pageable = PageRequest.of(m_page, m_size, Sort.by("startDate").ascending());
+        Pageable pageable = PageRequest.of(m_page, m_size, Sort.by("entryDate").ascending());
         Page p = recordsRepo.findAll(pageable);
 
         List<ChargingRecord> result = p.toList();

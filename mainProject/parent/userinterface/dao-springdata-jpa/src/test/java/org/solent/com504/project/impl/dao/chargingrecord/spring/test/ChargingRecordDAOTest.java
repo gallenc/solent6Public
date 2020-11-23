@@ -37,8 +37,8 @@ public class ChargingRecordDAOTest {
 
     final static Logger LOG = LogManager.getLogger(ChargingRecordDAOTest.class);
 
-    private static final long HOUR_IN_MS = 1000*60*60;
-    
+    private static final long HOUR_IN_MS = 1000 * 60 * 60;
+
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
@@ -61,10 +61,12 @@ public class ChargingRecordDAOTest {
 
     @Test
     @SuppressWarnings("empty-statement")
-    public void testfindByUuid() {
+    public void testDao() {
         LOG.debug("start testfindByUuid");
 
-        String uuid = UUID.randomUUID().toString();
+        String searchuuid = UUID.randomUUID().toString();
+
+        List<String> numberPlateList = Arrays.asList("HAZ604", "HAZ605", "HAZ606", "HAZ607", "HAZ608");
 
         List<Date> startDates = null;
         try {
@@ -75,23 +77,30 @@ public class ChargingRecordDAOTest {
                     df.parse("2020-01-01 13:00:00"
                     ));
         } catch (ParseException ex) {
-            throw new IllegalStateException("problem parsing dates in test:",ex);
+            throw new IllegalStateException("problem parsing dates in test:", ex);
         }
-        
-        int noOfChargingRecords = 0;
 
-        for (Date entryDate: startDates) {
+        int countOfChargingRecords = 0;
 
-            // send 10 cars
-            for (int i = 0; i < 10; i++) {
+        // first uuid to search for
+        String uuid = searchuuid;
+        for (Date entryDate : startDates) {
+
+            // send cars
+            for (String numberPlate : numberPlateList) {
                 // create objects to marshal
                 ChargingRecord chargingRecord = new ChargingRecord();
+
+                chargingRecord.setNumberPlate(numberPlate);
+
+                // first uuid will be searchuuid all rest will be random
                 chargingRecord.setUuid(uuid);
+
                 chargingRecord.setCharge(1.1);
                 chargingRecord.setChargeRate(10.5);
                 chargingRecord.setEntryDate(entryDate);
-                
-                Date exitDate = new Date(entryDate.getTime()+ HOUR_IN_MS);
+
+                Date exitDate = new Date(entryDate.getTime() + HOUR_IN_MS);
                 chargingRecord.setExitDate(exitDate);
 
                 String entryPhotoId = UUID.randomUUID().toString();
@@ -102,19 +111,64 @@ public class ChargingRecordDAOTest {
                 chargingRecord.setExitLocation(exitLocation);
                 String exitPhotoId = UUID.randomUUID().toString();
                 chargingRecord.setExitPhotoId(exitPhotoId);
-                String numberPlate = "HAZ604" + i;
-                chargingRecord.setNumberPlate(numberPlate);
-                
-                chargingRecordDAO.save(chargingRecord);
-                noOfChargingRecords ++;
+
+                chargingRecord = chargingRecordDAO.save(chargingRecord);
+
+                LOG.debug("charging record " + countOfChargingRecords + " : " + chargingRecord);
+                countOfChargingRecords++;
 
                 uuid = UUID.randomUUID().toString();
             }
         }
-        
+        LOG.debug("inserted charging records : " + countOfChargingRecords);
+
         // test findAll();
-        List<ChargingRecord> crList = chargingRecordDAO.findAll();
-        assertEquals (noOfChargingRecords, crList.size());
+        List<ChargingRecord> chargingRecordList = chargingRecordDAO.findAll();
+        assertEquals(countOfChargingRecords, chargingRecordList.size());
+
+        // test number of charging records
+        long recordNumber = chargingRecordDAO.totalRecords();
+        assertEquals(countOfChargingRecords, recordNumber);
+
+        // test findByUuid with incorrect uuid
+        ChargingRecord cr1 = chargingRecordDAO.findByUuid(searchuuid);
+        assertNotNull(cr1);
+
+        // test findByUuid with incorrect uuid
+        cr1 = chargingRecordDAO.findByUuid(UUID.randomUUID().toString());
+        assertNull(cr1);
+
+        // test find by numberplate no date range
+        String numberPlate = numberPlateList.get(0);
+        Date startDate = null;
+        Date endDate = null;
+        Integer page = null;
+        Integer size = null;
+        chargingRecordList = chargingRecordDAO.findByNumberPlate(numberPlate, startDate, endDate, page, size);
+        LOG.debug("numberPlateList.size() " + numberPlateList.size() + " chargingRecordList.size(): " + chargingRecordList.size());
+        assertEquals(numberPlateList.size(), chargingRecordList.size());
+
+        // test total records by numberplate no date range
+        long noRecords = chargingRecordDAO.totalRecordsByNumberPlate(numberPlate, startDate, endDate);
+        LOG.debug("number of " + numberPlate + " number plates: " + noRecords);
+        assertEquals(numberPlateList.size(), noRecords);
+
+        // test find by numberplate within date range
+        numberPlate = numberPlateList.get(0);
+        startDate = startDates.get(0);
+        endDate = startDates.get(1);
+        page = null;
+        size = null;
+        chargingRecordList = chargingRecordDAO.findByNumberPlate(numberPlate, startDate, endDate, page, size);
+        LOG.debug(" numberPlate " +  numberPlate + " startDate:"+ startDate 
+                + " endDate: " + endDate+" chargingRecordList.size():"+chargingRecordList.size());
+        assertEquals(1, chargingRecordList.size());
+
+        // test total records by numberplate within date range
+        noRecords = chargingRecordDAO.totalRecordsByNumberPlate(numberPlate, startDate, endDate);
+        LOG.debug(" numberPlate " +  numberPlate + " startDate:"+ startDate 
+                + " endDate: " + endDate+" noRecords:"+noRecords);
+        assertEquals(1, noRecords);
 
         LOG.debug("end of testfindByUuid");
     }
