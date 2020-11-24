@@ -108,9 +108,9 @@ public class UserController {
         return "home";
     }
 
-    @RequestMapping(value = {"/about"}, method = RequestMethod.GET)
-    public String about(Model model) {
-        return "about";
+    @RequestMapping(value = {"/billing"}, method = RequestMethod.GET)
+    public String billing(Model model) {
+        return "billing";
     }
 
     @RequestMapping(value = {"/contact"}, method = RequestMethod.GET)

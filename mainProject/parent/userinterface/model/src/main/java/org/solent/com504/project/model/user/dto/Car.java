@@ -7,6 +7,7 @@ package org.solent.com504.project.model.user.dto;
 
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -83,5 +84,23 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" + "id=" + id + ", model=" + model + ", numberPlate=" + numberPlate + '}';
-    }            
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Car other = (Car) obj;
+        if (!Objects.equals(this.numberPlate, other.numberPlate)) {
+            return false;
+        }
+        return true;
+    }
 }
