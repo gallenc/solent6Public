@@ -57,7 +57,7 @@ public class RestService {
     /**
      * this is a very simple rest test message which only returns a string
      *
-     * http://localhost:8084/project-web/rest/appointmentService/
+     * http://localhost:8080/project-web/rest/appointmentService/
      *
      * @return String simple message
      */
@@ -80,7 +80,7 @@ public class RestService {
     /**
      * get heartbeat
      *
-     * http://localhost:8084/project-web/rest/appointmentService/getHeartbeat
+     * http://localhost:8080/project-web/rest/appointmentService/getHeartbeat
      *
      * @return Response OK and heartbeat in debug message
      */
@@ -98,6 +98,7 @@ public class RestService {
 
     @GET
     @Path("/getHeartbeat")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getHeartbeat() {
         try {

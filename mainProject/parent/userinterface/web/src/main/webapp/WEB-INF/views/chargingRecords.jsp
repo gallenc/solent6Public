@@ -13,7 +13,6 @@
 <main role="main" class="container">
     <H1>Charging Records</H1>
     <form action="./chargingRecords" method="get">
-        <button class="btn" type="submit" >Search</button>
         <p><button class="btn" type="submit" >Search</button> ${errorMessage}</p>
         <table class="table">
             <tr>

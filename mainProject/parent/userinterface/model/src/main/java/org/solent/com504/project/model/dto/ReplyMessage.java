@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 import org.solent.com504.project.model.party.dto.Party;
 
 @XmlRootElement
@@ -16,6 +17,12 @@ public class ReplyMessage {
 
     private String debugMessage = null;
 
+    private Long totalRecords = null;
+
+    private Integer page = null;
+
+    private Integer size = null;
+
     @XmlElementWrapper(name = "stringlist")
     @XmlElement(name = "string")
     private List<String> stringList = null;
@@ -24,7 +31,9 @@ public class ReplyMessage {
     @XmlElement(name = "party")
     private List<Party> partyList = null;
 
-  
+    @XmlElementWrapper(name = "chargingRecordList")
+    @XmlElement(name = "chargingRecord")
+    private List<ChargingRecord> chargingRecordList = null;
 
     public Integer getCode() {
         return code;
@@ -58,6 +67,38 @@ public class ReplyMessage {
         this.partyList = partyList;
     }
 
-   
+    public List<ChargingRecord> getChargingRecordList() {
+        return chargingRecordList;
+    }
+
+    public void setChargingRecordList(List<ChargingRecord> chargingRecordList) {
+        this.chargingRecordList = chargingRecordList;
+    }
+
+    public Long getTotalRecords() {
+        return totalRecords;
+    }
+
+    public void setTotalRecords(Long totalRecords) {
+        this.totalRecords = totalRecords;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+    
+    
 
 }

@@ -68,29 +68,29 @@ public class ChargingRecordController {
 
         Date m_entryDate = null;
         Date m_exitDate = null;
-        int m_page = 0;
-        int m_size = 20;
+        Integer m_page = 0;
+        Integer m_size = 20;
         Long m_totalRecords = 0L;
 
         try {
-            m_entryDate = df.parse(entryDate);
-            m_exitDate = df.parse(exitDate);
-            m_page = Integer.parseInt(page);
-            m_size = Integer.parseInt(size);
-            m_totalRecords = chargingRecordService.totalRecordsByNumberPlate(numberPlate, m_entryDate, m_exitDate);
-
+            m_entryDate = (entryDate == null || entryDate.isEmpty()) ? null : df.parse(entryDate);
+            m_exitDate = (exitDate == null || exitDate.isEmpty()) ? null : df.parse(exitDate);
+            m_page = (page == null || page.isEmpty()) ? null : Integer.parseInt(page);
+            m_size = (size == null || size.isEmpty()) ? null : Integer.parseInt(size);
         } catch (Exception ex) {
             errorMessage = ex.getMessage();
         }
 
+        m_totalRecords = chargingRecordService.totalRecordsByNumberPlate(numberPlate, m_entryDate, m_exitDate);
         List<ChargingRecord> chargingRecordList = chargingRecordService.findByNumberPlate(numberPlate, m_entryDate, m_exitDate, m_page, m_size);
+
         m.addAttribute("chargingRecordList", chargingRecordList);
-        m.addAttribute("entryDate", (m_entryDate==null) ? "" : df.format(m_entryDate));
-        m.addAttribute("exitDate", (m_exitDate==null) ? df.format(new Date()) :df.format(m_exitDate));
+        m.addAttribute("entryDate", (m_entryDate == null) ? "" : df.format(m_entryDate));
+        m.addAttribute("exitDate", (m_exitDate == null) ? df.format(new Date()) : df.format(m_exitDate));
         m.addAttribute("page", m_page);
         m.addAttribute("size", m_size);
         m.addAttribute("totalRecords", m_totalRecords);
-        m.addAttribute("totalPages", m_totalRecords / m_size );
+        m.addAttribute("totalPages", m_totalRecords / m_size);
 
         m.addAttribute("errorMessage", errorMessage);
         m.addAttribute("message", message);
@@ -99,114 +99,4 @@ public class ChargingRecordController {
         return "chargingRecords";
     }
 
-//    @RequestMapping("/farmhome")
-//    public String farmhome(Model m,
-//            @RequestParam(value = "animalName", required = false) String animalName,
-//            @RequestParam(value = "animalType", required = false) String animalType) {
-//
-//        LOG.debug("farmhome called animalType=" + animalType + " animalName=" + animalName);
-//        if (chargingRecordService == null) {
-//            throw new RuntimeException("chargingRecordService==null and has not been initialised");
-//        }
-//
-//        List<Animal> animalsList = chargingRecordService.getAllAnimals();
-//        List<String> supportedAnimalTypes = chargingRecordService.getSupportedAnimalTypes();
-//        m.addAttribute("animalsList", animalsList);
-//        m.addAttribute("supportedAnimalTypes", supportedAnimalTypes);
-//
-//        // add error / response messages to page
-//        String errorMessage = "";
-//        String message = "";
-//        m.addAttribute("errorMessage", errorMessage);
-//        m.addAttribute("message", message);
-//
-//        // render view with jsp
-//        return "farmlist";
-//    }
-//
-//    @RequestMapping("/deleteAnimal")
-//    public String deleteAnimal(Model m,
-//            @RequestParam(value = "animalName", required = false) String animalName,
-//            @RequestParam(value = "animalType", required = false) String animalType) {
-//        LOG.debug("deleteAnimal called animalType=" + animalType + " animalName=" + animalName);
-//        if (chargingRecordService == null) {
-//            throw new RuntimeException("chargingRecordService==null and has not been initialised");
-//        }
-//
-//        String errorMessage = "";
-//        String message = "";
-//
-//        if (animalName == null || animalName.isEmpty()) {
-//            errorMessage = "ERROR: animalName must be set when deleting animal.";
-//        } else {
-//            message = "Deleting animal name=" + animalName;
-//            chargingRecordService.removeAnimal(animalName);
-//        }
-//
-//        m.addAttribute("errorMessage", errorMessage);
-//        m.addAttribute("message", message);
-//
-//        // render view with jsp
-//        return "redirect:/mvc/farmhome";//will redirect to farmhome request mapping    
-//    }
-//
-//    @RequestMapping("/createAnimal")
-//    public String createAnimal(Model m,
-//            @RequestParam(value = "animalName", required = false) String animalName,
-//            @RequestParam(value = "animalType", required = false) String animalType) {
-//        LOG.debug("createAnimal called animalType=" + animalType + " animalName=" + animalName);
-//        if (chargingRecordService == null) {
-//            throw new RuntimeException("chargingRecordService==null and has not been initialised");
-//        }
-//
-//        m.addAttribute("animalType", animalType);
-//        m.addAttribute("animalName", animalName);
-//
-//        // add error / response messages to page
-//        String errorMessage = "";
-//        String message = "";
-//
-//        if (animalType == null || animalType.isEmpty()) {
-//            errorMessage = "ERROR: animalType must be set when adding animal.";
-//        }
-//
-//        m.addAttribute("errorMessage", errorMessage);
-//        m.addAttribute("message", message);
-//
-//        // render view with jsp
-//        return "reviewAnimal";
-//    }
-//
-//    @RequestMapping("/addAnimal")
-//    public String addAnimal(Model m,
-//            @RequestParam(value = "animalName", required = false) String animalName,
-//            @RequestParam(value = "animalType", required = false) String animalType) {
-//        LOG.debug("addAnimal called animalType=" + animalType + " animalName=" + animalName);
-//        if (chargingRecordService == null) {
-//            throw new RuntimeException("chargingRecordService==null and has not been initialised");
-//        }
-//        // add error / response messages to page
-//        String errorMessage = "";
-//        String message = "";
-//
-//        m.addAttribute("animalType", animalType);
-//        m.addAttribute("animalName", animalName);
-//
-//        if (animalName == null || animalName.isEmpty() || animalType == null || animalType.isEmpty()) {
-//            errorMessage = "ERROR: animalType and animalName must both be set when adding animal.";
-//        } else {
-//            if (chargingRecordService.getAnimal(animalName) != null) {
-//                errorMessage = "ERROR: you cannot have dupicate animal names (" + animalName + ")";
-//            } else {
-//                chargingRecordService.addAnimal(animalType, animalName);
-//                return "redirect:/mvc/farmhome";//will redirect to farmhome request mapping  
-//            }
-//        }
-//
-//        m.addAttribute("errorMessage", errorMessage);
-//        m.addAttribute("message", message);
-//
-//        // render view with jsp
-//        return "reviewAnimal";//will redirect to farmhome request mapping    
-//    }
 }
