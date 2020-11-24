@@ -68,7 +68,7 @@ public class ChargingRecordRestService {
                 @ApiResponse(responseCode = "500", description = "Internal server error. See Debug message in response for details")
             })
     @POST
-    @Path("/chargingRecord")
+    @Path("/ChargingRecord")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response addChargingRecord(ChargingRecord chargingRecord) {
@@ -114,7 +114,7 @@ public class ChargingRecordRestService {
                 @ApiResponse(responseCode = "500", description = "Internal server error. See Debug message in response for details")
             })
     @GET
-    @Path("/chargingRecord/{uuid}")
+    @Path("/ChargingRecord/{uuid}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getChargingRecord(@PathParam("uuid") String uuid) {
@@ -162,7 +162,7 @@ public class ChargingRecordRestService {
                 @ApiResponse(responseCode = "500", description = "Internal server error. See Debug message in response for details")
             })
     @GET
-    @Path("/chargingRecordList")
+    @Path("/ChargingRecordList")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response addChargingRecordList(@QueryParam("numberPlate") String numberPlate,
