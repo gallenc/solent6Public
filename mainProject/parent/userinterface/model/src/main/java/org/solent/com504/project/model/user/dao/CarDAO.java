@@ -5,6 +5,7 @@
  */
 package org.solent.com504.project.model.user.dao;
 
+import java.util.List;
 import org.solent.com504.project.model.user.dto.Car;
 
 /**
@@ -16,6 +17,8 @@ public interface CarDAO {
     public Car findById(Long id);
     
     public Car findByNumberPlate(String numberPlate);
+    
+    public List<Car> findAll();
     
     public Car save(Car car);
     

@@ -77,5 +77,8 @@ public class PartyServiceImpl implements PartyService {
 //    public Party findByNumberPlate(String numberPlate) {
 //        return partyDao.findByNumberPlate(numberPlate);
 //    }
-
+    @Override
+    public Party findPartyByUsername(String username) {
+        return partyDao.findByUsername(username);
+    }
 }

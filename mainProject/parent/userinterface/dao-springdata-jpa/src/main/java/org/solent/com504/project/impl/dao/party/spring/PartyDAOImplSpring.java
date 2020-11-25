@@ -70,6 +70,8 @@ public class PartyDAOImplSpring implements PartyDAO {
         if (parties.isEmpty()) return null;
         return parties.get(0);
     }
+    
+    
 
 //    @Override
 //    public Party findByNumberPlate(String numberPlate) {
@@ -77,6 +79,11 @@ public class PartyDAOImplSpring implements PartyDAO {
 //        
 ////        throw new UnsupportedOperationException("Not supported yet.");
 //    }
+
+    @Override
+    public Party findByUsername(String username) {
+        return partyRepository.findByUsername(username);
+    }
     
     
     

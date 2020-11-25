@@ -1,8 +1,10 @@
 package org.solent.com504.project.model.service;
 
 import java.util.List;
+import java.util.Set;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
+import org.solent.com504.project.model.user.dto.Car;
 import org.solent.com504.project.model.user.dto.ChargingRecord;
 import org.solent.com504.project.model.user.dto.Invoice;
 
@@ -41,5 +43,15 @@ public interface ServiceFacade {
     public void deleteCRecord(ChargingRecord CRecord);
     
     public void deleteAllCRecord();
+    
+    public Car findByIdCar(long id);
+    
+    public Car saveCar(Car car);
+    
+    public void deleteCar(Car car);
+    
+    public void deleteByIdCar(long id);
+    
+    public void deleteAllCars();
 
 }

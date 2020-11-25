@@ -3,6 +3,7 @@ package org.solent.com504.project.impl.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
@@ -10,8 +11,10 @@ import org.solent.com504.project.model.service.ServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.solent.com504.project.model.party.dao.PartyDAO;
+import org.solent.com504.project.model.user.dao.CarDAO;
 import org.solent.com504.project.model.user.dao.ChargingRecordDAO;
 import org.solent.com504.project.model.user.dao.InvoiceDAO;
+import org.solent.com504.project.model.user.dto.Car;
 import org.solent.com504.project.model.user.dto.ChargingRecord;
 import org.solent.com504.project.model.user.dto.Invoice;
 
@@ -27,6 +30,9 @@ public class ServiceFacadeImpl implements ServiceFacade {
     
     @Autowired
     private ChargingRecordDAO crDao = null;
+    
+    @Autowired
+    private CarDAO carDao = null;
 
     // used to concurently count heartbeat requests
     private static AtomicInteger heartbeatRequests = new AtomicInteger();
@@ -114,5 +120,33 @@ public class ServiceFacadeImpl implements ServiceFacade {
     public void deleteAllCRecord() {
         crDao.deleteAll();
     }
+
+    @Override
+    public Car findByIdCar(long id) {
+        return carDao.findById(id);
+    }
+
+    @Override
+    public Car saveCar(Car car) {
+        return carDao.save(car);
+    }
+
+    @Override
+    public void deleteCar(Car car) {
+        carDao.delete(car);
+    }
+
+    @Override
+    public void deleteByIdCar(long id) {
+        carDao.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllCars() {
+        carDao.deleteAll();
+    }
+
+
+    
 
 }

@@ -24,5 +24,6 @@ public interface PartyDAO {
     
     public Party findByUuid(String uuid);
     
+    public Party findByUsername(String username);
 //    public Party findByNumberPlate(String numberPlate);
 }

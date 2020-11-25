@@ -59,4 +59,9 @@ public class CarDAOImplSpring implements CarDAO {
     public Car findByNumberPlate(String numberPlate) {
         return carRepository.findByNumberPlate(numberPlate);
     }
+
+    @Override
+    public List<Car> findAll() {
+        return carRepository.findAll();
+    }
 }

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.project.impl.validator.UserValidator;
@@ -16,12 +18,15 @@ import org.solent.com504.project.model.party.dto.Address;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.party.service.PartyService;
+import org.solent.com504.project.model.service.ServiceFacade;
+import org.solent.com504.project.model.user.dto.Car;
 import org.solent.com504.project.model.user.dto.Role;
 import org.solent.com504.project.model.user.dto.User;
 import org.solent.com504.project.model.user.dto.UserRoles;
 import org.solent.com504.project.model.user.service.SecurityService;
 import org.solent.com504.project.model.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -55,6 +60,11 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+    
+    @Autowired(required = true)
+    @Qualifier("serviceFacade")
+    ServiceFacade serviceFacade = null;
+    
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -104,7 +114,20 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String home(Model model) {
+    public String home(Model model, Authentication authentication) {
+        Party party = partyService.findPartyByUsername(authentication.getName());
+          
+        
+        Car car = new Car();
+        car.setModel("model");
+        car.setNumberPlate("numberplate");
+        serviceFacade.saveCar(car);
+        Set<Car> cars = new HashSet();
+        cars.add(car);
+        party.setCars(cars);
+        model.addAttribute("carList", party.getCars());
+        
+        
         return "home";
     }
 

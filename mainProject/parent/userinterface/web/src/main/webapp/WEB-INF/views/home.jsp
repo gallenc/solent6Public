@@ -3,11 +3,13 @@
     Created on : Jan 4, 2020, 11:19:47 AM
     Author     : cgallen
 --%>
+<%@page import="org.solent.com504.project.model.service.ServiceFacade"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var = "selectedPage" value = "home" scope="request" />
 <!-- start of home.jsp selectedPage=${selectedPage}-->
 <jsp:include page="header.jsp" />
+
 
 <!-- Begin page content -->
 <main role="main" class="container">
@@ -15,7 +17,7 @@
 
     <div>
         <h1>Car List</h1>
-        <p>showing ${userListSize} cars </p>
+        <p>showing cars </p>
         <table class="table">
             <thead>
                 <tr>
@@ -26,18 +28,12 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="user" items="${userList}">
+                <c:forEach var="car" items="${carList}">
                     <tr>
-                        <td>${user.id}</td>
-                        <td>${user.username}</td>
-                        <td>${user.firstName}</td>
-                        <td>${user.secondName}</td>
-                        <td>
-                            <form action="./viewModifyUser" method="get">
-                                <input type="hidden" name="username" value="${user.username}">
-                                <button class="btn" type="submit" >Add Car</button>
-                            </form> 
-                        </td>
+                        <td>${car.id}</td>
+                        <td>${car.model}</td>
+                        <td>${car.numberPlate}</td>
+                        
                     </tr>
                 </c:forEach>
 
