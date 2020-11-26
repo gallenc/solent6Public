@@ -21,7 +21,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <mainClass>solent.ac.uk.devops.traffic.messagehandler.assembly.Main</mainClass>
+                            <mainClass>org.solent.devops.traffic.messageexample.Controller</mainClass>
                             <onejarVersion>0.97</onejarVersion>
                             <attachToBuild>true</attachToBuild>
                             <filename>${project.artifactId}-onejar.jar</filename> 

@@ -10,12 +10,27 @@
     <packaging>jar</packaging>
     
     <properties>
-        
+                
     </properties>
     
     <build>
         
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+              
+                <configuration>
+                    <!-- you can use environment properties or systemproperties -->
+                    <systemPropertyVariables>
+                        <APPLICATION_PROPERTIES_FILE>${basedir}/src/test/resources/system.properties</APPLICATION_PROPERTIES_FILE>
+                    </systemPropertyVariables>
+             
+                    <environmentVariables>
+                        <APPLICATION_PROPERTIES_FILE>${basedir}/src/test/resources/system.properties</APPLICATION_PROPERTIES_FILE>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
             
         </plugins>
 
@@ -42,7 +57,48 @@
             <scope>test</scope>
         </dependency>
         
+        <!-- move to bom -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>5.2.3.RELEASE</version>
+        </dependency>
         
+        <!-- move to bom -->
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        
+        <!-- move to bom -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>5.16.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-kahadb-store</artifactId>
+            <version>5.16.0</version>
+        </dependency>
+
+        
+        <!--   <dependency>-->
+        <!--   <groupId>org.apache.activemq</groupId>-->
+        <!--    <artifactId>activemq-mqtt</artifactId>-->
+        <!--    <optional>true</optional>-->
+        <!--   </dependency>-->
+        
+        <!-- Logging -->
+        <!-- SLF4J api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Log4j API and Core implementation  -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -52,6 +108,13 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- running SLF4J over log4j -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
             <scope>compile</scope>
         </dependency>
 

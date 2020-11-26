@@ -6,6 +6,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:jms="http://www.springframework.org/schema/jms"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -16,16 +18,77 @@
         http://www.springframework.org/schema/data/jpa
         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/security
-	http://www.springframework.org/schema/security/spring-security.xsd">
+	http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/jms 
+        http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+        http://activemq.apache.org/schema/core
+        http://activemq.apache.org/schema/core/activemq-core-5.2.0.xsd ">
     
 
+
+    <!--<context:property-placeholder location="classpath:system.properties"/>-->
+    
+    
+    <!-- alternative configuration -->
+    <!--    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                 use local system.properties in tests 
+                <value>classpath:system.properties</value>
+                 use environment injected file in docker 
+                <value>file:#{systemEnvironment['APPLICATION_PROPERTIES_FILE']}</value>
+            </list>
+        </property>
+    </bean>-->
+    
+    <!-- allows for ${} replacement in the spring xml configuration  -->
+    <!-- either from from the system.properties file on the classpath   -->
+    <!-- or APPLICATION_PROPERTIES_FILE environment in docker-->
+    <!-- use local system.properties in tests-->
+    <!-- use environment injected file in docker -->
+    <!-- systemEnvironment or systemProperties can be used-->
+    <context:property-placeholder
+        location="classpath:system.properties,
+                 file:#{systemEnvironment['APPLICATION_ENVIRONMENT_FILE']},
+                 file:#{systemProperties['applicationPropertiesFile']}"
+        ignore-unresolvable="false" ignore-resource-not-found="true" />
+
+    
     <!-- Scans for components that will be auto-registered as Spring beans -->
-    <context:component-scan base-package="solent.ac.uk.devops.traffic.messageexample" />
+    <context:component-scan base-package="org.solent.devops.traffic.messageexample,
+                  org.solent.devops.message.jms" />
+    
+    <!-- enables annotation based configuration -->
+    <context:annotation-config />
     
     <!-- this just activates and destroys a bean as an example -->
-    <bean id="helloWorld" class="solent.ac.uk.devops.traffic.messageexample.HelloWorld" init-method="init" destroy-method="destroy">
-        <property name="message" value="message handler service applicationContext " />
+    <bean id="helloWorld" class="org.solent.devops.traffic.messageexample.HelloWorld" init-method="init" destroy-method="destroy">
+        <property name="message" value="message handler service applicationContext  jms.url=${jms.url} username=${jms.username}" />
     </bean>
+
+    <!--<amq:connectionFactory id="amqConnectionFactory" brokerURL="vm://localhost"/>-->
+
+    <!-- creates an activemq connection factory using the amq namespace -->
+    <amq:connectionFactory id="amqConnectionFactory" brokerURL="${jms.url}" userName="${jms.username}" password="${jms.password}" />
+
+    <!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
+    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="amqConnectionFactory" />
+        <property name="exceptionListener" ref="jmsExceptionListener" />
+        <property name="sessionCacheSize" value="100" />
+    </bean>
+
+    <!--JmsTemplate Definition -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <constructor-arg ref="connectionFactory"/>
+    </bean>
+
+    <!--listener container definition using the jms namespace, concurrency is the max number of concurrent listeners that can be started -->
+    <jms:listener-container concurrency="10" >
+        <jms:listener id="simpleJmsListener1" destination="Queue.Name" ref="simpleJmsListener" />
+    </jms:listener-container>
 
 </beans>
 

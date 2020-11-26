@@ -27,7 +27,7 @@
     </properties>
 
     <modules>
-       
+        <module>JSONMessage</module>
     </modules>
 
     <build>
