@@ -77,7 +77,7 @@ jobs:
         JFROG_PASS: ${{ secrets.JF_ARTIFACTORY_PASSWORD }}
 
     - name: Maven Build user interface
-    run: mvn -B package --file mainProject/parent/userinterface/pom.xml
+      run: mvn -B package --file mainProject/parent/userinterface/pom.xml
 
     - name: Maven Deploy to JFrog
       run: mvn deploy --file mainProject/parent/userinterface/pom.xml
