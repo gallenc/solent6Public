@@ -22,8 +22,6 @@ public class SimpleJmsListener implements MessageListener {
 
     String destination;
     
-    private String lastMessage;
-    
     @Override
     public void onMessage(final Message message) {
         if (message instanceof TextMessage) {

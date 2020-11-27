@@ -10,6 +10,20 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    <distributionManagement>
+        <repository>
+            <id>jfrogmavenrepo1-releases</id>
+            <name>jfrogmavenrepo1-releases</name>
+            <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
+        </repository>
+        <snapshotRepository>
+            <id>jfrogmavenrepo1-snapshots</id>
+            <name>jfrogmavenrepo1-snapshots</name>
+            <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
