@@ -32,9 +32,9 @@
         </profile>
     </profiles>
 
-    <modules>
+    <!-- <modules>
         <module>JSONMessage</module>
-    </modules>
+    </modules> -->
 
     <build>
         <pluginManagement>
@@ -78,7 +78,14 @@
     <dependencyManagement>
         <dependencies>
 
-
+          <!-- Importing dependency bill of materials (BOM) -->
+          <dependency>
+              <groupId>solent.ac.uk.devops.traffic</groupId>
+              <artifactId>devops-bom</artifactId>
+              <version>0.1-SNAPSHOT</version>
+              <type>pom</type>
+              <scope>import</scope>
+          </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -132,5 +139,5 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
-
+    <name>commonartifacts</name>
 </project>
