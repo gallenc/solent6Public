@@ -37,7 +37,6 @@
             <modules>
                 <module>service</module>
                 <module>assembly</module>
-                <module>docker</module>
             </modules>
         </profile>
         <!-- this will only work if you are running on a linux machine with installed docker -->
