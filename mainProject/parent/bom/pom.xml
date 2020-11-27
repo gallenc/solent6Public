@@ -2,9 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>solent.ac.uk.devops.traffic</groupId>
-    <artifactId>bom</artifactId>
-    <version>0.1-SNAPSHOT</version>
+
+    <parent>
+        <groupId>solent.ac.uk.devops.traffic</groupId>
+        <artifactId>devops-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>devops-bom</artifactId>
     <packaging>pom</packaging>
 
     <properties>
@@ -308,5 +313,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <name>bom</name>
+
 </project>
