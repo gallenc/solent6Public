@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>platerecognition-docker</artifactId>
-    <packaging>pom</packaging>
+    <packaging>rar</packaging>
 
     <build>
         <plugins>
