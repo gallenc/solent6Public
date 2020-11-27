@@ -9,7 +9,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>devops-bom</artifactId>
+    <artifactId>bom</artifactId>
     <packaging>pom</packaging>
 
     <properties>
