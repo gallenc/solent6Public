@@ -20,8 +20,20 @@
 
     </properties>
 
+    <profiles>
+        <profile>
+            <id>all</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>platerecognition</module>
+            </modules>
+        </profile>
+    </profiles>
+
     <modules>
-       
+
     </modules>
 
     <build>
@@ -48,7 +60,7 @@
                     <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <excludes>
-							<!-- prevent tests running in any package with manual filter. These 
+							<!-- prevent tests running in any package with manual filter. These
 								are manual one off development tests -->
                             <exclude>**/manual/*.java</exclude>
                         </excludes>
