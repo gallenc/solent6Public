@@ -26,8 +26,58 @@ jobs:
         JFROG_USER: ${{ secrets.JF_ARTIFACTORY_USERNAME }}
         JFROG_PASS: ${{ secrets.JF_ARTIFACTORY_PASSWORD }}
 
-    - name: Maven Build
-      run: mvn -B package --file mainProject/parent/userinterface/pom.xml
+    - name: Maven Build bom
+      run: mvn -B package --file mainProject/parent/bom/pom.xml
+
+    - name: Maven Deploy to JFrog
+      run: mvn deploy --file mainProject/parent/bom/pom.xml
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        JFROG_USER: ${{ secrets.JF_ARTIFACTORY_USERNAME }}
+        JFROG_PASS: ${{ secrets.JF_ARTIFACTORY_PASSWORD }}
+
+    - name: Maven Build chargereconciler
+      run: mvn -B package --file mainProject/parent/chargereconciler/pom.xml
+
+    - name: Maven Deploy to JFrog
+      run: mvn deploy --file mainProject/parent/chargereconciler/pom.xml
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        JFROG_USER: ${{ secrets.JF_ARTIFACTORY_USERNAME }}
+        JFROG_PASS: ${{ secrets.JF_ARTIFACTORY_PASSWORD }}
+
+    - name: Maven Build image capture
+      run: mvn -B package --file mainProject/parent/imagecapture/pom.xml
+
+    - name: Maven Deploy to JFrog
+      run: mvn deploy --file mainProject/parent/imagecapture/pom.xml
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        JFROG_USER: ${{ secrets.JF_ARTIFACTORY_USERNAME }}
+        JFROG_PASS: ${{ secrets.JF_ARTIFACTORY_PASSWORD }}
+
+    - name: Maven Build image recognition
+      run: mvn -B package --file mainProject/parent/imagerecognition/pom.xml
+
+    - name: Maven Deploy to JFrog
+      run: mvn deploy --file mainProject/parent/imagerecognition/pom.xml
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        JFROG_USER: ${{ secrets.JF_ARTIFACTORY_USERNAME }}
+        JFROG_PASS: ${{ secrets.JF_ARTIFACTORY_PASSWORD }}
+
+    - name: Maven Build integration testing
+      run: mvn -B package --file mainProject/parent/integrationtesting/pom.xml
+
+    - name: Maven Deploy to JFrog
+      run: mvn deploy --file mainProject/parent/integrationtesting/pom.xml
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        JFROG_USER: ${{ secrets.JF_ARTIFACTORY_USERNAME }}
+        JFROG_PASS: ${{ secrets.JF_ARTIFACTORY_PASSWORD }}
+
+    - name: Maven Build user interface
+    run: mvn -B package --file mainProject/parent/userinterface/pom.xml
 
     - name: Maven Deploy to JFrog
       run: mvn deploy --file mainProject/parent/userinterface/pom.xml
