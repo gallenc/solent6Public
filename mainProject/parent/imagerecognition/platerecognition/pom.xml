@@ -9,7 +9,7 @@
       <version>0.1-SNAPSHOT</version>
     </parent> -->
 
-    <groupId>solent.ac.uk.devops.traffic</groupId>
+    <groupId>solent.ac.uk.devops.traffic.imagerecognition</groupId>
     <artifactId>platerecognition</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
