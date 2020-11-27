@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>solent.ac.uk.devops.traffic</groupId>
+        <groupId>solent.ac.uk.devops.traffic.imagerecognition</groupId>
         <artifactId>platerecognition</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
@@ -160,6 +160,12 @@
         <dependency>
             <groupId>net.sf.javaanpr</groupId>
             <artifactId>javaanpr</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>solent.ac.uk.devops.traffic</groupId>
+            <artifactId>commonartifacts-JSONMessage</artifactId>
+            <version>0.1-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
     </dependencies>

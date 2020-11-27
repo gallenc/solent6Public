@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.solent.devops.message.jms</groupId>
-    <artifactId>JSONMessage</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <parent>
+        <groupId>solent.ac.uk.devops.traffic</groupId>
+        <artifactId>commonartifacts</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>commonartifacts-JSONMessage</artifactId>
     <packaging>jar</packaging>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    
+
     <distributionManagement>
         <repository>
             <id>jfrogmavenrepo1-releases</id>
@@ -23,7 +27,28 @@
             <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
         </snapshotRepository>
     </distributionManagement>
-    
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+
+                <configuration>
+                    <!-- you can use environment properties or systemproperties-->
+                    <systemPropertyVariables>
+                        <APPLICATION_PROPERTIES_FILE>${basedir}/src/main/resources/system.properties</APPLICATION_PROPERTIES_FILE>
+                    </systemPropertyVariables>
+                    <environmentVariables>
+                        <APPLICATION_PROPERTIES_FILE>${basedir}/src/main/resources/system.properties</APPLICATION_PROPERTIES_FILE>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
@@ -46,5 +71,5 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-    <name>JSONMessage</name>
+    <name>commonartifacts-JSONMessage</name>
 </project>
