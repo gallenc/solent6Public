@@ -27,10 +27,10 @@ jobs:
         JFROG_PASS: ${{ secrets.JF_ARTIFACTORY_PASSWORD }}
 
     - name: Maven Build
-      run: mvn -B package --file mainProject/parent/imagerecognition/pom.xml
+      run: mvn -B package --file mainProject/parent/commonartifacts/pom.xml
 
     - name: Maven Deploy to JFrog
-      run: mvn deploy --file mainProject/parent/imagerecognition/pom.xml
+      run: mvn deploy --file mainProject/parent/commonartifacts/pom.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
         JFROG_USER: ${{ secrets.JF_ARTIFACTORY_USERNAME }}
