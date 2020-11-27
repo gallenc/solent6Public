@@ -50,5 +50,5 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-    <name>JSONMessage</name>
+    <name>commonartifacts-JSONMessage</name>
 </project>
