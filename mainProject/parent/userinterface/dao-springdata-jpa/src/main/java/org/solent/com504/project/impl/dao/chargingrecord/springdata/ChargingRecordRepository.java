@@ -1,8 +1,8 @@
-package org.solent.com504.project.impl.dao.user.springdata;
+package org.solent.com504.project.impl.dao.chargingrecord.springdata;
 
 import java.awt.print.Pageable;
 import java.util.Date;
-import org.solent.com504.project.model.user.dto.ChargingRecord;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

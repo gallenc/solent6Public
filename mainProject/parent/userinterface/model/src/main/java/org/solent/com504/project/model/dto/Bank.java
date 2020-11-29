@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.solent.com504.project.model.user.dto;
+package org.solent.com504.project.model.dto;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.solent.com504.project.impl.dao.user.springdata;
+package org.solent.com504.project.impl.dao.car.springdata;
 
 /**
  *
@@ -11,7 +11,7 @@ package org.solent.com504.project.impl.dao.user.springdata;
  */
 import java.util.List;
 import java.util.Set;
-import org.solent.com504.project.model.user.dto.Car;
+import org.solent.com504.project.model.car.dto.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -20,9 +20,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.solent.com504.project.model.user.dto.Bank;
-import org.solent.com504.project.model.user.dto.Car;
-import org.solent.com504.project.model.user.dto.Invoice;
+import org.solent.com504.project.model.dto.Bank;
+import org.solent.com504.project.model.car.dto.Car;
+import org.solent.com504.project.model.invoice.dto.Invoice;
 import org.solent.com504.project.model.user.dto.User;
 
 @XmlRootElement

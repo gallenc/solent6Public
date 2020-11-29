@@ -11,12 +11,12 @@ import org.solent.com504.project.model.service.ServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.solent.com504.project.model.party.dao.PartyDAO;
-import org.solent.com504.project.model.user.dao.CarDAO;
-import org.solent.com504.project.model.user.dao.ChargingRecordDAO;
-import org.solent.com504.project.model.user.dao.InvoiceDAO;
-import org.solent.com504.project.model.user.dto.Car;
-import org.solent.com504.project.model.user.dto.ChargingRecord;
-import org.solent.com504.project.model.user.dto.Invoice;
+import org.solent.com504.project.model.car.dao.CarDAO;
+import org.solent.com504.project.model.chargingrecord.dao.ChargingRecordDAO;
+import org.solent.com504.project.model.invoice.dao.InvoiceDAO;
+import org.solent.com504.project.model.car.dto.Car;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
+import org.solent.com504.project.model.invoice.dto.Invoice;
 
 // note we give the bean this name so it is picked up later in application context
 @Component("serviceFacade")

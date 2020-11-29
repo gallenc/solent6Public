@@ -31,7 +31,7 @@ import org.solent.com504.project.model.party.dto.Address;
 import org.solent.com504.project.model.dto.ReplyMessage;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.party.dto.PartyStatus;
-import org.solent.com504.project.model.user.dto.Bank;
+import org.solent.com504.project.model.dto.Bank;
 import org.solent.com504.project.model.user.dto.Role;
 import org.solent.com504.project.model.user.dto.User;
 import org.solent.com504.project.model.user.dto.UserRoles;
@@ -50,7 +50,11 @@ public class ModelJaxbTest {
             jaxbContext = JAXBContext.newInstance(
                     "org.solent.com504.project.model.dto"
                     + ":org.solent.com504.project.model.user.dto"
-                    + ":org.solent.com504.project.model.party.dto");
+                    + ":org.solent.com504.project.model.party.dto"
+                    + ":org.solent.com504.project.model.chargingrecord.dto"
+                    + ":org.solent.com504.project.model.invoice.dto"
+                    + ":org.solent.com504.project.model.car.dto"
+            );
         } catch (JAXBException e) {
             throw new RuntimeException("problem creating jaxb context", e);
         }

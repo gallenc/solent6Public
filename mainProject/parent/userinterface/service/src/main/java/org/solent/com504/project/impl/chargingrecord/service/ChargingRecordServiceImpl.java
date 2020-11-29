@@ -7,20 +7,21 @@ package org.solent.com504.project.impl.chargingrecord.service;
 
 import java.util.Date;
 import java.util.List;
-import org.solent.com504.project.model.user.dao.ChargingRecordDAO;
-import org.solent.com504.project.model.user.dto.ChargingRecord;
-import org.solent.com504.project.model.user.service.ChargingRecordService;
+import java.util.Optional;
+import org.solent.com504.project.model.chargingrecord.dao.ChargingRecordDAO;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
+import org.solent.com504.project.model.chargingrecord.service.ChargingRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
- * @author ruipi
+ * @author joao-
  */
-@Component("chargingRecordService")
-public class ChargingRecordServiceImpl implements ChargingRecordService{
+@Service
+public class ChargingRecordServiceImpl implements ChargingRecordService {
     
-    @Autowired
+@Autowired
     private ChargingRecordDAO chargingRecordDAO;
 
     @Override
@@ -79,5 +80,4 @@ public class ChargingRecordServiceImpl implements ChargingRecordService{
     public void deleteAll() {
         chargingRecordDAO.deleteAll();
     }
-    
 }

@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Set;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
-import org.solent.com504.project.model.user.dto.Car;
-import org.solent.com504.project.model.user.dto.ChargingRecord;
-import org.solent.com504.project.model.user.dto.Invoice;
+import org.solent.com504.project.model.car.dto.Car;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
+import org.solent.com504.project.model.invoice.dto.Invoice;
 
 public interface ServiceFacade {
 

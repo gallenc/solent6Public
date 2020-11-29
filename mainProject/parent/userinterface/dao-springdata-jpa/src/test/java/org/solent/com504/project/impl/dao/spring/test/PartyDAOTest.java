@@ -22,10 +22,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.solent.com504.project.model.party.dao.PartyDAO;
 import org.solent.com504.project.model.party.dto.Address;
-import org.solent.com504.project.model.user.dao.CarDAO;
+import org.solent.com504.project.model.car.dao.CarDAO;
 import org.solent.com504.project.model.user.dao.RoleDAO;
 import org.solent.com504.project.model.user.dao.UserDAO;
-import org.solent.com504.project.model.user.dto.Car;
+import org.solent.com504.project.model.car.dto.Car;
 import org.solent.com504.project.model.user.dto.User;
 
 /**
@@ -50,14 +50,14 @@ public class PartyDAOTest {
     @Autowired
     private RoleDAO roleDao = null;
 
-    @Autowired
-    private CarDAO carDao = null;
+//    @Autowired
+//    private CarDAO carDao = null;
     
     @Before
     public void before() {
         assertNotNull(partyDao);
         assertNotNull(userDao);
-        assertNotNull(carDao);
+//        assertNotNull(carDao);
     }
 
     // initialises database for each test
@@ -66,7 +66,7 @@ public class PartyDAOTest {
 
         partyDao.deleteAll();
         userDao.deleteAll();
-        carDao.deleteAll();
+//        carDao.deleteAll();
 
         for (int i = 1; i < 6; i++) {
             User user = new User();
