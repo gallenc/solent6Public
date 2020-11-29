@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author ruipi
  */
 @Controller
-@Transactional
+//@Transactional
 public class ChargingRecordController {
     
     public static final String WEB_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";

@@ -1,6 +1,7 @@
 package org.solent.com504.project.model.chargingrecord.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,10 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ChargingRecord {
     
     private Long id;
-    private Long entryPhotoId;
-    private Long exitPhotoId;
-    private LocalDateTime entryDate;
-    private LocalDateTime exitDate;
+    private String uuid;
+    private String entryPhotoId;
+    private String exitPhotoId;
+    private Date entryDate;
+    private Date exitDate;
     private String entryLocation;
     private String exitLocation;
     private String numberPlate;
@@ -46,35 +48,43 @@ public class ChargingRecord {
         this.id = id;
     }
 
-    public Long getEntryPhotoId() {
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getEntryPhotoId() {
         return entryPhotoId;
     }
 
-    public void setEntryPhotoId(Long entryPhotoId) {
+    public void setEntryPhotoId(String entryPhotoId) {
         this.entryPhotoId = entryPhotoId;
     }
 
-    public Long getExitPhotoId() {
+    public String getExitPhotoId() {
         return exitPhotoId;
     }
 
-    public void setExitPhotoId(Long exitPhotoId) {
+    public void setExitPhotoId(String exitPhotoId) {
         this.exitPhotoId = exitPhotoId;
     }
 
-    public LocalDateTime getEntryDate() {
+    public Date getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(LocalDateTime entryDate) {
+    public void setEntryDate(Date entryDate) {
         this.entryDate = entryDate;
     }
 
-    public LocalDateTime getExitDate() {
+    public Date getExitDate() {
         return exitDate;
     }
 
-    public void setExitDate(LocalDateTime exitDate) {
+    public void setExitDate(Date exitDate) {
         this.exitDate = exitDate;
     }
 
@@ -117,9 +127,9 @@ public class ChargingRecord {
     public void setChargeRate(Double chargeRate) {
         this.chargeRate = chargeRate;
     }
-        
+
     @Override
     public String toString() {
-        return "ChargingRecord{" + "id=" + id + ", entryPhotoId=" + entryPhotoId + ", exitPhotoId=" + exitPhotoId + ", entryDate=" + entryDate + ", exitDate=" + exitDate + ", entryLocation=" + entryLocation + ", exitLocation=" + exitLocation + ", numberPlate=" + numberPlate + ", charge=" + charge + ", chargeRate=" + chargeRate + '}';
-    }                
+        return "ChargingRecord{" + "id=" + id + ", uuid=" + uuid + ", entryPhotoId=" + entryPhotoId + ", exitPhotoId=" + exitPhotoId + ", entryDate=" + entryDate + ", exitDate=" + exitDate + ", entryLocation=" + entryLocation + ", exitLocation=" + exitLocation + ", numberPlate=" + numberPlate + ", charge=" + charge + ", chargeRate=" + chargeRate + '}';
+    }        
 }

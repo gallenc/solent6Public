@@ -17,8 +17,8 @@ public interface ChargingRecordRepository  extends JpaRepository<ChargingRecord,
     /*@Query("SELECT cr FROM ChargingRecord cr WHERE cr.numberPlate = :numberPlate and cr.entryDate >= :entryDate and cr.exitDate <= :exitDate")
     public Page<ChargingRecord> findByNumberPlate(@Param("numberPlate")String numberPlate,
             @Param("entryDate") Date startDate, 
-            @Param("exitDate")Date endDate, Pageable pageable);*/
+            @Param("exitDate")Date endDate, Pageable pageable);
     
-    /*@Query("SELECT cr FROM ChargingRecord cr WHERE cr.uuid = :uuid")
+    @Query("SELECT cr FROM ChargingRecord cr WHERE cr.uuid = :uuid")
     public ChargingRecord findByUuid(@Param("uuid") String uuid);*/
 }
