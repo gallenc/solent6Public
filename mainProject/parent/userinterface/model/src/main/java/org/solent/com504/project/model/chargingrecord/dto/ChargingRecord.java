@@ -1,4 +1,4 @@
-package org.solent.com504.project.model.user.dto;
+package org.solent.com504.project.model.chargingrecord.dto;
 
 import java.time.LocalDateTime;
 import java.util.Set;

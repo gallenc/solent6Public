@@ -1,5 +1,6 @@
-package org.solent.com504.project.model.user.dto;
+package org.solent.com504.project.model.invoice.dto;
 
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;

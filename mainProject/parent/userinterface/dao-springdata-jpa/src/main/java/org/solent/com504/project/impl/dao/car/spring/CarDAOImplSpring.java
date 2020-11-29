@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.solent.com504.project.impl.dao.user.spring;
+package org.solent.com504.project.impl.dao.car.spring;
 
 /**
  *
@@ -13,9 +13,9 @@ package org.solent.com504.project.impl.dao.user.spring;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import org.solent.com504.project.impl.dao.user.springdata.CarRepository;
-import org.solent.com504.project.model.user.dao.CarDAO;
-import org.solent.com504.project.model.user.dto.Car;
+import org.solent.com504.project.impl.dao.car.springdata.CarRepository;
+import org.solent.com504.project.model.car.dao.CarDAO;
+import org.solent.com504.project.model.car.dto.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CarDAOImplSpring implements CarDAO {
+    
     @Autowired
     private CarRepository carRepository = null;
     

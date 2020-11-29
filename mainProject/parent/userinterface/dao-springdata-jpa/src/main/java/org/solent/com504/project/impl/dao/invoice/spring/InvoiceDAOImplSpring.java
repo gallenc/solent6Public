@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.solent.com504.project.impl.dao.user.spring;
+package org.solent.com504.project.impl.dao.invoice.spring;
 
 /**
  *
@@ -12,10 +12,10 @@ package org.solent.com504.project.impl.dao.user.spring;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import org.solent.com504.project.impl.dao.user.springdata.InvoiceRepository;
+import org.solent.com504.project.impl.dao.invoice.springdata.InvoiceRepository;
 import org.solent.com504.project.model.party.dto.Party;
-import org.solent.com504.project.model.user.dao.InvoiceDAO;
-import org.solent.com504.project.model.user.dto.Invoice;
+import org.solent.com504.project.model.invoice.dao.InvoiceDAO;
+import org.solent.com504.project.model.invoice.dto.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

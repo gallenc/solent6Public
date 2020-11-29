@@ -19,7 +19,7 @@ import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.party.service.PartyService;
 import org.solent.com504.project.model.service.ServiceFacade;
-import org.solent.com504.project.model.user.dto.Car;
+import org.solent.com504.project.model.car.dto.Car;
 import org.solent.com504.project.model.user.dto.Role;
 import org.solent.com504.project.model.user.dto.User;
 import org.solent.com504.project.model.user.dto.UserRoles;

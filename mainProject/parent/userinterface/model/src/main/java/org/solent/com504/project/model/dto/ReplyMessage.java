@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.solent.com504.project.model.party.dto.Party;
-import org.solent.com504.project.model.user.dto.ChargingRecord;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

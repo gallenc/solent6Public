@@ -1,13 +1,13 @@
-package org.solent.com504.project.impl.dao.user.spring;
+package org.solent.com504.project.impl.dao.chargingrecord.spring;
 
 import java.awt.print.Pageable;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.solent.com504.project.impl.dao.user.springdata.ChargingRecordRepository;
-import org.solent.com504.project.impl.dao.user.springdata.InvoiceRepository;
-import org.solent.com504.project.model.user.dao.ChargingRecordDAO;
-import org.solent.com504.project.model.user.dto.ChargingRecord;
+import org.solent.com504.project.impl.dao.chargingrecord.springdata.ChargingRecordRepository;
+import org.solent.com504.project.impl.dao.invoice.springdata.InvoiceRepository;
+import org.solent.com504.project.model.chargingrecord.dao.ChargingRecordDAO;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

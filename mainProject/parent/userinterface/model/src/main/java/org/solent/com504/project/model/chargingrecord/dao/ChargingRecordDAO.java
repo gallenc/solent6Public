@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.solent.com504.project.model.user.service;
+package org.solent.com504.project.model.chargingrecord.dao;
 
 import java.util.Date;
 import java.util.List;
-import org.solent.com504.project.model.user.dto.ChargingRecord;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 
 /**
  *
- * @author ruipi
+ * @author joao-
  */
-public interface ChargingRecordService {
+public interface ChargingRecordDAO {
     
     public ChargingRecord findById(Long id);
     
@@ -36,5 +36,4 @@ public interface ChargingRecordService {
     public void delete(ChargingRecord chargingRecord);
     
     public void deleteAll();
-    
 }

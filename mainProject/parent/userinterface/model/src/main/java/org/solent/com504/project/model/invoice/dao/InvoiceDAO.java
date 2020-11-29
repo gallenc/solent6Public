@@ -1,9 +1,9 @@
-package org.solent.com504.project.model.user.dao;
+package org.solent.com504.project.model.invoice.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import org.solent.com504.project.model.party.dto.Party;
-import org.solent.com504.project.model.user.dto.Invoice;
+import org.solent.com504.project.model.invoice.dto.Invoice;
 
 /**
  *
