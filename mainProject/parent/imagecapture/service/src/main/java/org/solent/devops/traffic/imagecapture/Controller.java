@@ -10,8 +10,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * This Controller class starts and stops an application context. 
@@ -30,7 +33,7 @@ public class Controller {
     public static void main(String[] args) {
         System.out.println("INFO: System.out.println - main method starting in " + Controller.class);
         LOG.info("main method starting in " + Controller.class);
-        
+
         String msg=" arguments passed to main: ("+args.length+") ";
         for(int i=0; i<args.length; i++){
             msg=msg+args[i]+" ";
@@ -71,6 +74,14 @@ public class Controller {
         }
     }
 
+    //Takes folder location as param and returns list of files
+    private static File[] getResourceFolderFiles (String folder) {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        URL url = loader.getResource(folder);
+        String path = url.getPath();
+        return new File(path).listFiles();
+    }
+
     private void start(String[] args) {
         try {
             context = new ClassPathXmlApplicationContext("appconfig-service.xml");
@@ -83,15 +94,21 @@ public class Controller {
 
             senders = new HashMap<>();
 
-            for (int i = 0; i < maxCameraId; i++) {
+            //iterates through list of files in resource and prints them
+            for (File f : getResourceFolderFiles("main/resources/images")) {
+                String uuid = UUID.randomUUID().toString().replace("-", "");
+                String imageBinary = CameraMessage.convertImage(f);  //Sending wrong file type through
+                // need to create a timestamp and cameraId
+                CameraMessage message = new CameraMessage(uuid, timestamp, cameraId, imageBinary);    //need cameraID, timestamp and id
+                message.toJson();
+                //Need to sort the topic,qos,broker and clientId
+                Sender sender = new Sender(topic, qos, broker, clientId);
+                sender.sendImage(message);
+            }
+            //for (int i = 0; i < maxCameraId; i++) {
                 // senders.push(i, new Sender("camera", 2, "tcp://localhost:1883", i));
                 //Create the cameras
-            }
-
-            //Loop through every example message
-                //Create an instance of CameraMessage
-                //Send the message to the queue using Sender.sendMessage(cameraMessage);
-                // CameraMessage cm = new CameraMessage(5, new Timestamp(), 5, getClass().getClassLoader().getResource("images/test_001.jpg"));
+            //}
 
         } catch (Exception e) {
             LOG.error("service bootstrap failure.", e);

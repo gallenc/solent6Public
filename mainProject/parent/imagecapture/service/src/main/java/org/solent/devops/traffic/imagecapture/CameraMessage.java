@@ -3,6 +3,10 @@ package org.solent.devops.traffic.imagecapture;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.security.Timestamp;
 import java.text.DateFormat;
@@ -40,10 +44,6 @@ public class CameraMessage {
         return image;
     }
 
-    public void setImage(URL imageFile) {
-        //Convert image file to binary
-    }
-
     Timestamp timestamp;
     int cameraId;
     byte[] image;
@@ -53,6 +53,25 @@ public class CameraMessage {
         this.timestamp = timestamp;
         this.cameraId = cameraId;
         this.image = image;
+    }
+
+    //Convert image file to binary
+    public static String convertImage(File imageFile) {
+        StringBuilder sb = new StringBuilder();
+        try (BufferedInputStream is = new BufferedInputStream(new FileInputStream("imageFile"))) {
+            for (int i; (i = is.read()) != -1;) {
+                String temp = "0000000" + Integer.toBinaryString(i).toUpperCase();
+                if (temp.length() == 1) {
+                    sb.append('0');
+                }
+                temp = temp.substring(temp.length() - 8);
+                sb.append(temp).append(' ');
+            }
+            return sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Failed image binary conversion ";
     }
 
     public String toJson() throws JsonProcessingException {
