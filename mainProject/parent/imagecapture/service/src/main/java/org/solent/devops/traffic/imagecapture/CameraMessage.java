@@ -8,19 +8,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 public class CameraMessage {
-    int id;
+    String id;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -40,15 +40,15 @@ public class CameraMessage {
         this.cameraId = cameraId;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
     Timestamp timestamp;
     int cameraId;
-    byte[] image;
+    String image;
 
-    public CameraMessage(int id, Timestamp timestamp, int cameraId, byte[] image) {
+    public CameraMessage(String id, Timestamp timestamp, int cameraId, String image) {
         this.id = id;
         this.timestamp = timestamp;
         this.cameraId = cameraId;

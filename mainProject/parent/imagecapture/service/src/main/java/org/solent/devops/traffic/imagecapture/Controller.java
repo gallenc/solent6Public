@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -97,18 +99,12 @@ public class Controller {
             //iterates through list of files in resource and prints them
             for (File f : getResourceFolderFiles("main/resources/images")) {
                 String uuid = UUID.randomUUID().toString().replace("-", "");
-                String imageBinary = CameraMessage.convertImage(f);  //Sending wrong file type through
-                // need to create a timestamp and cameraId
-                CameraMessage message = new CameraMessage(uuid, timestamp, cameraId, imageBinary);    //need cameraID, timestamp and id
+                String imageBinary = CameraMessage.convertImage(f);
+                CameraMessage message = new CameraMessage(uuid, new Timestamp(new Date().getTime()), 1, imageBinary);    //need cameraID waiting for group 4
                 message.toJson();
-                //Need to sort the topic,qos,broker and clientId
-                Sender sender = new Sender(topic, qos, broker, clientId);
+                Sender sender = new Sender("camera", 2, "tcp://localhost:1883", message.getCameraId());
                 sender.sendImage(message);
             }
-            //for (int i = 0; i < maxCameraId; i++) {
-                // senders.push(i, new Sender("camera", 2, "tcp://localhost:1883", i));
-                //Create the cameras
-            //}
 
         } catch (Exception e) {
             LOG.error("service bootstrap failure.", e);
