@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -41,12 +42,12 @@ public class ChargingRecordController {
     @Qualifier("chargingRecordService")
     ChargingRecordService chargingRecordService = null;
 
-    @RequestMapping("/chargingRecords")
+    @RequestMapping(value = {"/chargingRecords"}, method = RequestMethod.GET)
     public String chargingRecord(@RequestParam(value = "numberPlate", required = false) String numberPlate,
             @RequestParam(value = "entryDate", required = false) String entryDate,
             @RequestParam(value = "exitDate", required = false) String exitDate,
             @RequestParam(value = "page", required = false) String page,
-            @RequestParam(value = "soze", required = false) String size,
+            @RequestParam(value = "size", required = false) String size,
             Model m) {
 
         SimpleDateFormat df = new SimpleDateFormat(WEB_DATE_FORMAT);

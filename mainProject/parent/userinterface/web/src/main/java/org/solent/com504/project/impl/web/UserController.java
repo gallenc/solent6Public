@@ -66,7 +66,7 @@ public class UserController {
     ServiceFacade serviceFacade = null;
     
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
@@ -98,9 +98,9 @@ public class UserController {
     @RequestMapping(value = "/denied", method = {RequestMethod.GET, RequestMethod.POST})
     public String denied(Model model) {
         return "denied";
-    }
+    }*/
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
@@ -111,7 +111,7 @@ public class UserController {
         }
 
         return "login";
-    }
+    }*/
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String home(Model model, Authentication authentication) {
@@ -142,6 +142,21 @@ public class UserController {
     public String contact(Model model) {
         return "contact";
     }
+    
+    @RequestMapping(value={"/mycars"}, method = RequestMethod.GET)
+    public String mycars(Model model){
+        return "mycars";
+    }
+    
+    @RequestMapping(value={"/invoice"}, method = RequestMethod.GET)
+    public String invoice(Model model){
+        return "invoice";
+    }
+    
+    @RequestMapping(value={"/motorwayusage"}, method = RequestMethod.GET)
+    public String motorwayusage(Model model){
+        return "motorwayusage";
+    }
 
     @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
     public String users(Model model) {
@@ -158,7 +173,7 @@ public class UserController {
         return "users";
     }
 
-    @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.GET)
+    /*@RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.GET)
     public String modifyuser(Model model,
             @RequestParam(value = "username", required = true) String username, Authentication authentication) {
 
@@ -190,7 +205,7 @@ public class UserController {
         return "viewModifyUser";
     }
 
-    @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.POST)
+    /*@RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.POST)
     public String updateuser(Model model,
             @RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "firstName", required = false) String firstName,
