@@ -84,6 +84,7 @@
 
     <bean id="simpleJmsListener" class="org.solent.devops.message.jms.SimpleJmsListener">
         <property name="destination" value="p2imagerecognition" />
+        <property name="errorQueue" value="p2imagerecognitionerror" />
     </bean>
 
     <!--listener container definition using the jms namespace, concurrency is the max number of concurrent listeners that can be started -->
