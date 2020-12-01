@@ -21,14 +21,14 @@
                 <artifactId>maven-surefire-plugin</artifactId>
               
                 <configuration>
-                    <!-- you can use environment properties or systemproperties 
+                    <!-- you can use environment properties or systemproperties -->
                     <systemPropertyVariables>
                         <APPLICATION_PROPERTIES_FILE>${basedir}/src/main/resources/system.properties</APPLICATION_PROPERTIES_FILE>
                     </systemPropertyVariables>
              
                     <environmentVariables>
                         <APPLICATION_PROPERTIES_FILE>${basedir}/src/main/resources/system.properties</APPLICATION_PROPERTIES_FILE>
-                    </environmentVariables>-->
+                    </environmentVariables>
                 </configuration>
             </plugin>
             
