@@ -26,6 +26,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import org.solent.devops.message.jms.JSONMessage;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 /**
  *
@@ -39,21 +47,38 @@ public class JMSThreadTest {
     private SimpleJmsSender sender;
 
     @Test
-    public void test() throws Exception {
-        // Message in to system
-        sender.send("Test.Input", "foo");
+    public void testANPR() throws Exception {
 
-        String response;
+        try {
 
-        // Latch test continues as soon as a response is received
-        // If no response after 10 seconds the test will fail
-        TestConfig.inputListenerLatch.await(10, TimeUnit.SECONDS);
-        response = TestConfig.inputListenerReceived;
-        assertEquals("foo", response);
+            byte[] encoded = Files.readAllBytes(Paths.get("src/test/resources/testMessage.txt"));
+            String json = new String(encoded, Charset.forName("UTF-8"));
 
-        TestConfig.outputListenerLatch.await(10, TimeUnit.SECONDS);
-        response = TestConfig.outputListenerReceived;
-        assertEquals("foo processed", response);
+            // Message in to system
+            sender.send("Test.Input", json);
+
+            String response;
+
+            // Latch test continues as soon as a response is received
+            // If no response after 10 seconds the test will fail
+            TestConfig.inputListenerLatch.await(10, TimeUnit.SECONDS);
+            response = TestConfig.inputListenerReceived;
+            assertEquals(json, response);
+
+            TestConfig.outputListenerLatch.await(10, TimeUnit.SECONDS);
+            response = TestConfig.outputListenerReceived;
+            ObjectMapper objectMapper = new ObjectMapper();
+            JSONMessage jsonMessage = objectMapper.readValue(response, JSONMessage.class);
+            assertEquals("PP587A0",jsonMessage.getNumberplate());
+            assertEquals("",jsonMessage.getPhoto());
+
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     @Configuration

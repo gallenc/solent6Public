@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 import org.solent.devops.message.jms.JSONMessage;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.sf.javaanpr.imageanalysis.CarSnapshot;
+import net.sf.javaanpr.intelligence.Intelligence;
 
 @Component
 public class SimpleJmsListener implements MessageListener {
@@ -38,12 +41,21 @@ public class SimpleJmsListener implements MessageListener {
                 
                 if (!destination.equals("None")) {
                     LOG.info(this.toString() + " processing and forwarding to: '" + destination + "'");
-                    sender.send(destination, text + " processed");
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    JSONMessage jsonMessage = objectMapper.readValue(text, JSONMessage.class);
+                    Intelligence intelligence = new Intelligence();
+                    CarSnapshot  carSnapshot = new CarSnapshot(jsonMessage.imageFromString());
+                    String numberplate = intelligence.recognize(carSnapshot);
+                    jsonMessage.setPhoto("");
+                    jsonMessage.setNumberplate(numberplate);
+                    String outputMessage = jsonMessage.toJson();
+                    sender.send(destination, outputMessage);
                 }
-                //JSONMessage json;
 
             } catch (final JMSException e) {
                 LOG.error(this.toString() + " had a problem receiving a JMS message", e);
+            } catch (final Exception e) {
+                LOG.error(this.toString() + " had a problem", e);
             }
         }
     }
