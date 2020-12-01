@@ -12,13 +12,14 @@ import org.solent.com504.project.model.chargingrecord.dao.ChargingRecordDAO;
 import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 import org.solent.com504.project.model.chargingrecord.service.ChargingRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
  *
  * @author joao-
  */
-@Service
+@Component("chargingRecordService")
 public class ChargingRecordServiceImpl implements ChargingRecordService {
     
 @Autowired

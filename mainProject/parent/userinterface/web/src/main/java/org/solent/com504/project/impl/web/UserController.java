@@ -115,7 +115,9 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String home(Model model, Authentication authentication) {
-        Party party = partyService.findPartyByUsername(authentication.getName());
+        
+        //something is wrong with this block of code        
+        /*Party party = partyService.findPartyByUsername(authentication.getName());
           
         
         Car car = new Car();
@@ -125,7 +127,7 @@ public class UserController {
         Set<Car> cars = new HashSet();
         cars.add(car);
         party.setCars(cars);
-        model.addAttribute("carList", party.getCars());
+        model.addAttribute("carList", party.getCars());*/
         
         
         return "home";
