@@ -56,11 +56,8 @@
 
                                 <!-- this raw java code works !! -->
                                 <li <% if ("home".equals(request.getAttribute("selectedPage"))) {%> class="active"  <% } %> ><a href="${contextPath}/home">Home</a></li> 
-                                <li <% if ("billing".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% } %> ><a href="${contextPath}/billing">Billing</a></li> 
-                                <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/contact">Contact</a></li>
-                                <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/mycars">My Cars</a></li>
-                                <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/invoice">Invoice</a></li>
-                                <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/motorwayusage">Motorway Usage</a></li>
+                            <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/mycars">My Cars</a></li>
+                            <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/invoice">Invoice</a></li>
 
                             <sec:authorize access="hasRole('ROLE_GLOBAL_ADMIN')">
                                 <li class="dropdown" >
@@ -68,6 +65,15 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="${contextPath}/users">Manage Users</a></li>
                                         <li><a href="${contextPath}/partys">Manage Partys</a></li>
+                                    </ul>
+                                </li>
+                            </sec:authorize>
+
+                            <sec:authorize access="hasRole('ROLE_PARTY_ADMIN')">
+                                <li class="dropdown" >
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Party Admin <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="${contextPath}/manageusersparty">Manage Users In Party</a></li>
                                     </ul>
                                 </li>
                             </sec:authorize>
@@ -82,9 +88,9 @@
                                     <input type="hidden" name="username" value="${pageContext.request.userPrincipal.name}"/>
                                 </form>
                                 <p class="text-muted"> Welcome ${pageContext.request.userPrincipal.name}&nbsp;&nbsp;
-                                <a onclick="document.forms['logoutForm'].submit()">Logout</a><BR>
-                                <a onclick="document.forms['profile'].submit()">User Profile</a></p>
-                            </c:if>
+                                    <a onclick="document.forms['logoutForm'].submit()">Logout</a><BR>
+                                    <a onclick="document.forms['profile'].submit()">User Profile</a></p>
+                                </c:if>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
