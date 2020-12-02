@@ -31,16 +31,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 /**
  *
  * @author Afonso
  */
-
 @Controller
 @Transactional
 public class ViewModifyUserController {
-    
+
     final static Logger LOG = LogManager.getLogger(UserController.class);
 
     {
@@ -53,26 +51,7 @@ public class ViewModifyUserController {
     @Autowired(required = true)
     @Qualifier("serviceFacade")
     ServiceFacade serviceFacade = null;
-    
-    
-    
-    @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
-    public String users(Model model) {
-        List<User> userList = userService.findAll();
 
-        LOG.debug("users called:");
-        for (User user : userList) {
-            LOG.debug(" user:" + user);
-        }
-
-        model.addAttribute("userListSize", userList.size());
-        model.addAttribute("userList", userList);
-
-        return "users";
-    }
-    
-    
-    
     @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.GET)
     public String modifyuser(Model model,
             @RequestParam(value = "username", required = true) String username, Authentication authentication) {
@@ -104,14 +83,17 @@ public class ViewModifyUserController {
 
         return "viewModifyUser";
     }
-   
+
     @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.POST)
     public String updateuser(Model model,
             @RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "secondName", required = false) String secondName,
+            @RequestParam(value = "selectedRoles", required = false) List<String> selectedRolesIn,
+            @RequestParam(value = "userEnabled", required = false) String userEnabled,
+            @RequestParam(value = "number", required = false) String number,
             @RequestParam(value = "addressLine1", required = false) String addressLine1,
-            @RequestParam(value = "country", required = false) String country,
+            @RequestParam(value = "county", required = false) String county,
             @RequestParam(value = "postcode", required = false) String postcode,
             @RequestParam(value = "mobile", required = false) String mobile,
             Authentication authentication
@@ -139,18 +121,27 @@ public class ViewModifyUserController {
         }
         if (secondName != null) {
             user.setSecondName(secondName);
-        }else {
+        }
+        if (userEnabled != null) {
+            user.setEnabled(Boolean.TRUE);
+        } else {
             user.setEnabled(Boolean.FALSE);
         }
 
         Address address = new Address();
+        address.setNumber(number);
         address.setAddressLine1(addressLine1);
-        address.setCountry(country);
+        address.setCounty(county);
         address.setPostcode(postcode);
         address.setMobile(mobile);
         user.setAddress(address);
 
         user = userService.save(user);
+
+        // update roles if roles in list
+        if (selectedRolesIn != null) {
+            user = userService.updateUserRoles(username, selectedRolesIn);
+        }
 
         Map<String, String> selectedRolesMap = selectedRolesMap(user);
 
