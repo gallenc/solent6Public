@@ -55,6 +55,24 @@ public class ViewModifyUserController {
     ServiceFacade serviceFacade = null;
     
     
+    
+    @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
+    public String users(Model model) {
+        List<User> userList = userService.findAll();
+
+        LOG.debug("users called:");
+        for (User user : userList) {
+            LOG.debug(" user:" + user);
+        }
+
+        model.addAttribute("userListSize", userList.size());
+        model.addAttribute("userList", userList);
+
+        return "users";
+    }
+    
+    
+    
     @RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.GET)
     public String modifyuser(Model model,
             @RequestParam(value = "username", required = true) String username, Authentication authentication) {

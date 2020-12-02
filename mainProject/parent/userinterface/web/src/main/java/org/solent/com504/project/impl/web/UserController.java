@@ -158,7 +158,7 @@ public class UserController {
         return "motorwayusage";
     }
 
-    @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
+    /*@RequestMapping(value = {"/users"}, method = RequestMethod.GET)
     public String users(Model model) {
         List<User> userList = userService.findAll();
 
@@ -171,7 +171,7 @@ public class UserController {
         model.addAttribute("userList", userList);
 
         return "users";
-    }
+    }*/
 
     /*@RequestMapping(value = {"/viewModifyUser"}, method = RequestMethod.GET)
     public String modifyuser(Model model,
@@ -339,7 +339,7 @@ public class UserController {
         return hasRole;
     }
 
-    // PARTY MANAGEMENT
+    /*// PARTY MANAGEMENT
     @RequestMapping(value = {"/partys"}, method = RequestMethod.GET)
     public String partys(Model model) {
 
@@ -577,6 +577,6 @@ public class UserController {
         model.addAttribute("partyuuid", partyuuid);
 
         return "addUsersToParty";
-    }
+    }*/
 
 }
