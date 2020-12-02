@@ -7,7 +7,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,11 +31,11 @@ public class CameraMessage {
         this.timestamp = timestamp;
     }
 
-    public int getCameraId() {
+    public String getCameraId() {
         return cameraId;
     }
 
-    public void setCameraId(int cameraId) {
+    public void setCameraId(String cameraId) {
         this.cameraId = cameraId;
     }
 
@@ -45,10 +44,10 @@ public class CameraMessage {
     }
 
     Timestamp timestamp;
-    int cameraId;
+    String cameraId;
     String image;
 
-    public CameraMessage(String id, Timestamp timestamp, int cameraId, String image) {
+    public CameraMessage(String id, Timestamp timestamp, String cameraId, String image) {
         this.id = id;
         this.timestamp = timestamp;
         this.cameraId = cameraId;

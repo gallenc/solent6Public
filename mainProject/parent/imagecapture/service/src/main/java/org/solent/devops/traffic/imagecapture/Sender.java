@@ -17,7 +17,7 @@ public class Sender {
     MemoryPersistence memoryPersistence;
     final static Logger LOG = LogManager.getLogger(Controller.class);
 
-    public Sender(String topic, int qos, String broker, int clientId) {
+    public Sender(String topic, int qos, String broker, String clientId) {
         this.topic = topic;
         this.qos = qos;
         this.broker = broker;

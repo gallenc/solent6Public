@@ -100,7 +100,7 @@ public class Controller {
             for (File f : getResourceFolderFiles("main/resources/images")) {
                 String uuid = UUID.randomUUID().toString().replace("-", "");
                 String imageBinary = CameraMessage.convertImage(f);
-                CameraMessage message = new CameraMessage(uuid, new Timestamp(new Date().getTime()), 1, imageBinary);    //need cameraID waiting for group 4
+                CameraMessage message = new CameraMessage(uuid, new Timestamp(new Date().getTime()), "1", imageBinary);    //need cameraID waiting for group 4
                 message.toJson();
                 Sender sender = new Sender("camera", 2, "tcp://localhost:1883", message.getCameraId());
                 sender.sendImage(message);
