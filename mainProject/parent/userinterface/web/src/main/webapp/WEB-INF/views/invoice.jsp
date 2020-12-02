@@ -15,5 +15,14 @@
     <H1>Invoices</H1>
 </main>
 
+ <c:forEach var="invoice" items="${invoiceList}">
+                    <tr>
+                        <td>${invoice.id}</td>
+                        <td>${invoice.issueDate}</td>
+                        <td>${invoice.paidDate}</td>
+                        <td>${invoice.ammount}</td>                       
+                    </tr>
+                </c:forEach>
+
 
 <jsp:include page="footer.jsp" />

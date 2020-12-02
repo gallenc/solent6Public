@@ -148,10 +148,10 @@ public class UserController {
         return "mycars";
     }
     
-    @RequestMapping(value={"/invoice"}, method = RequestMethod.GET)
-    public String invoice(Model model){
-        return "invoice";
-    }
+//    @RequestMapping(value={"/invoice"}, method = RequestMethod.GET)
+//    public String invoice(Model model){
+//        return "invoice";
+//    }
     
     @RequestMapping(value={"/motorwayusage"}, method = RequestMethod.GET)
     public String motorwayusage(Model model){

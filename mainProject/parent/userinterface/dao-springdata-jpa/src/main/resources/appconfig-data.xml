@@ -25,7 +25,8 @@
                 org.solent.com504.project.impl.dao.car,
                 org.solent.com504.project.impl.party.service,
                 org.solent.com504.project.impl.dao.chargingrecord.dao,
-                org.solent.com504.project.impl.chargingrecord.service" />
+                org.solent.com504.project.impl.chargingrecord.service
+                org.solent.com504.project.impl.invoice.service" />
 
     <!-- Scans for repositories that will be auto-registered -->
     <jpa:repositories base-package="org.solent.com504.project.impl.dao.user.springdata,
