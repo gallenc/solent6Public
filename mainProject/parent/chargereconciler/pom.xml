@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>solent.ac.uk.devops.traffic</groupId>
+    <groupId>solent.ac.uk.devops.traffic.chargereconciler</groupId>
     <artifactId>chargereconciler</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -20,21 +20,6 @@
 
     </properties>
 
-    <!-- <profiles>
-        <profile>
-            <id>all</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>Insert module here</module>
-            </modules>
-        </profile>
-    </profiles> -->
-
-    <modules>
-
-    </modules>
 
     <build>
         <pluginManagement>
@@ -60,7 +45,7 @@
                     <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <excludes>
-							<!-- prevent tests running in any package with manual filter. These
+							<!-- prevent tests running in any package with manual filter. These 
 								are manual one off development tests -->
                             <exclude>**/manual/*.java</exclude>
                         </excludes>
@@ -71,14 +56,18 @@
                     <artifactId>cargo-maven2-plugin</artifactId>
                     <version>${maven-cargo-maven2-plugin.version}</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
     <dependencyManagement>
         <dependencies>
-
-			<!-- Importing dependency bill of materials (BOM) -->
+            <!-- Importing dependency bill of materials (BOM) -->
             <dependency>
                 <groupId>solent.ac.uk.devops.traffic</groupId>
                 <artifactId>devops-bom</artifactId>
@@ -86,7 +75,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
