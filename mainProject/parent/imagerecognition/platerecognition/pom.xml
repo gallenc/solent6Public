@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>solent.ac.uk.devops.traffic</groupId>
-    <artifactId>imagecapture</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <parent>
+       <groupId>solent.ac.uk.devops.traffic</groupId>
+       <artifactId>imagerecognition</artifactId>
+       <version>0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>platerecognition</artifactId>
+
     <packaging>pom</packaging>
 
     <properties>
@@ -17,24 +21,31 @@
         <maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
         <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
         <maven-cargo-maven2-plugin.version>1.7.6</maven-cargo-maven2-plugin.version>
+        <onejar-maven-plugin.version>1.4.4</onejar-maven-plugin.version>
 
     </properties>
 
-    <!-- <profiles>
+    <profiles>
         <profile>
             <id>all</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>Insert module here</module>
+                <module>service</module>
+                <module>assembly</module>
             </modules>
         </profile>
-    </profiles> -->
-
-    <modules>
-
-    </modules>
+        <!-- this will only work if you are running on a linux machine with installed docker -->
+        <profile>
+            <id>packageAsDocker</id>
+            <modules>
+                <module>service</module>
+                <module>assembly</module>
+                <module>docker</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <build>
         <pluginManagement>
@@ -60,8 +71,8 @@
                     <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <excludes>
-							<!-- prevent tests running in any package with manual filter. These
-								are manual one off development tests -->
+                            <!-- prevent tests running in any package with manual filter. -->
+                            <!-- These are manual one off development tests -->
                             <exclude>**/manual/*.java</exclude>
                         </excludes>
                     </configuration>
@@ -71,6 +82,13 @@
                     <artifactId>cargo-maven2-plugin</artifactId>
                     <version>${maven-cargo-maven2-plugin.version}</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>com.jolira</groupId>
+                    <artifactId>onejar-maven-plugin</artifactId>
+                    <version>${onejar-maven-plugin.version}</version>
+                </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
@@ -78,13 +96,11 @@
     <dependencyManagement>
         <dependencies>
 
-			<!-- Importing dependency bill of materials (BOM) -->
+            <!-- https://mvnrepository.com/artifact/net.sf.javaanpr/javaanpr -->
             <dependency>
-                <groupId>solent.ac.uk.devops.traffic</groupId>
-                <artifactId>devops-bom</artifactId>
-                <version>0.1-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>net.sf.javaanpr</groupId>
+                <artifactId>javaanpr</artifactId>
+                <version>1.2.7</version>
             </dependency>
 
         </dependencies>

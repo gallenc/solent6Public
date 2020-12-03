@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>devops-bom</artifactId>
-    <packaging>pom</packaging>
 
     <properties>
         <!-- properties set in parent -->
@@ -18,7 +17,7 @@
 
     <dependencyManagement>
         <dependencies>
-            
+
             <!-- servelet and jsp api's - provided by tomcat -->
             <dependency>
                 <groupId>javax.servlet.jsp</groupId>
@@ -33,14 +32,14 @@
                 <version>${javax.servlet-api.version}</version>
                 <scope>provided</scope>
             </dependency>
-            
+
             <!-- java server tag library -->
             <dependency>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
                 <version>${jstl.version}</version>
             </dependency>
-            
+
             <!-- jersey dependencies -->
             <dependency>
                 <groupId>org.glassfish.jersey.core</groupId>
@@ -73,8 +72,8 @@
                 <artifactId>jersey-media-jaxb</artifactId>
                 <version>${jersey.version}</version>
             </dependency>
-            
-            <!-- to allow jersey to be wired as a spring component --> 
+
+            <!-- to allow jersey to be wired as a spring component -->
             <!-- see https://medium.com/@shask9/developing-restful-web-services-using-jax-rs-jersey-and-spring-b4e1eb8e2467 -->
             <dependency>
                 <groupId>org.glassfish.jersey.ext</groupId>
@@ -103,7 +102,7 @@
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-            
+
             <!-- unpack into war -->
             <!-- https://mvnrepository.com/artifact/org.webjars/swagger-ui -->
             <dependency>
@@ -111,7 +110,7 @@
                 <artifactId>swagger-ui</artifactId>
                 <version>${swagger-ui.version}</version>
             </dependency>
-            
+
             <!--            <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-jersey2-jaxrs</artifactId>
@@ -127,7 +126,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>-->
-            
+
         <!-- JPA Implementation (Hibernate)-->
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -147,9 +146,9 @@
                 <artifactId>hsqldb</artifactId>
                 <version>${hsqldb.version}</version>
             </dependency>
-        
+
             <!-- logging dependencies -->
-            
+
             <!-- SLF4J Logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -161,9 +160,9 @@
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-            
+
             <!-- Log4j API and Core implementation  -->
-            
+
             <!-- SLF4J over Log4j -needed for eclipselink logging -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
@@ -187,14 +186,14 @@
                 <artifactId>log4j-core</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-            
+
             <!-- Log4j web required to run in a servelet context  -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-web</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-            
+
             <!-- EclipseLink jpa dependencies -->
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
@@ -207,7 +206,7 @@
                 <artifactId>jstl</artifactId>
                 <version>${jstl.version}</version>
             </dependency>
-        
+
             <!-- Spring dependencies -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -244,7 +243,7 @@
                 <artifactId>spring-security-taglibs</artifactId>
                 <version>${spring-security.version}</version>
             </dependency>
-            
+
             <!-- this is needed for jersey when spring is not used to scan components -->
             <dependency>
                 <groupId>org.glassfish.jersey.inject</groupId>
@@ -257,14 +256,14 @@
                 <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
             </dependency>
-            
+
             <!-- Spring-Data-JPA -->
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-jpa</artifactId>
                 <version>${spring.data.jpa.version}</version>
             </dependency>
-            
+
             <!-- Spring Junit4 test framework -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -299,7 +298,7 @@
                 <artifactId>cglib-nodep</artifactId>
                 <version>${cglib-nodep.version}</version>
             </dependency>
-            
+
             <!-- junit dependencies -->
             <dependency>
                 <groupId>junit</groupId>
