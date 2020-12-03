@@ -28,7 +28,7 @@ public class Bank {
     
     private String cardNumber="";
     private String sortCode="";
-    private int cvv=0;
+    private Integer cvv=0;
 
 
     public String getCardNumber() {
@@ -47,11 +47,11 @@ public class Bank {
         this.sortCode = sortCode;
     }
 
-    public int getCvv() {
+    public Integer getCvv() {
         return cvv;
     }
 
-    public void setCvv(int cvv) {
+    public void setCvv(Integer cvv) {
         this.cvv = cvv;
     }
 

@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.solent.com504.project.model.dto.Bank;
 import org.solent.com504.project.model.party.dto.Address;
 import org.solent.com504.project.model.party.dto.Party;
 
@@ -27,7 +28,7 @@ public class User {
     private String secondName;
     private Address address = new Address(); // need not null initial value
     //Bank is an embedded field of User - rui
-    //private Bank bank = new Bank();
+    private Bank bank = new Bank();
     private Boolean enabled = true;
 
     @XmlElementWrapper(name = "roles")
@@ -115,14 +116,14 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
-    /*
+    
     @Embedded
     public Bank getBank(){
         return bank;
     }
     public void setBank(Bank bank){
         this.bank = bank;
-    }*/
+    }
 
     // parties owns the relationship
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)

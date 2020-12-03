@@ -92,6 +92,7 @@ public class DBInitialise {
             LOG.debug("new database initialising first party owned by basic user");
 
             Party party = new Party();
+            
             party.setFirstName("default_party");
             party.setSecondName("default_party");
             party = partyRepository.saveAndFlush(party);
@@ -104,7 +105,6 @@ public class DBInitialise {
 
             party = partyRepository.saveAndFlush(party);
             LOG.debug("added party to database:" + party);
-
         }
         
         if(invoiceRepository.findAll().isEmpty()){
