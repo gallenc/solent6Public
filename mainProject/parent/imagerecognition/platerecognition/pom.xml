@@ -96,15 +96,6 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- Importing dependency bill of materials (BOM) -->
-            <dependency>
-                <groupId>solent.ac.uk.devops.traffic</groupId>
-                <artifactId>devops-bom</artifactId>
-                <version>0.1-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <!-- https://mvnrepository.com/artifact/net.sf.javaanpr/javaanpr -->
             <dependency>
                 <groupId>net.sf.javaanpr</groupId>

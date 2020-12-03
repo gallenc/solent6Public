@@ -163,5 +163,5 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-    <name>platerecognition-service</name>
+
 </project>
