@@ -126,3 +126,11 @@ Matt, Emma, Special K
 * Changed our code within the jsonMessage class to meet the agreement of using iso-8601 java date. 
 * Created tests within the application to test sending and recieving of messages. 
 
+### 03rd December 2020
+#### What we did
+* Craig spoke about the assessments in the lectures.
+* We looked at the display server X11 issue that Kieron was having on his local machine.
+* We looked at why the platerecognition module was not building with the parent project.
+* We submitted our second pull request.
+* We also looked at the build issues this was not fixed we have emailed this to Craig and hope to hear from him soon.
+
