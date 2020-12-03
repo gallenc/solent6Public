@@ -9,8 +9,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bom</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>devops-bom</artifactId>
 
     <properties>
         <!-- properties set in parent -->
