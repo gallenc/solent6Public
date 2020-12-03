@@ -47,8 +47,8 @@
     </properties>
 
     <modules>
-        <module>commonartifacts</module>
         <module>bom</module>
+        <module>commonartifacts</module>
         <module>imagecapture</module>
         <module>imagerecognition</module>
         <module>chargereconciler</module>
