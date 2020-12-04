@@ -2,9 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>solent.ac.uk.devops.traffic.imagerecognition</groupId>
+    <parent>
+       <groupId>solent.ac.uk.devops.traffic</groupId>
+       <artifactId>imagerecognition</artifactId>
+       <version>0.1-SNAPSHOT</version>
+    </parent>
     <artifactId>platerecognition</artifactId>
-    <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -92,15 +95,6 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- Importing dependency bill of materials (BOM) -->
-            <dependency>
-                <groupId>solent.ac.uk.devops.traffic</groupId>
-                <artifactId>devops-bom</artifactId>
-                <version>0.1-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <!-- https://mvnrepository.com/artifact/net.sf.javaanpr/javaanpr -->
             <dependency>
                 <groupId>net.sf.javaanpr</groupId>
@@ -167,5 +161,4 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
-    <name>platerecognition</name>
 </project>

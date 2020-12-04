@@ -126,5 +126,5 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
-
+    <name>commonartifacts</name>
 </project>
