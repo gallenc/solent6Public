@@ -36,23 +36,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PartyRepository partyRepository;
 
-    // @Autowired
-    // private UserDAO userDAO;
     @Transactional
     @Override
     public void create(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(new HashSet<>(roleRepository.findByName(UserRoles.ROLE_USER.toString())));  
         user = userRepository.saveAndFlush(user);
-        List<Party> partyList = partyRepository.findByName("default_party", "default_party");
+        Set<Party> partyList = partyRepository.findAllParties();
         
         if (partyList.isEmpty())
         {
             throw new IllegalStateException("default_party not found");
         }
-        Party p = partyList.get(0);
+        Party p = partyList.iterator().next();
         p.addUser(user);
-//        partyRepository.saveAndFlush(p);
+        partyRepository.saveAndFlush(p);
     }
 
     @Override

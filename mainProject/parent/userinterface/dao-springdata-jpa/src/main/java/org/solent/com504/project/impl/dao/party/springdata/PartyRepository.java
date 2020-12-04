@@ -6,6 +6,7 @@
 package org.solent.com504.project.impl.dao.party.springdata;
 
 import java.util.List;
+import java.util.Set;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.user.dto.User;
@@ -35,6 +36,9 @@ public interface PartyRepository extends JpaRepository<Party, Long> {
     
     @Query("select p from Party p LEFT JOIN FETCH p.users u where u.username = :username")
     public Party findByUsername(@Param("username") String username);
+    
+    @Query("select p from Party p LEFT JOIN FETCH p.users")
+    public Set<Party> findAllParties();
     
     
     

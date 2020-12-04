@@ -6,6 +6,7 @@
 package org.solent.com504.project.impl.dao.party.spring;
 
 import java.util.List;
+import java.util.Set;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class PartyDAOImplSpring implements PartyDAO {
 
     @Override
     public Party findById(Long id) {
-        return partyRepository.getOne(id);
+        return partyRepository.getOne(id);        
     }
 
     @Override
@@ -70,8 +71,6 @@ public class PartyDAOImplSpring implements PartyDAO {
         if (parties.isEmpty()) return null;
         return parties.get(0);
     }
-    
-    
 
 //    @Override
 //    public Party findByNumberPlate(String numberPlate) {
@@ -83,6 +82,11 @@ public class PartyDAOImplSpring implements PartyDAO {
     @Override
     public Party findByUsername(String username) {
         return partyRepository.findByUsername(username);
+    }
+
+    @Override
+    public Set<Party> findAllParties() {
+        return partyRepository.findAllParties();
     }
     
     

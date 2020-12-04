@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -51,6 +52,14 @@ public class PartyDAOImplSpringTest {
     @Transactional
     public void testFindAll() {
         List<Party> resultList = partyDAOImplSpring.findAll();
+        assertNotNull(resultList);
+        assertFalse(resultList.isEmpty());
+    }
+    
+    @Test
+    @Transactional
+    public void testFindAllParties() {
+        Set<Party> resultList = partyDAOImplSpring.findAllParties();
         assertNotNull(resultList);
         assertFalse(resultList.isEmpty());
     }

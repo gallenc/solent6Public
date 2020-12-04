@@ -5,6 +5,7 @@
  */
 package org.solent.com504.project.impl.service.test;
 
+import java.util.HashSet;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,9 +13,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.solent.com504.project.impl.dao.user.springdata.UserRepository;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
+import org.solent.com504.project.model.party.service.PartyService;
 import org.solent.com504.project.model.service.ServiceFacade;
+import org.solent.com504.project.model.user.dto.User;
+import org.solent.com504.project.model.user.dto.UserRoles;
+import org.solent.com504.project.model.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -31,6 +37,10 @@ public class ServiceFacadeJpaTest {
 
     @Autowired
     ServiceFacade serviceFacade = null;
+    @Autowired
+    PartyService partyService = null;
+    @Autowired
+    UserRepository userRepo = null;
 
     @Test
     public void testFactory() {
