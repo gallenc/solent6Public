@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -40,8 +41,8 @@ public class ChargingRecordController {
     // This chargingRecordService object is injected by Spring
     @Autowired(required = true)
     @Qualifier("chargingRecordService")
-    ChargingRecordService chargingRecordService = null;
-
+    ChargingRecordService chargingRecordService;
+           
     @RequestMapping("/chargingRecords")
     public String chargingRecord(@RequestParam(value = "numberPlate", required = false) String numberPlate,
             @RequestParam(value = "entryDate", required = false) String entryDate,
@@ -82,15 +83,18 @@ public class ChargingRecordController {
         }
 
         m_totalRecords = chargingRecordService.totalRecordsByNumberPlate(numberPlate, m_entryDate, m_exitDate);
-        List<ChargingRecord> chargingRecordList = chargingRecordService.findByNumberPlate(numberPlate, m_entryDate, m_exitDate, m_page, m_size);
+        List<ChargingRecord> chargingRecordList = chargingRecordService.findByNumberPlate(numberPlate, m_entryDate, m_exitDate, m_page, m_size);       
+        
+        //LOG.debug("charging record list: " + chargingRecordList.get(0).toString());
 
         m.addAttribute("chargingRecordList", chargingRecordList);
+        m.addAttribute("numberPlate", numberPlate);
         m.addAttribute("entryDate", (m_entryDate == null) ? "" : df.format(m_entryDate));
         m.addAttribute("exitDate", (m_exitDate == null) ? df.format(new Date()) : df.format(m_exitDate));
         m.addAttribute("page", m_page);
         m.addAttribute("size", m_size);
         m.addAttribute("totalRecords", m_totalRecords);
-        m.addAttribute("totalPages", m_totalRecords / m_size);
+        //m.addAttribute("totalPages", m_totalRecords / m_size);
 
         m.addAttribute("errorMessage", errorMessage);
         m.addAttribute("message", message);

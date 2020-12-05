@@ -48,7 +48,7 @@
 
         <p>The time is: <%= new Date().toString()%> (note page is auto refreshed every 20 seconds)</p>
 
-        <p>Getting heartbeat message: <%= serviceFacade.getHeartbeat()%> (note message is auto refreshed every 20 seconds)</p>
+        <p>Getting heartbeat message: <%= serviceFacade.getHeartbeat()%> (note message is auto refreshed every 20 seconds)</p>                
 
     </body>
 </html>
