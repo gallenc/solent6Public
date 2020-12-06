@@ -25,6 +25,7 @@ public class SimpleJmsListener implements MessageListener {
 
     String destination;
     String errorQueue;
+
     @Override
     public void onMessage(final Message message) {
         if (message instanceof TextMessage) {
@@ -62,7 +63,9 @@ public class SimpleJmsListener implements MessageListener {
             } catch (final JMSException e) {
                 LOG.error(this.toString() + " had a problem receiving a JMS message", e);
             } catch (final Exception e) {
-                sender.send(errorQueue, text);
+                if (errorQueue != null) {
+                    sender.send(errorQueue, text);
+                }
                 LOG.error(this.toString() + " had a problem", e);
             }
         }
@@ -74,5 +77,13 @@ public class SimpleJmsListener implements MessageListener {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+    
+    public String getErrorQueue() {
+        return errorQueue;
+    }
+
+    public void setErrorQueue(String errorQueue) {
+        this.errorQueue = errorQueue;
     }
 }
