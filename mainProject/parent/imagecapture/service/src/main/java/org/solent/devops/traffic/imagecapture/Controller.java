@@ -31,6 +31,7 @@ public class Controller {
     private ClassPathXmlApplicationContext context;
     private static Controller controller_m;
     private Map<Integer, Sender> senders;
+    private Receiver receiver;
 
     public static void main(String[] args) {
         System.out.println("INFO: System.out.println - main method starting in " + Controller.class);
@@ -95,6 +96,8 @@ public class Controller {
             int maxCameraId = 10;
 
             senders = new HashMap<>();
+
+            receiver = new Receiver("tcp://localhost:1883", "receiver", "camera","TBD - Waiting on P2");
 
             //iterates through list of files in resource and prints them
             for (File f : getResourceFolderFiles("main/resources/images")) {

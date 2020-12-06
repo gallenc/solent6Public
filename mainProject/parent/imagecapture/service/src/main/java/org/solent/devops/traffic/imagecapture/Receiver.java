@@ -43,7 +43,6 @@ public class Receiver implements MqttCallback {
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
         LOG.debug(s, mqttMessage.toString());
         jmsTemplate.convertAndSend(toQueue, mqttMessage.toString());
-        //Need to forward onto the next queue.
         //Need to send to database with api
     }
 
