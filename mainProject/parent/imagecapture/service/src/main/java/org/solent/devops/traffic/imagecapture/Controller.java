@@ -122,7 +122,7 @@ public class Controller {
     //Convert image file to binary
     public static String convertImage(File imageFile) {
         StringBuilder sb = new StringBuilder();
-        try (BufferedInputStream is = new BufferedInputStream(new FileInputStream("imageFile"))) {
+        try (BufferedInputStream is = new BufferedInputStream(new FileInputStream(imageFile))) {
             for (int i; (i = is.read()) != -1;) {
                 String temp = "0000000" + Integer.toBinaryString(i).toUpperCase();
                 if (temp.length() == 1) {
