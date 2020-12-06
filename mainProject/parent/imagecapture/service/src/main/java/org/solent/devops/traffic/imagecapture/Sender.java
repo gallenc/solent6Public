@@ -8,6 +8,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.solent.devops.message.jms.JSONMessage;
 
 public class Sender {
     String topic;
@@ -25,12 +26,12 @@ public class Sender {
         memoryPersistence = new MemoryPersistence();
     }
 
-    public boolean sendImage(CameraMessage cm) {
+    public boolean sendImage(JSONMessage jsonMessage) {
         try {
             MqttClient camera = new MqttClient(broker, clientId, memoryPersistence);
             MqttConnectOptions connectionOptions = new MqttConnectOptions();
             camera.connect(connectionOptions);
-            MqttMessage message = new MqttMessage(cm.toJson().getBytes());
+            MqttMessage message = new MqttMessage(jsonMessage.toJson().getBytes());
             message.setQos(qos);
             camera.publish(topic, message);
             camera.disconnect();

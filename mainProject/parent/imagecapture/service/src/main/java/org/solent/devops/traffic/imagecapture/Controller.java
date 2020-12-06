@@ -7,12 +7,15 @@ package org.solent.devops.traffic.imagecapture;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.solent.devops.message.jms.JSONMessage;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -102,11 +105,9 @@ public class Controller {
             //iterates through list of files in resource and prints them
             for (File f : getResourceFolderFiles("main/resources/images")) {
                 String uuid = UUID.randomUUID().toString().replace("-", "");
-                String imageBinary = CameraMessage.convertImage(f);
-                CameraMessage message = new CameraMessage(uuid, new Timestamp(new Date().getTime()), "1", imageBinary);    //need cameraID waiting for group 4
-                message.toJson();
-                Sender sender = new Sender("camera", 2, "tcp://localhost:1883", message.getCameraId());
-                sender.sendImage(message);
+                JSONMessage jsonMessage = new JSONMessage(uuid, 1, new Date(), null, convertImage(f));
+                Sender sender = new Sender("camera", 2, "tcp://localhost:1883", Integer.toString(jsonMessage.getCameraId()));
+                sender.sendImage(jsonMessage);
             }
 
         } catch (Exception e) {
@@ -118,4 +119,22 @@ public class Controller {
         }
     }
 
+    //Convert image file to binary
+    public static String convertImage(File imageFile) {
+        StringBuilder sb = new StringBuilder();
+        try (BufferedInputStream is = new BufferedInputStream(new FileInputStream("imageFile"))) {
+            for (int i; (i = is.read()) != -1;) {
+                String temp = "0000000" + Integer.toBinaryString(i).toUpperCase();
+                if (temp.length() == 1) {
+                    sb.append('0');
+                }
+                temp = temp.substring(temp.length() - 8);
+                sb.append(temp).append(' ');
+            }
+            return sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Failed image binary conversion ";
+    }
 }
