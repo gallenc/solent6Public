@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>solent.ac.uk.devops.traffic</groupId>
-    <artifactId>itegrationtesting</artifactId>
+    <artifactId>integrationtesting</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -20,8 +20,20 @@
 
     </properties>
 
+    <!-- <profiles>
+        <profile>
+            <id>all</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>Insert module here</module>
+            </modules>
+        </profile>
+    </profiles> -->
+
     <modules>
-       
+
     </modules>
 
     <build>
@@ -48,7 +60,7 @@
                     <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <excludes>
-							<!-- prevent tests running in any package with manual filter. These 
+							<!-- prevent tests running in any package with manual filter. These
 								are manual one off development tests -->
                             <exclude>**/manual/*.java</exclude>
                         </excludes>

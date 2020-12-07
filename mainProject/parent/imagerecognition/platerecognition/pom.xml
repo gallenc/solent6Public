@@ -8,6 +8,7 @@
        <version>0.1-SNAPSHOT</version>
     </parent>
     <artifactId>platerecognition</artifactId>
+
     <packaging>pom</packaging>
 
     <properties>
@@ -23,7 +24,7 @@
         <onejar-maven-plugin.version>1.4.4</onejar-maven-plugin.version>
 
     </properties>
-    
+
     <profiles>
         <profile>
             <id>all</id>
@@ -81,7 +82,7 @@
                     <artifactId>cargo-maven2-plugin</artifactId>
                     <version>${maven-cargo-maven2-plugin.version}</version>
                 </plugin>
-   
+
                 <plugin>
                     <groupId>com.jolira</groupId>
                     <artifactId>onejar-maven-plugin</artifactId>
