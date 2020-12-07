@@ -50,10 +50,11 @@
     <!-- use environment injected file in docker -->
     <!-- systemEnvironment or systemProperties can be used-->
     <context:property-placeholder
-        location="classpath:system.properties" ignore-unresolvable="false" ignore-resource-not-found="true" />
-<!--,
+        location="classpath:system.properties, 
                 file:#{systemEnvironment['APPLICATION_ENVIRONMENT_FILE']},
-                file:#{systemProperties['applicationPropertiesFile']}"-->
+                file:#{systemProperties['applicationPropertiesFile']}"
+        ignore-unresolvable="false" ignore-resource-not-found="true" />
+
     <!-- Scans for components that will be auto-registered as Spring beans -->
     <context:component-scan base-package="org.solent.devops.traffic.platerecognition,
                   org.solent.devops.message.jms" />
@@ -83,6 +84,7 @@
 
     <bean id="simpleJmsListener" class="org.solent.devops.message.jms.SimpleJmsListener">
         <property name="destination" value="p2imagerecognition" />
+        <property name="errorQueue" value="p2imagerecognitionerror" />
     </bean>
 
     <!--listener container definition using the jms namespace, concurrency is the max number of concurrent listeners that can be started -->

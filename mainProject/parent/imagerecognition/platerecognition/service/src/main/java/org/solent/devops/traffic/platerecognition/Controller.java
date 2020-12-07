@@ -70,7 +70,6 @@ public class Controller {
             context = new ClassPathXmlApplicationContext("appconfig-service.xml");
             // NOTE - VERY IMPORTANT - this shuts down application context cleanly when program ends
             context.registerShutdownHook();
-            
             // Debugging
             System.out.println(context.getBean(ActiveMQConnectionFactory.class).getBrokerURL());
             System.out.println(Arrays.asList(context.getBeanDefinitionNames()));
