@@ -15,12 +15,11 @@
     <H1>My Cars</H1>
     
         <div>
-        <h1>Car List</h1>
-        <p>showing cars </p>
+        <!--<p>showing cars </p>-->
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <!--<th scope="col">Id</th>-->
                     <th scope="col">Model</th>
                     <th scope="col">Number Plate</th>
                     <th></th>

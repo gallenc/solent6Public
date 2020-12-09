@@ -143,10 +143,10 @@ public class UserController {
         return "contact";
     }
     
-    @RequestMapping(value={"/mycars"}, method = RequestMethod.GET)
+    /*@RequestMapping(value={"/mycars"}, method = RequestMethod.GET)
     public String mycars(Model model){
         return "mycars";
-    }
+    }*/
     
 //    @RequestMapping(value={"/invoice"}, method = RequestMethod.GET)
 //    public String invoice(Model model){
