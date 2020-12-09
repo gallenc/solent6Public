@@ -11,7 +11,8 @@
 
 <!-- Begin page content -->
 <main role="main" class="container">
-    <H1>Charging Records</H1>
+    <H1>Manage Charging Records</H1>
+    <p> showing ${chargingRecordListSize} charging records: </p>
     <form action="./chargingRecords" method="get">
         <p><button class="btn" type="submit" >Search</button> ${errorMessage}</p>
         <table class="table">
@@ -37,6 +38,7 @@
     <table class="table">
         <tr>
             <th scope="col">uuid</th>
+            <th scope="col">Number Plate</th>
             <th scope="col">entry time</th>
             <th scope="col">entry location</th>
             <th scope="col">exit time</th>
@@ -46,13 +48,15 @@
         <c:forEach var="chargingRecord" items="${chargingRecordList}">
             <tr>
                 <td>${chargingRecord.uuid}</td>
-                <td>${chargingRecord.entryTime}</td>
+                <td>${chargingRecord.numberPlate}</td>
+                <td>${chargingRecord.entryDate}</td>
                 <td>${chargingRecord.entryLocation}</td>
-                <td>${chargingRecord.exitTime}</td>
+                <td>${chargingRecord.exitDate}</td>
                 <td>${chargingRecord.exitLocation}</td>
                 <td>${chargingRecord.charge}</td>
             </tr>    
         </c:forEach>
+    </table>
 
 </main>
 

@@ -102,5 +102,22 @@ public class ChargingRecordController {
         // render view with jsp
         return "chargingRecords";
     }
+    
+    
+    @RequestMapping(value = {"/chargingRecords"}, method = RequestMethod.GET)
+    public String chargingRecords(Model model){
+        
+        List<ChargingRecord> chargingRecordList = chargingRecordService.findAll();
+        
+        LOG.debug("chargingRecords called.");
+        for(ChargingRecord cr : chargingRecordList){
+            LOG.debug("chargingRecord: " + cr.toString());
+        }
+        
+        model.addAttribute("chargingRecordListSize", chargingRecordList.size());
+        model.addAttribute("chargingRecordList", chargingRecordList);
+        
+        return "chargingRecords";
+    }
 
 }
