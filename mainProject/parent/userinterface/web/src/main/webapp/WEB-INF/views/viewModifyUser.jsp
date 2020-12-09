@@ -27,8 +27,6 @@
         <div style="color:red;">${errorMessage}</div>
         <div style="color:green;">${message}</div>
 
-
-
         <form action="./viewModifyUser" method="post">
             <table class="table">
                 <thead>
