@@ -74,7 +74,7 @@ public class PartyDAOImplSpringTest {
     @Test
     @Transactional
     public void testFindByName() {
-        List<Party> results = partyDAOImplSpring.findByName(generatedParty.getFirstName(), generatedParty.getSecondName());
+        Set<Party> results = partyDAOImplSpring.findByName(generatedParty.getFirstName(), generatedParty.getSecondName());
         assertFalse(results.isEmpty());
         assertTrue(results.contains(generatedParty));
     }

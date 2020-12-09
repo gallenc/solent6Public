@@ -61,7 +61,7 @@ public class PartyDAOImplSpring implements PartyDAO {
     }
 
     @Override
-    public List<Party> findByName(String firstName, String secondName) {
+    public Set<Party> findByName(String firstName, String secondName) {
         return partyRepository.findByName(firstName, secondName);
     }
 
@@ -88,8 +88,5 @@ public class PartyDAOImplSpring implements PartyDAO {
     public Set<Party> findAllParties() {
         return partyRepository.findAllParties();
     }
-    
-    
-    
     
 }

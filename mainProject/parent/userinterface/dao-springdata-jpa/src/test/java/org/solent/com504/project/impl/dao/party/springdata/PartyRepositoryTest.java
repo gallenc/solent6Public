@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -45,7 +46,7 @@ public class PartyRepositoryTest {
         Party party = generateDummyParty();
         Party savedParty = partyRepository.save(party);
 
-        List<Party> results = partyRepository.findByName("Night Party", "Out Door");
+        Set<Party> results = partyRepository.findByName("Night Party", "Out Door");
         assertTrue(results.contains(party));
 
         partyRepository.deleteById(savedParty.getId());

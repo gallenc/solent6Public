@@ -60,7 +60,7 @@ public class PartyServiceImpl implements PartyService {
     }
 
     @Override
-    public List<Party> findByName(String firstName, String secondName) {
+    public Set<Party> findByName(String firstName, String secondName) {
         return partyDao.findByName(firstName, secondName);
     }
 

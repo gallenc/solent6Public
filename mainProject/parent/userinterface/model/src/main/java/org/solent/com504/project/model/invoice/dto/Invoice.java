@@ -2,6 +2,7 @@ package org.solent.com504.project.model.invoice.dto;
 
 import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -30,8 +31,8 @@ public class Invoice {
     
     private Long id;
 //    private Party party;
-    private LocalDateTime issueDate;
-    private LocalDateTime paidDate;
+    private Date issueDate;
+    private Date paidDate;
     private Double amount;
     
     @XmlElementWrapper(name = "chargingRecords")
@@ -52,37 +53,32 @@ public class Invoice {
         this.id = id;
     }
 
-//    public Party getParty() {
-//        return party;
-//    }
-//
-//    public void setParty(Party party) {
-//        this.party = party;
-//    }
-
-    public LocalDateTime getIssueDate() {
+    public Date getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(LocalDateTime issueDate) {
+    public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
     }
 
-    public LocalDateTime getPaidDate() {
+    public Date getPaidDate() {
         return paidDate;
     }
 
-    public void setPaidDate(LocalDateTime paidDate) {
+    public void setPaidDate(Date paidDate) {
         this.paidDate = paidDate;
     }
 
-    public Double getAmmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmmount(Double ammount) {
-        this.amount = ammount;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
+
+    
+
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "invoice_chargingRecord", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "chargingRecord_id"))
@@ -94,8 +90,7 @@ public class Invoice {
         this.chargingRecord = chargingRecord;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "invoice_party", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+    @ManyToMany(mappedBy = "invoices", fetch = FetchType.EAGER)
     public Set<Party> getParties() {
         return party;
     }

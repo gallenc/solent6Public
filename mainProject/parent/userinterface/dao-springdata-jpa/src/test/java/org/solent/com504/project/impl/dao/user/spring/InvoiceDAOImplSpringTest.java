@@ -1,5 +1,7 @@
 package org.solent.com504.project.impl.dao.user.spring;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +14,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
 
@@ -20,6 +25,8 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = {"/spring.xml"})
 public class InvoiceDAOImplSpringTest {
 
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
     @Autowired
     private InvoiceDAOImplSpring invoiceDAOImpl;
 
@@ -63,9 +70,15 @@ public class InvoiceDAOImplSpringTest {
 
     private Invoice generateDummyInvoice() {
         Invoice invoice = new Invoice();
-        invoice.setAmmount(100.00);
-        invoice.setIssueDate(LocalDateTime.now().minusDays(2));
-        invoice.setPaidDate(LocalDateTime.now());
+        invoice.setAmount(100.00);       
+        try {
+            Date d = df.parse("2020-01-01 13:30:00");      
+            invoice.setIssueDate(d);
+        } catch (ParseException ex) {
+            Logger.getLogger(InvoiceDAOImplSpringDeleteTest.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        Date d = new Date();
+        invoice.setPaidDate(d);
         return invoice;
     }
 }

@@ -221,11 +221,11 @@ public class PartyDAOTest {
         LOG.debug("Selecting Party " + i + " party=" + party1);
         String firstName = party1.getFirstName();
         String secondName = party1.getSecondName();
+        
+        Set<Party> parties = partyDao.findByName(firstName, secondName);         
+        assertFalse(parties.isEmpty());
 
-        partyList = partyDao.findByName(firstName, secondName);
-        assertFalse(partyList.isEmpty());
-
-        Party party2 = partyList.get(0);
+        Party party2 = parties.iterator().next();
         LOG.debug("Finding party by name Party " + party2);
 
         assertTrue(party1.toString().equals(party2.toString()));

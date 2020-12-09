@@ -5,8 +5,13 @@
  */
 package org.solent.com504.project.impl.user.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.project.impl.dao.car.springdata.CarRepository;
@@ -31,6 +36,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class DBInitialise {
 
     final static Logger LOG = LogManager.getLogger(DBInitialise.class);
+
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     private UserRepository userRepository;
@@ -80,7 +87,7 @@ public class DBInitialise {
             basicUser.setFirstName("basicuser");
             basicUser.setSecondName("basicuser");
             basicUser.setUsername("basicuser");
-            basicUser.setPassword(bCryptPasswordEncoder.encode("basicuser"));            
+            basicUser.setPassword(bCryptPasswordEncoder.encode("basicuser"));
             roles = new HashSet<>();
             roles.addAll(roleRepository.findByName(UserRoles.ROLE_USER.toString()));
             basicUser.setRoles(roles);
@@ -90,18 +97,18 @@ public class DBInitialise {
             bank.setCvv(352);
             basicUser.setBank(bank);
             userRepository.saveAndFlush(basicUser);
-            
+
             User partyUser = new User();
             partyUser.setFirstName("partyuser");
             partyUser.setSecondName("partyuser");
             partyUser.setUsername("partyuser");
-            partyUser.setPassword(bCryptPasswordEncoder.encode("partyuser"));         
-            
+            partyUser.setPassword(bCryptPasswordEncoder.encode("partyuser"));
+
             roles = new HashSet<>();
             roles.addAll(roleRepository.findByName(UserRoles.ROLE_USER.toString()));
-            roles.addAll(roleRepository.findByName(UserRoles.ROLE_PARTY_ADMIN.toString()));            
+            roles.addAll(roleRepository.findByName(UserRoles.ROLE_PARTY_ADMIN.toString()));
             partyUser.setRoles(roles);
-            
+
             Bank partyBank = new Bank();
             partyBank.setCardNumber("36985214");
             partyBank.setSortCode("604580");
@@ -115,9 +122,10 @@ public class DBInitialise {
             LOG.debug("new database initialising first party owned by basic user");
 
             Party party = new Party();
-            
+
             party.setFirstName("default_party");
             party.setSecondName("default_party");
+
             party = partyRepository.saveAndFlush(party);
 
             User user = userRepository.findByUsername("basicuser");
@@ -127,19 +135,29 @@ public class DBInitialise {
             Set<User> users = new HashSet();
             users.add(user);
             users.add(partyUser);
-            party.setUsers(users);            
-            
+            party.setUsers(users);
+
             party = partyRepository.saveAndFlush(party);
             LOG.debug("added party to database:" + party);
         }
-        
-        if(invoiceRepository.findAll().isEmpty()){
-        Invoice invoice = new Invoice();
-        
-        invoice.setAmmount(20.0);
-        invoice.setId(50L);
-        invoiceRepository.save(invoice);
-        }
 
+        if (invoiceRepository.findAll().isEmpty()) {
+            for (int i = 0; i < 9; i++) {                
+            Invoice invoice = new Invoice();
+            try {
+                Date d = df.parse("2020-01-01 1" + i +":30:00");
+                invoice.setIssueDate(d);
+            } catch (ParseException ex) {
+                java.util.logging.Logger.getLogger(DBInitialise.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Date d = new Date();
+            invoice.setPaidDate(d);
+            Set<Party> party = partyRepository.findByName("default_party", "default_party");
+            invoice.setParties(party);   
+            Double amount = new Double(i);
+            invoice.setAmount(amount);  
+            invoiceRepository.saveAndFlush(invoice);            
+            }
+        }
     }
 }
