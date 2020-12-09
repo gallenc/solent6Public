@@ -14,18 +14,20 @@
 <!-- Begin page content -->
 <main role="main" class="container">
 
+    <h1>My Cars</h1>
+    <form action="./mycars">
+        <button class="btn" type="submit" >Go To My Cars</button>
+    </form> 
+    </br>
+    </br>
+
     <div>
         <H1>User Details</H1>
         <!-- print error message if there is one -->
         <div style="color:red;">${errorMessage}</div>
         <div style="color:green;">${message}</div>
 
-        <h1>My Cars</h1>
-        <form action="./mycars">
-            <button class="btn" type="submit" >Go To My Cars</button>
-        </form> 
-        </br>
-        </br>
+
 
         <form action="./viewModifyUser" method="post">
             <table class="table">
@@ -40,6 +42,10 @@
                     <tr>
                         <td>username</td>
                         <td>${user.username}</td>
+                    </tr>
+                    <tr>
+                        <td>Email Address</td>
+                        <td><input type="text" name="firstName" value="${user.firstName}" /></td>
                     </tr>
                     <tr>
                         <td>First Name</td>
@@ -69,7 +75,37 @@
                     </tbody>
 
                 </table>
-                <div>
+
+
+                <h1>Bank account details</h1>     
+                <table class="table">
+                    <thead>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Name of bank</td>
+                            <td><input type="text" name="firstName" value="${user.firstName}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Account name</td>
+                        <td><input type="text" name="firstName" value="${user.firstName}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Account number</td>
+                        <td><input type="text" name="secondName" value="${user.secondName}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Sort code</td>
+                        <td><input type="text" name="addressLine1" value="${user.address.addressLine1}" /></td>
+                    </tr>
+                </tbody>
+
+            </table>      
+
+
+
+            <div>
                 <sec:authorize access="hasRole('ROLE_GLOBAL_ADMIN')" >
                     <p>Manage User Status </p>
                     <table class="table">
