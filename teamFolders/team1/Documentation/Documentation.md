@@ -67,9 +67,11 @@ Commit order - When a commit is made on a non master branch
 ## Database Model
 Images:
 
-|  Int | ID   |
-|---|---|---|---|---|
-| VARCHAR  | image  | 
-|  DATETIME |   timestamp
-|  INT/VARCHAR |  cameraid |  
+| DataType    | Name      |
+|-------------|-----------|
+| Int         | ID        |
+| VARCHAR     | Image     |
+| DATETIME    | Timestamp |
+| INT/VARCHAR | CameraID  |
+
 
