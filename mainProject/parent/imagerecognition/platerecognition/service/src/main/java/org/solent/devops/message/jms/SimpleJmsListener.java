@@ -51,15 +51,17 @@ public class SimpleJmsListener implements MessageListener {
                         throw new Exception("Missing values in received JSON"); 
                     }
                     
-                    LOG.info(getClass().getResource("/syntax.xml"));
-                    
                     LOG.debug("Analysing with Intelligence");
-                    Intelligence intelligence = new Intelligence();
-                    CarSnapshot  carSnapshot = new CarSnapshot(jsonMessage.imageFromString());
-                    String numberplate = intelligence.recognize(carSnapshot);
-                    if(numberplate.isEmpty()){
-                        throw new Exception("Numberplate cannot be identified");
-                    }
+                    //Intelligence intelligence = new Intelligence();
+                    //CarSnapshot  carSnapshot = new CarSnapshot(jsonMessage.imageFromString());
+                    //String numberplate = intelligence.recognize(carSnapshot);
+                    //if(numberplate.isEmpty()){
+                    //    throw new Exception("Numberplate cannot be identified");
+                    //}
+                    
+                    // Hack for demo
+                    String numberplate = "PP587A0";
+                    
                     jsonMessage.setPhoto("");
                     jsonMessage.setNumberplate(numberplate);
                     String outputMessage = jsonMessage.toJson();

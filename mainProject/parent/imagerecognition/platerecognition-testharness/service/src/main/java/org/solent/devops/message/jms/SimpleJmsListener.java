@@ -18,12 +18,12 @@ public class SimpleJmsListener implements MessageListener {
 
     final static Logger LOG = LogManager.getLogger(SimpleJmsListener.class);
 
-    @Autowired
-    SimpleJmsSender sender;
-
-    String destination;
-    String errorQueue;
-
+    public SimpleJmsListener() {
+        super();
+        LOG.info(this.toString() + " listening");
+       
+    }
+    
     @Override
     public void onMessage(final Message message) {
         if (message instanceof TextMessage) {
@@ -31,6 +31,8 @@ public class SimpleJmsListener implements MessageListener {
             String text = null;
             try {
                 text = textMessage.getText();
+                
+                System.out.println("Hello from SimpleJmsListener.");
                 
                 if (text == null || text.isEmpty()) {
                     LOG.warn(this.toString() +
@@ -59,27 +61,8 @@ public class SimpleJmsListener implements MessageListener {
             } catch (final JMSException e) {
                 LOG.error(this.toString() + " had a problem receiving a JMS message", e);
             } catch (final Exception e) {
-                if (errorQueue != null) {
-                    sender.send(errorQueue, text);
-                }
                 LOG.error(this.toString() + " had a problem", e);
             }
         }
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-    
-    public String getErrorQueue() {
-        return errorQueue;
-    }
-
-    public void setErrorQueue(String errorQueue) {
-        this.errorQueue = errorQueue;
     }
 }

@@ -75,12 +75,10 @@
     <!--JmsTemplate Definition -->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <constructor-arg ref="connectionFactory"/>
-<!--        <property name="pubSubDomain" value="true"/>-->
     </bean>
 
     <bean id="simpleJmsListener" class="org.solent.devops.message.jms.SimpleJmsListener">
-        <property name="destination" value="p1ReceiveImages" />
-        <property name="errorQueue" value="p2imagerecognitiontestharnesserror" />
+
     </bean>
 
     <!--listener container definition using the jms namespace, concurrency is the max number of concurrent listeners that can be started -->

@@ -56,8 +56,6 @@ public class Controller {
     private ClassPathXmlApplicationContext context;
     private static Controller controller_m;
     
-    private SimpleJmsSender sender;
-    
     public static void main(String[] args) {
         LOG.info("Main method starting in " + Controller.class);
         
@@ -107,7 +105,9 @@ public class Controller {
             System.out.println(context.getBean(ActiveMQConnectionFactory.class).getBrokerURL());
             System.out.println(Arrays.asList(context.getBeanDefinitionNames()));
 
-            
+            // Testing of bootstrap architecture
+            LOG.info("Program starting.");
+            LOG.info("service bootstrap successful.");
             
         } catch (Exception e) {
             LOG.error("service bootstrap failure.", e);
