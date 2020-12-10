@@ -7,6 +7,9 @@ package com.kgill.devopsinttest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.MessageConsumer;
@@ -51,10 +54,17 @@ public class JMSClient {
                 } else if (userInput.equals(">read")) {
                     // Read next message from queue "Test"
                     System.out.println(readMessage("Test"));
+                } else if (userInput.equals(">json")) {
+		    // Send test message to p1ReceiveImages
+		    byte[] encoded = Files.readAllBytes(Paths.get("src/test/resources/testMessage.txt"));
+                    String json = new String(encoded, Charset.forName("UTF-8"));
+
+                    sendMessage("p1ReceiveImages", json);
                 } else {
-                    // Send input text in a message to the queue "Test"
+		    // Send input text in a message to the queue "Test"
+                    
                     sendMessage("Test", userInput);
-                }
+	        }
             }
             System.out.println("Closing...");
         } catch (Exception e) {
