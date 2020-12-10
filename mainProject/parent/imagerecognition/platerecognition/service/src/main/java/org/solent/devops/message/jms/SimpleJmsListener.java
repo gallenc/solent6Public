@@ -38,16 +38,22 @@ public class SimpleJmsListener implements MessageListener {
                     LOG.warn(this.toString() +
                             " received a JMS message with no text content.");
                 } else {
-                    LOG.info(this.toString() + " received a JMS message: '" + text + "'");
+                    LOG.info(this.toString() + " received a JMS message: '" + text.substring(0, Math.min(text.length(), 30)) + "'");
                 }
                 
+                LOG.debug(destination);
+                
                 if (!destination.equals("None")) {
-                    LOG.info(this.toString() + " processing and forwarding to: '" + destination + "'");
+                    LOG.debug(this.toString() + " processing and forwarding to: '" + destination + "'");
                     ObjectMapper objectMapper = new ObjectMapper();                    
                     JSONMessage jsonMessage = objectMapper.readValue(text, JSONMessage.class);
                     if(jsonMessage.getUuid().isEmpty() || jsonMessage.getCameraId() == 0 || jsonMessage.getTimestamp() == null || jsonMessage.getPhoto().isEmpty()) {
                         throw new Exception("Missing values in received JSON"); 
                     }
+                    
+                    LOG.info(getClass().getResource("/syntax.xml"));
+                    
+                    LOG.debug("Analysing with Intelligence");
                     Intelligence intelligence = new Intelligence();
                     CarSnapshot  carSnapshot = new CarSnapshot(jsonMessage.imageFromString());
                     String numberplate = intelligence.recognize(carSnapshot);

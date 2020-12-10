@@ -161,6 +161,7 @@
             <groupId>net.sf.javaanpr</groupId>
             <artifactId>javaanpr</artifactId>
             <type>jar</type>
+            <version>1.2.7</version>
         </dependency>
         <dependency>
             <groupId>solent.ac.uk.devops.traffic</groupId>
