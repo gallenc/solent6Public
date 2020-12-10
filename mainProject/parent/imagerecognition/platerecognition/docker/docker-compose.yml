@@ -11,7 +11,7 @@ services:
       context: .
       dockerfile: Dockerfile
 
-  testHarness:
+  testharness:
     build: 
-      context: .
-      dockerfile:     
+      context: ./testharness
+      dockerfile: Dockerfile     
