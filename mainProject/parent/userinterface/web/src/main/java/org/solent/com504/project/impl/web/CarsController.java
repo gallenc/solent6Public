@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @Transactional
-public class MycarsController {
+public class CarsController {
 
-    @RequestMapping(value = "/mycars", method = RequestMethod.GET)
-    public String mycars(Model model) {
-        return "mycars";
+    @RequestMapping(value = "/cars", method = RequestMethod.GET)
+    public String cars(Model model) {
+        return "cars";
     }
 }
