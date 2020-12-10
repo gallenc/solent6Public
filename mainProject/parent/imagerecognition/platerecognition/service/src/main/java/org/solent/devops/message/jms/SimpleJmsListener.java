@@ -60,6 +60,7 @@ public class SimpleJmsListener implements MessageListener {
                     if(numberplate.isEmpty()){
                         throw new Exception("Numberplate cannot be identified");
                     }
+                    LOG.info(numberplate);
                     jsonMessage.setPhoto("");
                     jsonMessage.setNumberplate(numberplate);
                     String outputMessage = jsonMessage.toJson();
