@@ -25,9 +25,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/appconfig-service-test.xml"})
-public class ServiceFacadeJpaTest {
+public class MessageReceiverTest {
 
-    final static Logger LOG = LogManager.getLogger(ServiceFacadeJpaTest.class);
+    final static Logger LOG = LogManager.getLogger(MessageReceiverTest.class);
 
     @Autowired
     ServiceFacade serviceFacade = null;

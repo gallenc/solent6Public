@@ -6,14 +6,17 @@
 package org.solent.com504.project.impl.service;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
 
 /**
@@ -24,6 +27,14 @@ import org.springframework.core.env.PropertySource;
 public class HelloWorld {
 
     final static Logger LOG = LogManager.getLogger(HelloWorld.class);
+
+    private Properties properties;
+
+    @Autowired
+    @Qualifier("appProperties")
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
 
     @Autowired
     private ConfigurableApplicationContext applicationContext;
@@ -36,6 +47,18 @@ public class HelloWorld {
 
     public void init() {
         LOG.debug("init() Application context started HelloWorld " + message);
+
+        // this prints out the properties in appProperties
+        if (properties == null) {
+            LOG.debug("---- appProperties is null ---- ");
+        } else {
+            String msg = "---- appProperties ---- \n";
+            for (Map.Entry<Object, Object> property : properties.entrySet()) {
+                msg = msg + "    " + property.getKey() + "   " + property.getValue() + "\n";
+            }
+            msg = msg + "---- end of appProperties ---- \n";
+            LOG.debug(msg);
+        }
 
         // this simply prints out the contents of the applicationContext
         String[] beannames = applicationContext.getBeanDefinitionNames();
@@ -64,16 +87,24 @@ public class HelloWorld {
     private String printSources(ConfigurableEnvironment env) {
         String msg = "\n---- property sources ----\n";
         for (PropertySource<?> propertySource : env.getPropertySources()) {
-            msg = msg + "   name =  " + propertySource.getName() + "\nsource = " + propertySource
+            msg = msg + "   name =  " + propertySource.getName() + "   source = " + propertySource
                     .getSource().getClass() + "\n";
-    }
+
+//            if (propertySource instanceof MapPropertySource) {
+//                Map<String, Object> map = new LinkedHashMap();
+//                map.putAll(((MapPropertySource) propertySource).getSource());
+//                msg = msg + "\n-------- MapPropertySource content --------\n"
+//                        + printMap(map)
+//                        + "\n-------- End MapPropertySource content --------\n";
+//         }
+        }
         return msg;
     }
 
     private String printMap(Map<?, ?> map) {
         String msg = "";
         for (Map.Entry<?, ?> e : map.entrySet()) {
-            msg = msg + "   " + e.getKey() + " = " + e.getValue()+"\n";
+            msg = msg + "   " + e.getKey() + " = " + e.getValue() + "\n";
         }
         return msg;
     }
