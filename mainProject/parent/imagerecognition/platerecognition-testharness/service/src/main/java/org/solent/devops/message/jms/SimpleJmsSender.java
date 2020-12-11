@@ -28,7 +28,14 @@ public class SimpleJmsSender {
             byte[] encoded = StreamUtils.copyToByteArray(stream);
             String json = new String(encoded, Charset.forName("UTF-8"));
             
+            LOG.info("Sending Test Message 1 - Complete message");
             this.send("p1ReceiveImages", json);
+            
+            String missingMessage = "";
+            
+            LOG.info("Sending Test Message 2 - Incomplete message");
+            this.send("p1ReceiveImages", missingMessage);
+            
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(SimpleJmsSender.class.getName()).log(Level.SEVERE, null, ex);
         }
