@@ -5,6 +5,10 @@
  */
 package org.solent.com504.project.impl.service.test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +16,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.service.ServiceFacade;
@@ -39,29 +44,7 @@ public class MessageReceiverTest {
         LOG.debug("end ServiceFacadeTest testFpartyy");
     }
 
-    @Test
-    public void testGetHeartbeat() {
-        LOG.debug("start ServiceFacadeTest testGetHeartbeat()");
-        assertNotNull(serviceFacade);
 
-        String heartbeat = serviceFacade.getHeartbeat();
-        LOG.debug("recieved heartbeat: " + heartbeat);
-        assertNotNull(heartbeat);
-
-        LOG.debug("end FarmFacadeTest testGetHeartbeat()");
-    }
-
-    @Test
-    public void testGetAllByPartyRole() {
-
-        // you may want to create people first but you need to add this to the facade :)
-        List<Party> partyList = serviceFacade.findByPartyRole(null);
-        assertNotNull(partyList);
-
-        partyList = serviceFacade.findByPartyRole(PartyRole.UNDEFINED);
-        assertNotNull(partyList);
-
-    }
 
     // WHAT OTHER TESTS DO YOU NEED FOR THE SERVICE?
 }

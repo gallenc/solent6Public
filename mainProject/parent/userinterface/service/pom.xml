@@ -135,6 +135,17 @@
             <artifactId>log4j-core</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- dependencies for java 11 -->
         <dependency>
