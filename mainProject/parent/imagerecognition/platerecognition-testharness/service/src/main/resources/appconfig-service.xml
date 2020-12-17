@@ -82,7 +82,7 @@
     </bean>
 
     <!--listener container definition using the jms namespace, concurrency is the max number of concurrent listeners that can be started -->
-    <jms:listener-container destination-type="topic" concurrency="3" >
+    <jms:listener-container destination-type="topic" concurrency="1" >
         <jms:listener id="simpleJmsListener1" destination="p2imagerecognition" ref="simpleJmsListener"/>
     </jms:listener-container>
 </beans>
