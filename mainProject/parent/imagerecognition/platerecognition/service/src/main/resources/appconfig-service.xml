@@ -80,6 +80,7 @@
     <!--JmsTemplate Definition -->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <constructor-arg ref="connectionFactory"/>
+<!--        <property name="pubSubDomain" value="true"/>-->
     </bean>
 
     <bean id="simpleJmsListener" class="org.solent.devops.message.jms.SimpleJmsListener">
