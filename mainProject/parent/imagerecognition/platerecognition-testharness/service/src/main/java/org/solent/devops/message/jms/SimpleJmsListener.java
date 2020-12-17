@@ -46,7 +46,7 @@ public class SimpleJmsListener implements MessageListener {
                 JSONMessage jsonMessage = objectMapper.readValue(text, JSONMessage.class);
 
                 if ("PP587A0".equals(jsonMessage.getNumberplate())) {
-                    LOG.info("Test 1 - Single correct message: Expected response PP587A0 received.");
+                    LOG.info("Test 1 - Single correct message: Expected response " + jsonMessage.getNumberplate() + " received.");
                 } else {
                     LOG.error("Test 1 - Single correct message: Expected PP587A0 \nReceived " + jsonMessage.getNumberplate());
                 }

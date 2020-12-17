@@ -63,6 +63,12 @@ public class JMSClient {
                     String json = new String(encoded, Charset.forName("UTF-8"));
 
                     sendMessage("p1ReceiveImages", json);
+                } else if (userInput.equals(">json2")) {
+		    // Send test message to p1ReceiveImages
+		    byte[] encoded = Files.readAllBytes(Paths.get("src/test/resources/testMessage2.txt"));
+                    String json = new String(encoded, Charset.forName("UTF-8"));
+
+                    sendMessage("p1ReceiveImages", json);    
                 } else {
 		    // Send input text in a message to the queue "Test"
                     
