@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,6 +45,9 @@ public class ChargingRecord {
     private Double charge;
     private Double chargeRate;       
     
+    // stops xml/json binding of id because this is database specific.
+    // the uuid is the unique identifier
+    @XmlTransient
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {

@@ -41,6 +41,7 @@ public class MarshalUnmarshalJsonTest {
         chargingRecord.setExitDate(new Date());
         chargingRecord.setExitLocation("London");
         chargingRecord.setExitPhotoId(UUID.randomUUID().toString());
+        chargingRecord.setNumberPlate("HAZ6204");
 
         StringWriter sw1 = new StringWriter();
         objectMapper.writeValue(sw1, chargingRecord);
