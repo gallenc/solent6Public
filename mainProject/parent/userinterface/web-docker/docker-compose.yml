@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  userinterface:
+    image: solent-traffic/userinterface:latest
+    ports:
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - catalina:/usr/local/tomcat/temp
+      - catalina:/usr/local/tomcat/logs
+      - ./system.properties:/system.properties
+    environment:
+      - APPLICATION_ENVIRONMENT_FILE=/system.properties
+
+volumes:
+   catalina:

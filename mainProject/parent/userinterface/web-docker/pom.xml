@@ -63,6 +63,7 @@
             <groupId>solent.ac.uk.devops.traffic</groupId>
             <artifactId>userinterface-web</artifactId>
             <version>${project.version}</version>
+            <type>war</type>
             <scope>compile</scope>
         </dependency>
     </dependencies>
