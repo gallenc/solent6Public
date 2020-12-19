@@ -20,14 +20,38 @@
 
     </properties>
 
-    <modules>
-        <module>model</module>
-        <module>dao-springdata-jpa</module>
-        <module>service</module>
-        <module>web</module>
-        <module>client-rest</module>
-        <module>web-client</module>
-    </modules>
+    <profiles>
+        <profile>
+            <id>assemble</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>model</module>
+                <module>dao-springdata-jpa</module>
+                <module>service</module>
+                <module>web</module>
+                <module>client-rest</module>
+                <module>web-client</module>
+            </modules>
+        </profile>
+        <!-- this will only work if you are running on a linux machine with installed docker -->
+        <!-- mvn clean install -P packageAsDocker -->
+        <profile>
+            <id>packageAsDocker</id>
+            <modules>
+                <module>model</module>
+                <module>dao-springdata-jpa</module>
+                <module>service</module>
+                <module>web</module>
+                <module>client-rest</module>
+                <module>web-client</module>
+                <module>web-docker</module>
+            </modules>
+        </profile>
+    </profiles>
+
+
 
     <build>
         <pluginManagement>
