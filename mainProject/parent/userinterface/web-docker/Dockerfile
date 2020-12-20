@@ -3,8 +3,8 @@
 # https://hub.docker.com/_/tomcat?tab=description&page=1&ordering=last_updated
 
 FROM tomcat:9.0.41-jdk11-openjdk
-# copy war into image
-COPY /target/docker/userinterface-web-0.1-SNAPSHOT.war /usr/local/tomcat/webapps/userinterface-web-0.1-SNAPSHOT.war 
+# copy any wars into image
+COPY /target/docker/*.war /usr/local/tomcat/webapps/ 
 
 
 

@@ -15,9 +15,54 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-
+                    <!-- copies and renames war -->
+                    <!-- note that tomcat does not honour the war META-INF/Context.xml so the war name must match the path-->
                 <executions>
                     <execution>
+                        <id>copy-specific-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                           <artifactItems>
+                              <artifactItem>
+                                 <groupId>solent.ac.uk.devops.traffic</groupId>
+                                 <artifactId>userinterface-web</artifactId>
+                                 <version>${project.version}</version>
+                                 <type>war</type>
+                                 <overWrite>false</overWrite>
+                                 <outputDirectory>${project.build.directory}/docker</outputDirectory>
+                                 <!-- destFileName must match web path rquired -->
+                                 <destFileName>project-web.war</destFileName>
+                              </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <!-- unpacks war -->
+<!--                    <execution>
+                        <id>unpack-specific-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                           <artifactItems>
+                              <artifactItem>
+                                 <groupId>solent.ac.uk.devops.traffic</groupId>
+                                 <artifactId>userinterface-web</artifactId>
+                                 <version>${project.version}</version>
+                                 <type>war</type>
+                                 <overWrite>false</overWrite>
+                                 <outputDirectory>project-web</outputDirectory>
+                              </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+-->
+
+                    <!-- copies any artifacts defined in dependencies -->
+<!--                <execution>
                         <id>copy-dependencies</id>
                         <phase>package</phase>
                         <goals>
@@ -31,6 +76,28 @@
                             <excludeTransitive>true</excludeTransitive>
                         </configuration>
                     </execution>
+-->
+                    <!-- unpacks war -->
+<!--                    <execution>
+                        <id>unpack-specific-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                           <artifactItems>
+                              <artifactItem>
+                                 <groupId>solent.ac.uk.devops.traffic</groupId>
+                                 <artifactId>userinterface-web</artifactId>
+                                 <version>${project.version}</version>
+                                 <type>war</type>
+                                 <overWrite>false</overWrite>
+                                 <outputDirectory>project-web</outputDirectory>
+                              </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+-->
                 </executions>
             </plugin>
         
