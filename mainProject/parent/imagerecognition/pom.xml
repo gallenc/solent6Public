@@ -28,6 +28,7 @@
             </activation>
             <modules>
                 <module>platerecognition</module>
+		<module>platerecognition-testharness</module>
             </modules>
         </profile>
     </profiles>

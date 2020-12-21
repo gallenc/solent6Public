@@ -346,6 +346,13 @@
                 <artifactId>hamcrest-core</artifactId>
                 <version>${hamcrest-core.version}</version>
             </dependency>
+            
+            <!--ANPR library-->
+            <dependency>
+                <groupId>net.sf.javaanpr</groupId>
+                <artifactId>javaanpr</artifactId>
+                <version>${javaanpr.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

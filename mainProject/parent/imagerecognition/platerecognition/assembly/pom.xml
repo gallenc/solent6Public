@@ -35,6 +35,17 @@
 
         </plugins>
 
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                  <include>**/*.jpg</include>
+                  <include>**/*.dtd</include>
+                  <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
     </build>
 
     <dependencies>
@@ -48,5 +59,4 @@
         </dependency>
 
     </dependencies>
-
 </project>

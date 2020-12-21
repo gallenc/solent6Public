@@ -28,6 +28,7 @@
             </activation>
             <modules>
                 <module>JSONMessage</module>
+                <module>CsvToCamera</module>
             </modules>
         </profile>
     </profiles>
@@ -139,5 +140,4 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
-
 </project>
