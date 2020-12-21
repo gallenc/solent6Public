@@ -28,6 +28,7 @@
             </activation>
             <modules>
                 <module>JSONMessage</module>
+                <module>csvtocamera</module>
             </modules>
         </profile>
     </profiles>
