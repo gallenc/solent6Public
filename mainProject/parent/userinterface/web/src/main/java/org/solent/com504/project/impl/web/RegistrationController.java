@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @Transactional
-public class ResgistrationController {
+public class RegistrationController {
     
     final static Logger LOG = LogManager.getLogger(UserController.class);
 

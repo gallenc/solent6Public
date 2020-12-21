@@ -15,7 +15,7 @@
 <main role="main" class="container">
 
     <h1>My Cars</h1>
-    <form action="./mycars">
+    <form action="./cars">
         <button class="btn" type="submit" >Go To My Cars</button>
     </form> 
     </br>
