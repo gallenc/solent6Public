@@ -20,6 +20,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.solent.com504.project.model.dto.Bank;
+import org.solent.com504.project.model.car.dto.Car;
+import org.solent.com504.project.model.invoice.dto.Invoice;
 import org.solent.com504.project.model.user.dto.User;
 
 @XmlRootElement
@@ -33,6 +36,8 @@ public class Party {
     private String firstName;
 
     private String secondName;
+    
+//    private Bank bank = new Bank();
 
     private PartyRole partyRole = PartyRole.UNDEFINED;
 
@@ -48,7 +53,17 @@ public class Party {
     @XmlElementWrapper(name = "users")
     @XmlElement(name = "user")
     private Set<User> users = new HashSet();
+    
+    //party takes a set of cars - rui
+    @XmlElementWrapper(name = "cars")
+    @XmlElement(name = "car")
+    private Set<Car> cars = new HashSet();
 
+    @XmlElementWrapper(name = "invoices")
+    @XmlElement(name = "invoice")
+    private Set<Invoice> invoices = new HashSet();
+
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
@@ -74,6 +89,14 @@ public class Party {
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
+    
+//    @Embedded
+//    public Bank getBank(){
+//        return bank;
+//    }
+//    public void setBank(Bank bank){
+//        this.bank = bank;
+//    }
 
     public PartyRole getPartyRole() {
         return partyRole;
@@ -138,7 +161,28 @@ public class Party {
         this.users.remove(user);
         user.getParties().remove(this);
     }
+    
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "car_party", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+    public Set<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "invoice_party", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
+    }    
+    
     @Override
     public String toString() {
         return "Party{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", partyRole=" + partyRole + ", address=" + address + ", partyStatus=" + partyStatus + ", uuid=" + uuid + ", enabled=" + enabled + '}';
@@ -169,7 +213,4 @@ public class Party {
         }
         return true;
     }
-    
-    
-
 }

@@ -19,6 +19,7 @@ public class Role {
         super();
     }
     
+    
     public Role(UserRoles userRole){
         super();
         name = userRole.toString();
@@ -58,4 +59,8 @@ public class Role {
         this.users = users;
     }
 
+    @Override
+    public String toString() {
+        return "Role{" + "id=" + id + ", name=" + name + ", users=" + users + '}';
+    }        
 }

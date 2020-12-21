@@ -7,6 +7,7 @@ package org.solent.com504.project.impl.party.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import org.solent.com504.project.model.party.dao.PartyDAO;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
@@ -15,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * @author cgallen
- */
+
 @Service
 @Transactional
 public class PartyServiceImpl implements PartyService {
@@ -62,7 +60,7 @@ public class PartyServiceImpl implements PartyService {
     }
 
     @Override
-    public List<Party> findByName(String firstName, String secondName) {
+    public Set<Party> findByName(String firstName, String secondName) {
         return partyDao.findByName(firstName, secondName);
     }
 
@@ -76,4 +74,17 @@ public class PartyServiceImpl implements PartyService {
         return Arrays.asList(PartyRole.values());
     }
 
+//    @Override
+//    public Party findByNumberPlate(String numberPlate) {
+//        return partyDao.findByNumberPlate(numberPlate);
+//    }
+    @Override
+    public Party findPartyByUsername(String username) {
+        return partyDao.findByUsername(username);
+    }
+
+    @Override
+    public Set<Party> findAllParties() {
+        return partyDao.findAllParties();
+    }
 }

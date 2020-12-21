@@ -1,0 +1,8 @@
+# startup script included
+# https://hub.docker.com/layers/tomcat/library/tomcat/9.0-jdk11-openjdk/images/sha256-4527a552568f7d706173d8065278cd1abaa7edce186a149a5a2de251e12e6c3c?context=explore
+
+FROM tomcat:9.0-jdk11-openjdk 
+# Check hub.docker and find a sutable replacement for this line that includes: "tomcat x86-64  9.0-jdk11"
+ 
+# copy fat jar into image
+COPY /target/docker/messagehandler-assembly-0.1-SNAPSHOT-onejar.jar /deployments/onejar.jar 

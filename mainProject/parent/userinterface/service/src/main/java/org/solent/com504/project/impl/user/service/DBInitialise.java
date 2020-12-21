@@ -17,11 +17,18 @@ import java.util.logging.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.com504.project.impl.dao.chargingrecord.springdata.ChargingRecordRepository;
+import java.util.logging.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.solent.com504.project.impl.dao.car.springdata.CarRepository;
 import org.solent.com504.project.impl.dao.party.springdata.PartyRepository;
+import org.solent.com504.project.impl.dao.invoice.springdata.InvoiceRepository;
 import org.solent.com504.project.impl.dao.user.springdata.RoleRepository;
 import org.solent.com504.project.impl.dao.user.springdata.UserRepository;
 import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
+import org.solent.com504.project.model.dto.Bank;
 import org.solent.com504.project.model.party.dto.Party;
+import org.solent.com504.project.model.invoice.dto.Invoice;
 import org.solent.com504.project.model.user.dto.Role;
 import org.solent.com504.project.model.user.dto.User;
 import org.solent.com504.project.model.user.dto.UserRoles;
@@ -36,11 +43,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class DBInitialise {
 
     final static Logger LOG = LogManager.getLogger(DBInitialise.class);
-    
-    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    
-    private static final long HOUR_IN_MS = 1000 * 60 * 60;
 
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    private static final long HOUR_IN_MS = 1000 * 60 * 60;
 
     @Autowired
     private UserRepository userRepository;
@@ -48,10 +54,12 @@ public class DBInitialise {
     private RoleRepository roleRepository;
     @Autowired
     private ChargingRecordRepository chargingRecordRepository;
-
-
+    @Autowired
+    private InvoiceRepository invoiceRepository;
     @Autowired
     private PartyRepository partyRepository;
+    @Autowired
+    private CarRepository carRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -72,7 +80,7 @@ public class DBInitialise {
 
         // add admin and simple user to database by default
         if (userRepository.findAll().isEmpty()) {
-            LOG.debug("new database initialising default globaladmin and basicuser");
+            LOG.debug("new database initialising default globaladmin and basicuser and partyadmin");
             User adminUser = new User();
             adminUser.setFirstName("globaladmin");
             adminUser.setSecondName("globaladmin");
@@ -93,10 +101,31 @@ public class DBInitialise {
             basicUser.setPassword(bCryptPasswordEncoder.encode("basicuser"));
             roles = new HashSet<>();
             roles.addAll(roleRepository.findByName(UserRoles.ROLE_USER.toString()));
-
             basicUser.setRoles(roles);
+            Bank bank = new Bank();
+            bank.setCardNumber("56172517");
+            bank.setSortCode("204025");
+            bank.setCvv(352);
+            basicUser.setBank(bank);
             userRepository.saveAndFlush(basicUser);
 
+            User partyUser = new User();
+            partyUser.setFirstName("partyuser");
+            partyUser.setSecondName("partyuser");
+            partyUser.setUsername("partyuser");
+            partyUser.setPassword(bCryptPasswordEncoder.encode("partyuser"));
+
+            roles = new HashSet<>();
+            roles.addAll(roleRepository.findByName(UserRoles.ROLE_USER.toString()));
+            roles.addAll(roleRepository.findByName(UserRoles.ROLE_PARTY_ADMIN.toString()));
+            partyUser.setRoles(roles);
+
+            Bank partyBank = new Bank();
+            partyBank.setCardNumber("36985214");
+            partyBank.setSortCode("604580");
+            partyBank.setCvv(400);
+            partyUser.setBank(partyBank);
+            userRepository.saveAndFlush(partyUser);
         }
 
         // create a first basic Party
@@ -104,21 +133,25 @@ public class DBInitialise {
             LOG.debug("new database initialising first party owned by basic user");
 
             Party party = new Party();
+
             party.setFirstName("default_party");
             party.setSecondName("default_party");
+
             party = partyRepository.saveAndFlush(party);
 
             User user = userRepository.findByUsername("basicuser");
+            User partyUser = userRepository.findByUsername("partyuser");
             LOG.debug("adding to party user:" + user);
+            LOG.debug("adding to party partyUser" + partyUser);
             Set<User> users = new HashSet();
             users.add(user);
+            users.add(partyUser);
             party.setUsers(users);
 
             party = partyRepository.saveAndFlush(party);
             LOG.debug("added party to database:" + party);
-
         }
-        
+
         //creating an initial charging record
         /*if(chargingRecordRepository.findAll().isEmpty()){
             LOG.debug("new database initialising initial charging records");
@@ -161,20 +194,17 @@ public class DBInitialise {
             chargingRecordRepository.saveAndFlush(chargingRecord);                        
             LOG.debug("CHARGING RECORD CREATED: " + chargingRecord.toString());                        
         }*/
-        
-        if(chargingRecordRepository.findAll().isEmpty())
-        {
+        if (chargingRecordRepository.findAll().isEmpty()) {
             LOG.debug("new database initialising initial charging records");
-                                    
+
             //random uuid
             String searchuuid = UUID.randomUUID().toString();
-            
+
             //List of number plates
-            List<String> numberPlateList = Arrays.asList("HAZ604","HAZ605","HAZ606","HAZ607","HAZ608");
-            
+            List<String> numberPlateList = Arrays.asList("HAZ604", "HAZ605", "HAZ606", "HAZ607", "HAZ608");
+
             List<Date> entryDates = null;
-            try
-            {
+            try {
                 entryDates = Arrays.asList(df.parse("2020-01-01 21:57:00"),
                         df.parse("2020-01-01 09:30:00"),
                         df.parse("2020-01-01 10:00:00"),
@@ -184,24 +214,20 @@ public class DBInitialise {
                         df.parse("2020-01-01 12:00:00"),
                         df.parse("2020-01-01 12:30:00"),
                         df.parse("2020-01-01 13:00:00"),
-                        df.parse("2020-01-01 13:30:00"));                                
-            
-            }
-            catch (ParseException ex) {
+                        df.parse("2020-01-01 13:30:00"));
+
+            } catch (ParseException ex) {
                 throw new IllegalStateException("problem parsing dates:", ex);
             }
-            
+
             int countOfChargingRecords = 0;
-            
-            
+
             String uuid = searchuuid;
-            
-            for(Date entryDate : entryDates)
-            {                
-                for(String numberPlate : numberPlateList)
-                {
+
+            for (Date entryDate : entryDates) {
+                for (String numberPlate : numberPlateList) {
                     ChargingRecord chargingRecord = new ChargingRecord();
-                    
+
                     chargingRecord.setNumberPlate(numberPlate);
                     //random uuid
                     chargingRecord.setUuid(uuid);
@@ -222,15 +248,34 @@ public class DBInitialise {
                     chargingRecord.setExitPhotoId(exitPhotoId);
 
                     LOG.debug("CHARGING RECORD CREATED: " + chargingRecord.toString());
-                    
-                    chargingRecord = chargingRecordRepository.saveAndFlush(chargingRecord);            
+
+                    chargingRecord = chargingRecordRepository.saveAndFlush(chargingRecord);
                     LOG.debug("CHARGING RECORD CREATED: " + chargingRecord.toString());
                     countOfChargingRecords++;
-                    
+
                     //uuid = UUID.randomUUID().toString();
                 }
             }
             LOG.debug("Inserted " + countOfChargingRecords + " charging records");
+
+            if (invoiceRepository.findAll().isEmpty()) {
+                for (int i = 0; i < 9; i++) {
+                    Invoice invoice = new Invoice();
+                    try {
+                        Date d = df.parse("2020-01-01 1" + i + ":30:00");
+                        invoice.setIssueDate(d);
+                    } catch (ParseException ex) {
+                        java.util.logging.Logger.getLogger(DBInitialise.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Date d = new Date();
+                    invoice.setPaidDate(d);
+                    Set<Party> party = partyRepository.findByName("default_party", "default_party");
+                    invoice.setParties(party);
+                    Double amount = new Double(i);
+                    invoice.setAmount(amount);
+                    invoiceRepository.saveAndFlush(invoice);
+                }
+            }
         }
     }
 }

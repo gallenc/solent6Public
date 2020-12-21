@@ -6,6 +6,7 @@
 package org.solent.com504.project.model.party.service;
 
 import java.util.List;
+import java.util.Set;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
 
@@ -29,10 +30,15 @@ public interface PartyService {
 
     public List<Party> findByPartyRole(PartyRole partyRole);
 
-    public List<Party> findByName(String firstName, String secondName);
+    public Set<Party> findByName(String firstName, String secondName);
     
     public Party findByUuid(String uuid);
     
     public List<PartyRole> getAvailablePartyRoles();
+    
+    public Party findPartyByUsername(String username);
+//    public Party findByNumberPlate(String numberPlate);
+    
+    public Set<Party> findAllParties();
     
 }

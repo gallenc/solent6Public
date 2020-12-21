@@ -59,7 +59,9 @@
                 org.solent.com504.project.impl.user.service,
                 org.solent.com504.project.impl.party.service,
                 org.solent.com504.project.impl.chargingrecord.service,
-                org.solent.devops.message.jms" />
+                org.solent.devops.message.jms,
+                org.solent.com504.project.impl.invoice.service,
+                org.solent.com504.project.impl.car.service" />
     
     
     <!-- this just activates and destroys a bean as an example -->
@@ -87,7 +89,7 @@
 
     <bean id="simpleJmsListener" class="org.solent.devops.message.jms.SimpleJmsListener">
     </bean>
-    
+     
     <bean id="simpleJmsSender" class="org.solent.devops.message.jms.SimpleJmsSender">
         <constructor-arg ref="jmsTemplate"/>
         <constructor-arg value="${solent.ac.uk.devops.traffic.charging.queuename}"/> 

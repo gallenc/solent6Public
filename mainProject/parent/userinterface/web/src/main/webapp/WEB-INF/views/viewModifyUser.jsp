@@ -14,6 +14,13 @@
 <!-- Begin page content -->
 <main role="main" class="container">
 
+    <h1>My Cars</h1>
+    <form action="./cars">
+        <button class="btn" type="submit" >Go To My Cars</button>
+    </form> 
+    </br>
+    </br>
+
     <div>
         <H1>User Details</H1>
         <!-- print error message if there is one -->
@@ -35,6 +42,10 @@
                         <td>${user.username}</td>
                     </tr>
                     <tr>
+                        <td>Email Address</td>
+                        <td><input type="text" name="firstName" value="${user.firstName}" /></td>
+                    </tr>
+                    <tr>
                         <td>First Name</td>
                         <td><input type="text" name="firstName" value="${user.firstName}" /></td>
                     </tr>
@@ -43,39 +54,13 @@
                         <td><input type="text" name="secondName" value="${user.secondName}" /></td>
                     </tr>
                     <tr>
-                        <td>House Number</td>
-                        <td><input type="text" name="number" value="${user.address.number}" /></td>
-                    </tr>
-                    <tr>
                         <td>Address Line 1</td>
                         <td><input type="text" name="addressLine1" value="${user.address.addressLine1}" /></td>
                     </tr>
-                    <tr>
-                        <td>Address Line 2</td>
-                        <td><input type="text" name="addressLine2" value="${user.address.addressLine2}" /></td>
-                    </tr>
-                    <tr>
-                        <td>county</td>
-                        <td><input type="text" name="county" value="${user.address.county}" /></td>
-                    </tr>
-                    <tr>
-                        <td>country</td>
-                        <td><input type="text" name="country" value="${user.address.country}" /></td>
-                    </tr>
+
                     <tr>
                         <td>postcode</td>
                         <td><input type="text" name="postcode" value="${user.address.postcode}" /></td>
-                    </tr>
-                    <tr>
-                        <td>latitude</td>
-                        <td><input type="text" name="latitude" value="${user.address.latitude}" /></td>
-                    </tr>
-                    <tr>
-                        <td>longitude</td>
-                        <td><input type="text" name="longitude" value="${user.address.longitude}" /></td>
-                    </tr>                      <tr>
-                        <td>telephone</td>
-                        <td><input type="text" name="telephone" value="${user.address.telephone}" /></td>
                     </tr>
                     <tr>
                         <td>mobile</td>
@@ -88,7 +73,37 @@
                     </tbody>
 
                 </table>
-                <div>
+
+
+                <h1>Bank account details</h1>     
+                <table class="table">
+                    <thead>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Name of bank</td>
+                            <td><input type="text" name="firstName" value="${user.firstName}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Account name</td>
+                        <td><input type="text" name="firstName" value="${user.firstName}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Account number</td>
+                        <td><input type="text" name="secondName" value="${user.secondName}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Sort code</td>
+                        <td><input type="text" name="addressLine1" value="${user.address.addressLine1}" /></td>
+                    </tr>
+                </tbody>
+
+            </table>      
+
+
+
+            <div>
                 <sec:authorize access="hasRole('ROLE_GLOBAL_ADMIN')" >
                     <p>Manage User Status </p>
                     <table class="table">
@@ -108,6 +123,10 @@
                                 </tr>
                             </tbody>
                         </table>
+
+
+
+
                         <p>Manage User Roles </p>
                         <table class="table">
                             <thead>

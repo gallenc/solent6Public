@@ -22,8 +22,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.solent.com504.project.model.party.dao.PartyDAO;
 import org.solent.com504.project.model.party.dto.Address;
+import org.solent.com504.project.model.car.dao.CarDAO;
 import org.solent.com504.project.model.user.dao.RoleDAO;
 import org.solent.com504.project.model.user.dao.UserDAO;
+import org.solent.com504.project.model.car.dto.Car;
 import org.solent.com504.project.model.user.dto.User;
 
 /**
@@ -48,10 +50,14 @@ public class PartyDAOTest {
     @Autowired
     private RoleDAO roleDao = null;
 
+//    @Autowired
+//    private CarDAO carDao = null;
+    
     @Before
     public void before() {
         assertNotNull(partyDao);
         assertNotNull(userDao);
+//        assertNotNull(carDao);
     }
 
     // initialises database for each test
@@ -60,6 +66,7 @@ public class PartyDAOTest {
 
         partyDao.deleteAll();
         userDao.deleteAll();
+//        carDao.deleteAll();
 
         for (int i = 1; i < 6; i++) {
             User user = new User();
@@ -69,13 +76,16 @@ public class PartyDAOTest {
             user.setUsername("username_A_" + i);
             user.setFirstName("userfirstName_A_" + i);
             user.setSecondName("usersecondName_A_" + i);
+
             user = userDao.save(user);
-            LOG.debug("created test user:"+user);
+            LOG.debug("created test user:"+user);           
         }
 
         List<User> users = userDao.findAll();
         assertEquals(5, users.size());
 
+//        List<Car> cars= carDao.findAll();
+//        assertEquals(5, cars.size());
         // add 5 buyer
         for (int i = 1; i < 6; i++) {
             Party party = new Party();
@@ -89,6 +99,9 @@ public class PartyDAOTest {
             Set<User> userset = new HashSet();
             userset.add(users.get(i-1));
             party.setUsers(userset);
+//            Set<Car> carset = new HashSet();
+//            carset.add(cars.get(i-1));
+//            party.setCars(carset);
 
             party = partyDao.save(party);
             LOG.debug("created test party:"+party);
@@ -102,11 +115,14 @@ public class PartyDAOTest {
             party.setFirstName("partyfirstName_B_" + i);
             party.setSecondName("partysecondName_B_" + i);
             party.setPartyRole(PartyRole.UNDEFINED);
+            
 
             Set<User> userset = new HashSet();
-            userset.add(users.get(i-1));
+            userset.add(users.get(i-1));         
             party.setUsers(userset);
-
+//                Set<Car> carset = new HashSet();
+//            carset.add(cars.get(i-1));
+//            party.setCars(carset);
             party = partyDao.save(party);
             LOG.debug("created test party:"+party);
         }
@@ -126,48 +142,24 @@ public class PartyDAOTest {
     @Test
     public void findByIdTest() {
         LOG.debug("start of findByIdTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
-        LOG.debug("end of findByIdTest()");
-    }
-
-    //@Transactional
-    @Test
-    public void saveTest() {
-        LOG.debug("start of saveTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
-        LOG.debug("end of saveTest()");
-    }
-
-    //@Transactional
-    @Test
-    public void findAllTest() {
-        LOG.debug("start of findAllTest()");
-
         init();
-        List<Party> partyList = partyDao.findAll();
-        assertNotNull(partyList);
-
-        // init should insert 10 people
-        assertEquals(10, partyList.size());
-
-        // print out result
-        String msg = "";
-        for (Party party : partyList) {
-            msg = msg + "\n   " + party.toString();
-        }
-        LOG.debug("findAllTest() retrieved:" + msg);
-
-        LOG.debug("end of findAllTest()");
+        List<Party> parties = partyDao.findAll();
+        Party party1 = parties.get(0);
+        Party party2 = partyDao.findById(party1.getId());
+        
+        assertEquals(party1, party2);
+        LOG.debug("end of findByIdTest()");
     }
 
     //@Transactional
     @Test
     public void deleteByIdTest() {
         LOG.debug("start of deleteByIdTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        init();
+        List<Party> parties = partyDao.findAll();
+        Party party1 = parties.get(0);
+        partyDao.deleteById(party1.getId());
+        assertEquals(partyDao.findAll().size(), 9);
         LOG.debug("end of deleteByIdTest()");
     }
 
@@ -175,8 +167,9 @@ public class PartyDAOTest {
     @Test
     public void deleteTest() {
         LOG.debug("start of deleteTest()");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        init();        
+        partyDao.delete(partyDao.findAll().get(0));
+        assertEquals(partyDao.findAll().size(), 9);
         LOG.debug("end ofdeleteTest()");
     }
 
@@ -184,8 +177,9 @@ public class PartyDAOTest {
     @Test
     public void deleteAllTest() {
         LOG.debug("start of deleteAllTest())");
-        //TODO implement test
-        LOG.debug("NOT IMPLEMENTED");
+        init();        
+        partyDao.deleteAll();
+        assertEquals(partyDao.findAll().size(), 0);
         LOG.debug("end of deleteAllTest()");
     }
 
@@ -227,11 +221,11 @@ public class PartyDAOTest {
         LOG.debug("Selecting Party " + i + " party=" + party1);
         String firstName = party1.getFirstName();
         String secondName = party1.getSecondName();
+        
+        Set<Party> parties = partyDao.findByName(firstName, secondName);         
+        assertFalse(parties.isEmpty());
 
-        partyList = partyDao.findByName(firstName, secondName);
-        assertFalse(partyList.isEmpty());
-
-        Party party2 = partyList.get(0);
+        Party party2 = parties.iterator().next();
         LOG.debug("Finding party by name Party " + party2);
 
         assertTrue(party1.toString().equals(party2.toString()));

@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.solent.com504.project.model.user.dao.UserDAO;
@@ -17,6 +18,9 @@ import org.solent.com504.project.model.user.dto.Role;
 import org.solent.com504.project.model.user.dto.UserRoles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.solent.com504.project.impl.dao.party.springdata.PartyRepository;
+import org.solent.com504.project.model.party.dao.PartyDAO;
+import org.solent.com504.project.model.party.dto.Party;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -29,14 +33,24 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private PartyRepository partyRepository;
 
-    // @Autowired
-    // private UserDAO userDAO;
+    @Transactional
     @Override
     public void create(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findByName(UserRoles.ROLE_USER.toString())));
-        userRepository.save(user);
+        user.setRoles(new HashSet<>(roleRepository.findByName(UserRoles.ROLE_USER.toString())));  
+        user = userRepository.saveAndFlush(user);
+        Set<Party> partyList = partyRepository.findAllParties();
+        
+        if (partyList.isEmpty())
+        {
+            throw new IllegalStateException("default_party not found");
+        }
+        Party p = partyList.iterator().next();
+        p.addUser(user);
+        partyRepository.saveAndFlush(p);
     }
 
     @Override

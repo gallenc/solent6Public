@@ -16,11 +16,11 @@ public class ReplyMessage {
     private Integer code = null;
 
     private String debugMessage = null;
-
+    
     private Long totalRecords = null;
-
+    
     private Integer page = null;
-
+    
     private Integer size = null;
 
     @XmlElementWrapper(name = "stringlist")
@@ -62,7 +62,7 @@ public class ReplyMessage {
     public List<Party> getPartyList() {
         return partyList;
     }
-
+    
     public void setPartyList(List<Party> partyList) {
         this.partyList = partyList;
     }
@@ -101,4 +101,4 @@ public class ReplyMessage {
     
     
 
-}
+    }    

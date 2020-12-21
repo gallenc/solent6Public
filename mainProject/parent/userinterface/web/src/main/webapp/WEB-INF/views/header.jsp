@@ -45,20 +45,21 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Project name</a>
+                        <a class="navbar-brand" href="#">User Interface</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
 
                             <!-- this jstl should work but problems with multiple if statements -->
-                            <!-- selected page = ${selectedPage} home ${'home'.equals(selectedPage) } about ${'about'.equals(selectedPage) } contact ${'contact'.equals(selectedPage) }-->
+                            <!-- selected page = ${selectedPage} home ${'home'.equals(selectedPage) } billing ${'billing'.equals(selectedPage) } contact ${'contact'.equals(selectedPage) }-->
                             <!--<li <c:if test="${'home'.equals(selectedPage) }"> class="active"  </c:if> ><a href="${contextPath}/home">Home</a></li>--> 
 
                                 <!-- this raw java code works !! -->
                             <li <% if ("home".equals(request.getAttribute("selectedPage"))) {%> class="active"  <% } %> ><a href="${contextPath}/home">Home</a></li> 
                             <li <% if ("chargingRecords".equals(request.getAttribute("selectedPage"))) {%> class="active"  <% } %> ><a href="${contextPath}/chargingRecords">Charging Records</a></li> 
                             <li <% if ("about".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% } %> ><a href="${contextPath}/about">About</a></li> 
-                            <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/contact">Contact</a></li>                          
+                            <li <% if ("contact".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/contact">Contact</a></li>                                                          
+                            <li <% if ("invoice".equals(request.getAttribute("selectedPage"))) {%>  class="active"  <% }%> ><a href="${contextPath}/invoice">Invoice</a></li>
 
                             <sec:authorize access="hasRole('ROLE_GLOBAL_ADMIN')">
                                 <li class="dropdown" >
@@ -66,6 +67,15 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="${contextPath}/users">Manage Users</a></li>
                                         <li><a href="${contextPath}/partys">Manage Partys</a></li>
+                                    </ul>
+                                </li>
+                            </sec:authorize>
+
+                            <sec:authorize access="hasRole('ROLE_PARTY_ADMIN')">
+                                <li class="dropdown" >
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Party Admin <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="${contextPath}/manageusersparty">Manage Users In Party</a></li>
                                     </ul>
                                 </li>
                             </sec:authorize>
@@ -80,9 +90,9 @@
                                     <input type="hidden" name="username" value="${pageContext.request.userPrincipal.name}"/>
                                 </form>
                                 <p class="text-muted"> Welcome ${pageContext.request.userPrincipal.name}&nbsp;&nbsp;
-                                <a onclick="document.forms['logoutForm'].submit()">Logout</a><BR>
-                                <a onclick="document.forms['profile'].submit()">User Profile</a></p>
-                            </c:if>
+                                    <a onclick="document.forms['logoutForm'].submit()">Logout</a><BR>
+                                    <a onclick="document.forms['profile'].submit()">User Profile</a></p>
+                                </c:if>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->

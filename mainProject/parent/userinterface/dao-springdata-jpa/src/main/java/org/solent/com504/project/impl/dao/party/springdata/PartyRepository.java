@@ -6,6 +6,7 @@
 package org.solent.com504.project.impl.dao.party.springdata;
 
 import java.util.List;
+import java.util.Set;
 import org.solent.com504.project.model.party.dto.Party;
 import org.solent.com504.project.model.party.dto.PartyRole;
 import org.solent.com504.project.model.user.dto.User;
@@ -25,12 +26,22 @@ public interface PartyRepository extends JpaRepository<Party, Long> {
     public List<Party> findByPartyRole(@Param("partyRole") PartyRole partyRole);
 
     @Query("select p from Party p LEFT JOIN FETCH p.users where p.firstName = :firstName and p.secondName = :secondName")
-    public List<Party> findByName(@Param("firstName") String firstName, @Param("secondName") String secondName);
+    public Set<Party> findByName(@Param("firstName") String firstName, @Param("secondName") String secondName);
     
     @Query("select p from Party p LEFT JOIN FETCH p.users where p.uuid = :uuid")
     public List<Party> findByUuid(@Param("uuid") String uuid);
     
     @Query("select p from Party p LEFT JOIN FETCH p.users")
     public List<Party> findAll();
+    
+    @Query("select p from Party p LEFT JOIN FETCH p.users u where u.username = :username")
+    public Party findByUsername(@Param("username") String username);
+    
+    @Query("select p from Party p LEFT JOIN FETCH p.users")
+    public Set<Party> findAllParties();
+
+//    @Query("select p from Party p join p.cars c where c.numberPlate= :numberPlate")
+//    public Party findByPlateNumber(@Param("numberPlate") String numberPlate);
+    
     
 }

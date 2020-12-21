@@ -8,8 +8,6 @@ package org.solent.com504.project.model.chargingrecord.dao;
 import java.util.Date;
 import java.util.List;
 import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
-
-
 /**
  *
  * @author joao-

@@ -186,4 +186,4 @@ public class ModelJaxbTest {
             throw new RuntimeException("problem testing jaxb marshalling", e);
         }
     }
-}
+    }

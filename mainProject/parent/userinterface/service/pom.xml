@@ -11,7 +11,7 @@
     <artifactId>userinterface-service</artifactId>
     <name>userinterface-service</name>
     <packaging>jar</packaging>
-    
+
     <build>
         <plugins>
             <plugin>

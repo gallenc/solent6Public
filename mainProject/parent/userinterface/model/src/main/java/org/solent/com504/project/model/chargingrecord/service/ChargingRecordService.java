@@ -11,7 +11,8 @@ import org.solent.com504.project.model.chargingrecord.dto.ChargingRecord;
 
 /**
  *
- * @author cgallen
+<<<<<<< HEAD
+ * @author ruipi
  */
 public interface ChargingRecordService {
     
