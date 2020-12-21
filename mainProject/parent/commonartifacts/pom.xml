@@ -28,7 +28,7 @@
             </activation>
             <modules>
                 <module>JSONMessage</module>
-                <module>csvtocamera</module>
+                <module>CsvToCamera</module>
             </modules>
         </profile>
     </profiles>
