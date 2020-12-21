@@ -5,4 +5,5 @@ FROM tomcat:9.0-jdk11-openjdk
 # Check hub.docker and find a sutable replacement for this line that includes: "tomcat x86-64  9.0-jdk11"
  
 # copy fat jar into image
-COPY /target/docker/messagehandler-assembly-0.1-SNAPSHOT-onejar.jar /deployments/onejar.jar 
+COPY /target/docker/userinterface-web-0.1-SNAPSHOT.war /deployments/app.war
+
