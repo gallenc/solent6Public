@@ -269,9 +269,11 @@ public class DBInitialise {
                     }
                     Date d = new Date();
                     invoice.setPaidDate(d);
-                    Set<User> users = new HashSet();
-                    users.add(userRepository.findByUsername("basicuser"));
-                            
+//                    Set<User> users = new HashSet();
+                    User user =(userRepository.findByUsername("basicuser"));
+                    user.addInvoice(invoice);
+                    userRepository.saveAndFlush(user);
+                    
                     Double amount = new Double(i);
                     invoice.setAmount(amount);
                     invoiceRepository.saveAndFlush(invoice);

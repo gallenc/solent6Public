@@ -166,6 +166,16 @@ public class User {
     public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
     }    
+    
+        public void addInvoice(Invoice invoice){
+        this.invoices.add(invoice);
+        invoice.getUser().add(this);        
+    }
+    
+    public void removeInvoice(Invoice invoice){
+        this.invoices.remove(invoice);
+        invoice.getUser().remove(this);        
+    }
 
     // Note Password and roles omitted from tostring
     @Override
