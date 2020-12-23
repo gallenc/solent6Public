@@ -9,7 +9,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.solent.com504.project.model.car.dto.Car;
 import org.solent.com504.project.model.dto.Bank;
+import org.solent.com504.project.model.invoice.dto.Invoice;
 import org.solent.com504.project.model.party.dto.Address;
 import org.solent.com504.project.model.party.dto.Party;
 
@@ -37,7 +39,15 @@ public class User {
 
     @XmlElementWrapper(name = "parties")
     @XmlElement(name = "party")
-    private Set<Party> parties = new HashSet<Party>();        
+    private Set<Party> parties = new HashSet<Party>();      
+    
+    @XmlElementWrapper(name = "cars")
+    @XmlElement(name = "car")
+    private Set<Car> cars = new HashSet();
+
+    @XmlElementWrapper(name = "invoices")
+    @XmlElement(name = "invoice")
+    private Set<Invoice> invoices = new HashSet();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -126,15 +136,35 @@ public class User {
     }
 
     // parties owns the relationship
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 //   @ManyToMany(fetch = FetchType.EAGER,  cascade={CascadeType.PERSIST, CascadeType.MERGE} )
 //    @JoinTable(name = "user_party", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     public Set<Party> getParties() {
         return parties;
     }
 
     public void setParties(Set<Party> parties) {
         this.parties = parties;
+    }    
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "car_user", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    public Set<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "invoice_user", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
     }    
 
     // Note Password and roles omitted from tostring

@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.solent.com504.project.model.party.dto.Party;
+import org.solent.com504.project.model.user.dto.User;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -39,9 +40,9 @@ public class Invoice {
     @XmlElement(name = "chargingRecord")
     private Set<ChargingRecord> chargingRecord = new HashSet<ChargingRecord>();
 
-    @XmlElementWrapper(name = "parties")
-    @XmlElement(name = "party")
-    private Set<Party> party = new HashSet<>();
+    @XmlElementWrapper(name = "users")
+    @XmlElement(name = "user")
+    private Set<User> user = new HashSet<>();
         
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -91,16 +92,18 @@ public class Invoice {
     }
 
     @ManyToMany(mappedBy = "invoices", fetch = FetchType.EAGER)
-    public Set<Party> getParties() {
-        return party;
+    public Set<User> getUser() {
+        return user;
     }
 
-    public void setParties(Set<Party> parties) {
-        this.party = parties;
+    public void setUser(Set<User> user) {
+        this.user = user;
     }
-    
+
     @Override
     public String toString() {
-        return "Invoice{" + "id=" + id + ", party=" + party + ", issueDate=" + issueDate + ", paidDate=" + paidDate + ", ammount=" + amount + ", chargingRecord=" + chargingRecord + '}';
-    }        
+        return "Invoice{" + "id=" + id + ", issueDate=" + issueDate + ", paidDate=" + paidDate + ", amount=" + amount + ", chargingRecord=" + chargingRecord + ", user=" + user + '}';
+    }
+    
+         
 }

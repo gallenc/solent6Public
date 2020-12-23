@@ -55,13 +55,13 @@ public class Party {
     private Set<User> users = new HashSet();
     
     //party takes a set of cars - rui
-    @XmlElementWrapper(name = "cars")
-    @XmlElement(name = "car")
-    private Set<Car> cars = new HashSet();
-
-    @XmlElementWrapper(name = "invoices")
-    @XmlElement(name = "invoice")
-    private Set<Invoice> invoices = new HashSet();
+//    @XmlElementWrapper(name = "cars")
+//    @XmlElement(name = "car")
+//    private Set<Car> cars = new HashSet();
+//
+//    @XmlElementWrapper(name = "invoices")
+//    @XmlElement(name = "invoice")
+//    private Set<Invoice> invoices = new HashSet();
 
     
     @Id
@@ -163,25 +163,25 @@ public class Party {
     }
     
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "car_party", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
-    public Set<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
-    }
-    
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "invoice_party", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
-    public Set<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(Set<Invoice> invoices) {
-        this.invoices = invoices;
-    }    
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name = "car_party", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+//    public Set<Car> getCars() {
+//        return cars;
+//    }
+//
+//    public void setCars(Set<Car> cars) {
+//        this.cars = cars;
+//    }
+//    
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name = "invoice_party", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "party_id"))
+//    public Set<Invoice> getInvoices() {
+//        return invoices;
+//    }
+//
+//    public void setInvoices(Set<Invoice> invoices) {
+//        this.invoices = invoices;
+//    }    
     
     @Override
     public String toString() {

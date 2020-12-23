@@ -269,8 +269,9 @@ public class DBInitialise {
                     }
                     Date d = new Date();
                     invoice.setPaidDate(d);
-                    Set<Party> party = partyRepository.findByName("default_party", "default_party");
-                    invoice.setParties(party);
+                    Set<User> users = new HashSet();
+                    users.add(userRepository.findByUsername("basicuser"));
+                            
                     Double amount = new Double(i);
                     invoice.setAmount(amount);
                     invoiceRepository.saveAndFlush(invoice);
