@@ -78,6 +78,17 @@ public class ViewModifyPartyController {
             LOG.warn("security warning modifyparty called for unknown partyuuid=" + partyuuid);
             return ("denied");
         }
+        
+        if (hasRole(UserRoles.ROLE_PARTY_ADMIN.name())) {
+            LOG.debug("Party Admin Role found");
+        }
+        else if (hasRole(UserRoles.ROLE_GLOBAL_ADMIN.name())) {
+            LOG.debug("Global Admin Role found");
+        }
+        else if (!hasRole(UserRoles.ROLE_GLOBAL_ADMIN.name()) || !hasRole(UserRoles.ROLE_PARTY_ADMIN.name())){
+            LOG.warn("security warning without permissions, viewModifyParty called for username=" + partyuuid);
+            return ("denied");            
+        }
 
         // security check if party is allowed to access or modify this party
 //        if (!hasRole(UserRoles.ROLE_GLOBAL_ADMIN.name())) {
@@ -107,7 +118,7 @@ public class ViewModifyPartyController {
 
     @RequestMapping(value = {"/viewModifyParty"}, method = RequestMethod.POST)
     public String updateParty(Model model,
-            @RequestParam(value = "partyuuid", required = false) String partyuuid,
+            @RequestParam(value = "partyuuid") String partyuuid,
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "secondName", required = false) String secondName,
             @RequestParam(value = "partyRole", required = false) String partyRole,
@@ -125,25 +136,36 @@ public class ViewModifyPartyController {
         String errorMessage = "";
 
         // security check if user is allowed to access or modify this party
-        if (!hasRole(UserRoles.ROLE_GLOBAL_ADMIN.name())) {
-            //     if (!partyuuid.equals(authentication.getName())) {
+//        User userRoles = userService.findByUsername(authentication.getName());
+//        Set<Role> userRole = userRoles.getRoles();
+//        for (Role role : userRole)
+//        {
+//            if( !role.getName().equals("ROLE_PARTY_ADMIN"))
+//            {
+//                LOG.debug(role.getName());
+//                LOG.debug(UserRoles.ROLE_PARTY_ADMIN.name());
+//                LOG.warn("security warning without permissions, viewModifyParty called for username=" + partyuuid);
+//                return ("denied");
+//            }
+//        }
+        if (hasRole(UserRoles.ROLE_PARTY_ADMIN.name())) {
+            LOG.debug("Party Admin Role found");
+        }
+        else if (hasRole(UserRoles.ROLE_GLOBAL_ADMIN.name())) {
+            LOG.debug("Global Admin Role found");
+        }
+        else if (!hasRole(UserRoles.ROLE_GLOBAL_ADMIN.name()) || !hasRole(UserRoles.ROLE_PARTY_ADMIN.name())){
             LOG.warn("security warning without permissions, viewModifyParty called for username=" + partyuuid);
-            return ("denied");
-            //     }
+            return ("denied");            
         }
 
         Party party = null;
-        // If partyuuid is null or empty in a post assume create new party
-        if (partyuuid == null || partyuuid.isEmpty()) {
-            party = new Party();
-            LOG.debug("viewModifyParty POST called to create Party uuid=" + party.getUuid());
-            // else try to modify an existing party    
-        } else {
-            party = partyService.findByUuid(partyuuid);
-            if (party == null) {
-                LOG.warn("security warning viewModifyParty POST called for unknown partyuuid=" + partyuuid);
-                return ("denied");
-            }
+        LOG.debug("viewModifyParty GET called for partyuuid=" + partyuuid.substring(0,11));
+        party = partyService.findByUuid(partyuuid.substring(0,11));
+        if (party == null) {
+            LOG.warn("security warning modifyparty called for unknown partyuuid=" + partyuuid);
+            return ("denied");
+        }
             // add user if requested
             if (addUsers != null) {
                 for (String username : addUsers) {
@@ -201,7 +223,7 @@ public class ViewModifyPartyController {
                 party.setAddress(address);
             }
 
-        }
+               
 
         // find selected party role
         List<PartyRole> availablePartyRoles = partyService.getAvailablePartyRoles();
@@ -237,8 +259,7 @@ public class ViewModifyPartyController {
     public String addUsersToParty(Model model,
             @RequestParam(value = "partyuuid", required = false) String partyuuid
     ) {
-        List<User> userList = userService.findAll();
-
+        List<User> userList = userService.findAll();        
         LOG.debug("addUsersToParty called:");
         for (User user : userList) {
             LOG.debug(" user:" + user);
@@ -250,18 +271,23 @@ public class ViewModifyPartyController {
 
         return "addUsersToParty";
     }
-  
+
     @RequestMapping(value = "/manageusersparty", method = RequestMethod.GET)
     public String manageUsersParty(Model model, Authentication authentication) {
-        
+        LOG.debug("partys called:");
         User user = userService.findByUsername(authentication.getName());
-        Set<Party> parties = user.getParties();        
-        for (Party party:parties){
-            model.addAttribute("partyName", party.getFirstName());
-        model.addAttribute("users", party.getUsers());
+        Set<Party> partyList = user.getParties();
+
+        for (Party party : partyList) {
+            LOG.debug(" party:" + party + " users.size="
+                    + ((party.getUsers() == null) ? "null" : party.getUsers().size()));
         }
-        
+
+        model.addAttribute("partyListSize", partyList.size());
+        model.addAttribute("partyList", partyList);
+
         return "manageUsersParty";
+
     }
 
     private boolean hasRole(String role) {

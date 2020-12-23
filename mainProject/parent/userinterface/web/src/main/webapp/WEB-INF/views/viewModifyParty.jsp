@@ -23,7 +23,7 @@
         <form action="./viewModifyParty" method="post">
             <div>
                 <input type="hidden" name="partyuuid" value="${party.uuid}"/>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
                 <button class="btn" type="submit" >Update Party uuid ${party.uuid}</button>
             </div>
             <table class="table">
@@ -96,37 +96,14 @@
                         <td>Mobile</td>
                         <td><input type="text" name="mobile" value="${party.address.mobile}" /></td>
                     </tr>
-                    <tr>
-                        <td>Users</td>
-                        <td><c:forEach var="user" items="${party.users}">| ${user.username} |</c:forEach></td>
-                        </tr>
                     </tbody>
 
                 </table>
                 <div>
-                <sec:authorize access="hasRole('ROLE_GLOBAL_ADMIN')" >
-                    <p>Manage Party Status </p>
-                    <table class="table">
-                        <thead>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="custom-control custom-switch">
-                                        <!-- party.isEnabled= ${party.enabled} -->
-                                        <input type="checkbox" class="custom-control-input" 
-                                               id="partyEnabled" name="partyEnabled" 
-                                               value="true" <c:if test="${party.enabled}">checked</c:if> > 
-                                               <label class="custom-control-label" for="partyEnabled">PARTY ENABLED</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                </form>
+                                    </form>
 
-        </sec:authorize> 
-        <sec:authorize access="hasRole('ROLE_GLOBAL_ADMIN')" >
+                
+        <sec:authorize access="hasAnyRole('ROLE_GLOBAL_ADMIN', 'ROLE_PARTY_ADMIN')" >
             <p>Manage Users Associated with Party </p>
             <table class="table">
                 <thead>
@@ -141,7 +118,7 @@
                             <td><c:forEach var="role" items="${user.roles}"> | ${role.name} |<br></c:forEach></td>
                                 <td>
                                     <form action="./viewModifyParty" method="POST">
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
                                     <input type="hidden" name="partyuuid" value="${party.uuid}"/>
                                     <input type="hidden" name="removeUsername" value="${user.username}">
                                     <button class="btn" type="submit" >Remove User</button>
