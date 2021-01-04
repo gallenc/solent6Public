@@ -56,12 +56,8 @@ public class ChargeReconcilerServiceTests {
         Vehicle jsonVehicle = mapper.readValue(testVehicleJson, Vehicle.class);
         sender.send(jsonVehicle.toJsonString());
 
-
-        //todo fix stupid assertion import
         receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
 
-        int actual = (int) receiver.getLatch().getCount();
-        int expected = 0;
         assertThat(receiver.getLatch().getCount()).isEqualTo(0);
     }
 

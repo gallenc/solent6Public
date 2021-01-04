@@ -5,17 +5,24 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.solent.devops.chargereconciler.models.Bill;
+import org.solent.devops.chargereconciler.models.Charge;
 import org.solent.devops.chargereconciler.models.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 /**
  * <H1>ReceiverResource</H1>
- *
+ * <p>
  * ReceiverResource is the main class to receive messages from a jms queue.
  *
  * @author Aaron Jenkins
@@ -36,6 +43,13 @@ public class ReceiverResource {
      */
     @Autowired
     private VehicleRepository vehicleRepository;
+
+    @Autowired
+    private ChargeRepository chargeRepository;
+
+    @Autowired
+    private SenderResource sender;
+
     /**
      * used for test purposes
      */
@@ -49,13 +63,9 @@ public class ReceiverResource {
     }
 
 
-    @JmsListener(destination = "motorway_traffic.q")
+    @JmsListener(destination = "${receiverDestination}")
     public void receive(String message) {
         LOGGER.info("received message='{}'", message);
-
-        latch.countDown();
-
-
         //todo convert to local method
         //get incoming numberplate
         String incomingNumberplate = null;
@@ -68,35 +78,73 @@ public class ReceiverResource {
             e.printStackTrace();
         }
         if (JsonMessage.has("numberplate")) {
-            incomingNumberplate = JsonMessage.get("numberplate").toString();
+            incomingNumberplate = JsonMessage.get("numberplate").asText();
         }
 
-/*        //todo convert to local method
-        //check numberplate exists, if it doesn't add to db else create charging record.
         if (!vehicleRepository.existsByNumberplate(incomingNumberplate)) {
-            //todo create EntryVehicle and add to db.
-            Vehicle vehicle = null;
+            // Create entry vehicle and save to repository.
+            Vehicle entryVehicle = null;
             try {
-                vehicle = new ObjectMapper().readValue(message, Vehicle.class);
+                entryVehicle = new ObjectMapper().readValue(message, Vehicle.class);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            LOGGER.info("saving message...'{}'", vehicle.toJsonString());
-            vehicleRepository.save(vehicle);
+            LOGGER.info("saving message...'{}'", entryVehicle.toJsonString());
+            vehicleRepository.save(entryVehicle);
         } else {
-            //todo create charging record
-        }*/
-
-
-        // calculate charge - read charge rate from file for now?
-
-        // output full vehicle
-
-
+            // Check junctions travelled and Create charging record if chargeable
+            Vehicle exitVehicle = null;
+            try {
+                exitVehicle = new ObjectMapper().readValue(message, Vehicle.class);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            int junctionsTravelled = getJunctionsTravelled(exitVehicle);
+            if (junctionsTravelled >= 2) {
+                Bill bill = createBill(exitVehicle, junctionsTravelled);
+                String billString = bill.toJsonString();
+                sender.send(billString);
+                LOGGER.info("sending message...'{}'", billString);
+            } else {
+                // no charge?
+            }
+            //remove vehicle as it leaves
+            vehicleRepository.deleteByNumberplate(exitVehicle.getNumberplate());
+        }
+        latch.countDown();
     }
 
+    public int getJunctionsTravelled(Vehicle exitVehicle) {
+        int entryJuntion = Integer.parseInt(vehicleRepository.findByNumberplate(exitVehicle.getNumberplate()).getCameraId());
+        int exitJunction = Integer.parseInt(exitVehicle.getCameraId());
+        return exitJunction - entryJuntion;
+    }
+
+    public LocalTime roundTimeDown(Vehicle entryVehicle) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(entryVehicle.getTimestamp());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String newdate = new SimpleDateFormat("HH:mm:ss").format(date);
+        LocalTime time = LocalTime.parse(newdate).truncatedTo(ChronoUnit.HOURS);
+        return time;
+    }
+
+    public Bill createBill(Vehicle exitVehicle, int junctionsTravelled) {
+        Vehicle entryVehicle = vehicleRepository.findByNumberplate(exitVehicle.getNumberplate());
+        LocalTime time = roundTimeDown(entryVehicle);
+        Bill bill = new Bill(entryVehicle, exitVehicle);
+        Charge charge = chargeRepository.findByTime(time);
+        double rate = charge.getRate();
+        double total_charge = rate * junctionsTravelled;
+        bill.setRate(rate);
+        bill.setCharge(total_charge);
+        return bill;
+    }
 
 }
 
