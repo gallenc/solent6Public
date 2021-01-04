@@ -78,7 +78,7 @@ public class ChargeReconcilerService {
         }
     }
 
-    @Bean
+    /*@Bean
     public CommandLineRunner persistData(VehicleRepository vehicleRepository) {
         return (args) -> {
             loadFile();
@@ -107,5 +107,5 @@ public class ChargeReconcilerService {
             sender.send(jsonVehicle.toJsonString());
             receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
         };
-    }
+    }*/
 }
