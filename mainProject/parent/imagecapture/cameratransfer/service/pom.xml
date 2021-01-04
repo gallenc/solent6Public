@@ -102,6 +102,13 @@
             <type>jar</type>
         </dependency>
 
+        <dependency>
+            <groupId>solent.ac.uk.devops.traffic</groupId>
+            <artifactId>commonartifacts-csvtocamera</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+
         <!--   <dependency>-->
         <!--   <groupId>org.apache.activemq</groupId>-->
         <!--    <artifactId>activemq-mqtt</artifactId>-->

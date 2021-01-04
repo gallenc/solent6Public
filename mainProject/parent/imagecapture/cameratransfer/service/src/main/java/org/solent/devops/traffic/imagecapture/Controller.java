@@ -5,21 +5,17 @@
  */
 package org.solent.devops.traffic.imagecapture;
 
+import com.solent.devops.traffic.csvtocamera.Camera;
+import com.solent.devops.traffic.csvtocamera.CameraCsv;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.solent.devops.message.jms.JSONMessage;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * This Controller class starts and stops an application context. 
@@ -34,6 +30,7 @@ public class Controller {
     private ClassPathXmlApplicationContext context;
     private static Controller controller_m;
     private Map<Integer, Sender> senders;
+    private Properties prop;
 
     public static void main(String[] args) {
         System.out.println("INFO: System.out.println - main method starting in " + Controller.class);
@@ -90,18 +87,19 @@ public class Controller {
     private void start(String[] args) {
         try {
             context = new ClassPathXmlApplicationContext("appconfig-service.xml");
-
+            FileReader reader = new FileReader("/deployments/properties/system.properties");
+            prop = new Properties();
+            prop.load(reader);
             context.registerShutdownHook();
 
             LOG.info("service bootstrap successful.");
 
             senders = new HashMap<>();
-
-            //iterates through list of files in resource and prints them
-            for (File f : getResourceFolderFiles("main/resources/images")) {
-                String uuid = UUID.randomUUID().toString().replace("-", "");
-                JSONMessage jsonMessage = new JSONMessage(uuid, 1, new Date(), null, convertImage(f));
-                Sender sender = new Sender("camera", 2, "tcp://localhost:1883", Integer.toString(jsonMessage.getCameraId()));
+            CameraCsv cameraCsv = new CameraCsv();
+            for (Camera c : cameraCsv.GetCameras()) {
+                URL resource = this.getClass().getClassLoader().getResource(c.getImageName());
+                JSONMessage jsonMessage = new JSONMessage(c.getUuid(), c.getCamerId(), c.getDateTime(), null, convertImage(new File(resource.toURI())));
+                Sender sender = new Sender(System.getProperty("mqtt.topic"), Integer.getInteger(System.getProperty("mqtt.qos")), System.getProperty("mqtt.url"), Integer.toString(jsonMessage.getCameraId()));
                 sender.sendImage(jsonMessage);
             }
 
