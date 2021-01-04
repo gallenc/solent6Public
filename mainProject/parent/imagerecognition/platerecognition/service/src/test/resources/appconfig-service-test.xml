@@ -13,7 +13,9 @@ http://www.springframework.org/schema/jms
 http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
     
     <context:property-placeholder
-        location="classpath:test.properties"
+        location="classpath:test.properties, 
+                file:#{systemEnvironment['TEST_ENVIRONMENT_FILE']},
+                file:#{systemProperties['testPropertiesFile']}"
         ignore-unresolvable="false" ignore-resource-not-found="true" />
     
     <!-- Scans for components that will be auto-registered as Spring beans -->

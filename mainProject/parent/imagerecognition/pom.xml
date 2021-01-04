@@ -28,6 +28,7 @@
             </activation>
             <modules>
                 <module>platerecognition</module>
+		<module>platerecognition-testharness</module>
             </modules>
         </profile>
     </profiles>
@@ -60,8 +61,8 @@
                     <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <excludes>
-							<!-- prevent tests running in any package with manual filter. These
-								are manual one off development tests -->
+			    <!-- prevent tests running in any package with manual filter. -->
+			    <!-- These are manual one off development tests -->
                             <exclude>**/manual/*.java</exclude>
                         </excludes>
                     </configuration>

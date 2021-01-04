@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>solent.ac.uk.devops.traffic</groupId>
     <artifactId>imagecapture</artifactId>
@@ -20,20 +20,30 @@
 
     </properties>
 
-    <!-- <profiles>
+    <profiles>
         <profile>
             <id>all</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>Insert module here</module>
+                <module>service</module>
+                <module>assembly</module>
             </modules>
         </profile>
-    </profiles> -->
+        <!-- this will only work if you are running on a linux machine with installed docker -->
+        <profile>
+            <id>packageAsDocker</id>
+            <modules>
+                <module>service</module>
+                <module>assembly</module>
+                <module>docker</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <modules>
-
+       
     </modules>
 
     <build>
@@ -60,8 +70,8 @@
                     <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <excludes>
-							<!-- prevent tests running in any package with manual filter. These
-								are manual one off development tests -->
+                            <!-- prevent tests running in any package with manual filter. These 
+                            are manual one off development tests -->
                             <exclude>**/manual/*.java</exclude>
                         </excludes>
                     </configuration>
@@ -78,7 +88,7 @@
     <dependencyManagement>
         <dependencies>
 
-			<!-- Importing dependency bill of materials (BOM) -->
+            <!-- Importing dependency bill of materials (BOM) -->
             <dependency>
                 <groupId>solent.ac.uk.devops.traffic</groupId>
                 <artifactId>devops-bom</artifactId>

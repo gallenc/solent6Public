@@ -21,7 +21,7 @@ public class SimpleJmsSender {
     }
 
     public void send(String queue, final String message) {
-        LOG.debug(this.toString() + " sending to queue: '" + queue + "', '" + message + "'");
+        LOG.debug(this.toString() + " sending to queue: '" + queue + "', '" + message.substring(0, Math.min(message.length(), 30)) + "'");
         jmsTemplate.convertAndSend(queue , message);
     }
 }

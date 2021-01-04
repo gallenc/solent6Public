@@ -9,8 +9,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bom</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>devops-bom</artifactId>
 
     <properties>
         <!-- properties set in parent -->
@@ -310,6 +309,13 @@
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-core</artifactId>
                 <version>${hamcrest-core.version}</version>
+            </dependency>
+            
+            <!--ANPR library-->
+            <dependency>
+                <groupId>net.sf.javaanpr</groupId>
+                <artifactId>javaanpr</artifactId>
+                <version>${javaanpr.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

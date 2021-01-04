@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>solent.ac.uk.devops.traffic</groupId>
+    <artifactId>devops-parent</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <log4j.version>2.12.1</log4j.version>
+        <slf4j.version>1.7.12</slf4j.version>
+        <jersey.version>2.29.1</jersey.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <jsp-api.version>2.1</jsp-api.version>
+        <spring.version>5.2.3.RELEASE</spring.version>
+        <spring.data.jpa.version>2.2.3.RELEASE</spring.data.jpa.version>
+        <spring-security.version>5.2.1.RELEASE</spring-security.version>
+        <hibernate.version>5.2.17.Final</hibernate.version>
+        <hsqldb.version>2.2.4</hsqldb.version>
+        <swagger.version>2.0.0</swagger.version>
+        <swagger-ui.version>3.24.3</swagger-ui.version>
+        <javax.persistence.version>2.1.1</javax.persistence.version>
+        <jstl.version>1.2</jstl.version>
+        <junit.version>4.12</junit.version>
+        <hamcrest-core.version>1.3</hamcrest-core.version>
+        
+        <!-- dependencies for java 11 -->
+        <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
+        <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
+        <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
+        <!-- needed by Hibernate for java 11 -->
+        <javassist.version>3.27.0-GA</javassist.version>
+        <cglib-nodep.version>3.2.12</cglib-nodep.version>
+        
+        <!-- plugin versions -->
+        <maven.surefire.plugin.version>2.18</maven.surefire.plugin.version>
+        <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+        <maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
+        <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
+        <maven-cargo-maven2-plugin.version>1.7.6</maven-cargo-maven2-plugin.version>
+
+    </properties>
+
+    <modules>
+        <module>commonartifacts</module>
+        <module>bom</module>
+        <module>imagecapture</module>
+        <module>imagerecognition</module>
+        <module>chargereconciler</module>
+        <module>userinterface</module>
+        <module>itegrationtesting</module>
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>replacer</artifactId>
+                    <version>${maven-replacer-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                    <configuration>
+                        <excludes>
+                            <!-- prevent tests running in any package with manual filter. -->
+                            <!-- These are manual one off development tests -->
+                            <exclude>**/manual/*.java</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>${maven-cargo-maven2-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!-- our devops deploy repo - same repo for releases and snapshots -->
+        <repository>
+            <id>jfrogmavenrepo1-releases</id>
+            <name>jfrogmavenrepo1-releases</name>
+            <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>jfrogmavenrepo1-releases</id>
+            <name>jfrogmavenrepo1-releases</name>
+            <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
+        </repository>
+        <snapshotRepository>
+            <id>jfrogmavenrepo1-snapshots</id>
+            <name>jfrogmavenrepo1-snapshots</name>
+            <url>https://jfrogmavenrepo1solentdevops.uksouth.cloudapp.azure.com/artifactory/solentdevops1</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>
