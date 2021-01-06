@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VehicleRepository extends CrudRepository<Vehicle, String> {
 
-    boolean  existsByNumberplate(String numberplate);
+    boolean existsByNumberplate(String numberplate);
+
+    Vehicle findByNumberplate(String numberplate);
+
+    void deleteByNumberplate(String numberplate);
 
 }
